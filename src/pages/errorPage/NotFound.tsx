@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import ErrorIcon from '@/assets/load-error.svg?react';
 
-export const ErrorPage = () => {
+export const NotFound = () => {
   return (
     <Box>
       <ErrorIcon />
