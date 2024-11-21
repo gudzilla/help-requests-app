@@ -5,7 +5,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { ProfileMenu } from '@/pages/layout/components/header/components/profileMenu/ProfileMenu';
+import { ProfileMenu } from './components/profileMenu';
+import { ShowOnly } from '@/components/ShowOnly';
+import { LoginButton } from '@/components/LoginButton';
 
 export const Header = () => {
   return (
@@ -14,8 +16,6 @@ export const Header = () => {
         <Paper elevation={2}>
           <Container maxWidth="xl">
             <Toolbar sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
-              {/* Responsive Example */}
-              {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
               <Box sx={{ justifySelf: 'start' }}>
                 <Link href="/login">
                   <MainLogo />
@@ -27,7 +27,9 @@ export const Header = () => {
                 </Link>
               </Box>
               <Box sx={{ justifySelf: 'end' }}>
-                <ProfileMenu />
+                <ShowOnly when="authorized" otherwise={<LoginButton />}>
+                  <ProfileMenu />
+                </ShowOnly>
               </Box>
             </Toolbar>
           </Container>

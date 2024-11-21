@@ -2,9 +2,9 @@
   "compilerOptions": {
     /* Types and Paths */
     "types": ["node"],
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["*"]
     },
 
     /* Output and Build Info */
@@ -16,12 +16,6 @@
     "module": "ESNext",
     "useDefineForClassFields": true,
     "moduleResolution": "Bundler",
-    // --------- FIXING Material Icons Import with GPT
-    // "moduleResolution": "node",
-    // "esModuleInterop": true,
-    // "allowSyntheticDefaultImports": true,
-    // "resolveJsonModule": true,
-    // --------------
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",

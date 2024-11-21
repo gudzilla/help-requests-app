@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Tooltip, IconButton, Paper, Menu, Button } from '@mui/material';
+import { Tooltip, IconButton, Paper, Menu } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { ProfileMenuItems } from '@/pages/layout/components/header/components/profileMenu/ProfileMenuItems';
-import { useNavigate } from 'react-router-dom';
+import { ProfileMenuItems } from './ProfileMenuItems';
 
 export const ProfileMenu = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -15,26 +13,6 @@ export const ProfileMenu = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  // todo: replace with real isAuth later
-  const isAuth = true;
-  const navigate = useNavigate();
-
-  if (!isAuth) {
-    return (
-      <Button
-        variant="outlined"
-        size="medium"
-        color="default"
-        endIcon={<KeyboardArrowRightIcon />}
-        onClick={() => {
-          navigate('/login');
-        }}
-      >
-        Войти
-      </Button>
-    );
-  }
 
   return (
     <>
