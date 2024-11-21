@@ -8,7 +8,7 @@ type ProfileMenuItem = {
   logout: boolean;
 };
 
-export const profileMenuList: ProfileMenuItem[] = [
+export const PROFILE_MENU_LIST: ProfileMenuItem[] = [
   {
     name: 'Мой профиль',
     icon: <PersonRoundedIcon />,

@@ -1,5 +1,5 @@
 import { Box, MenuItem, SvgIcon, Typography } from '@mui/material';
-import { profileMenuList } from '@/pages/layout/components/header/components/profileMenu/constants/profileMenuList';
+import { PROFILE_MENU_LIST } from '@/pages/layout/components/header/components/profileMenu/constants/profileMenuList';
 import { useNavigate } from 'react-router-dom';
 
 type ProfileMenuItemsProps = {
@@ -16,7 +16,7 @@ export const ProfileMenuItems = ({ closeMenu }: ProfileMenuItemsProps) => {
 
   return (
     <Box>
-      {profileMenuList.map((menuItem, index) => (
+      {PROFILE_MENU_LIST.map((menuItem, index) => (
         <MenuItem
           key={index}
           onClick={() => {

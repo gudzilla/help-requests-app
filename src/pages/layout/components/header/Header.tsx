@@ -1,4 +1,4 @@
-import { Box, Link, Paper } from '@mui/material';
+import { Box, Link, Paper, useTheme } from '@mui/material';
 import MainLogo from '@/assets/main-logo.svg?react';
 // FROM EXAMPLE
 import AppBar from '@mui/material/AppBar';
@@ -10,19 +10,28 @@ import { ShowOnly } from '@/components/ShowOnly';
 import { LoginButton } from '@/components/LoginButton';
 
 export const Header = () => {
+  const theme = useTheme();
+
   return (
-    <Box component="header" mb="24px">
+    <Box component="header">
       <AppBar position="static">
-        <Paper elevation={2}>
+        <Paper elevation={2} sx={{ borderRadius: 0 }}>
           <Container maxWidth="xl">
-            <Toolbar sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            <Toolbar
+              disableGutters
+              sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}
+            >
               <Box sx={{ justifySelf: 'start' }}>
                 <Link href="/login">
                   <MainLogo />
                 </Link>
               </Box>
               <Box sx={{ justifySelf: 'center' }}>
-                <Link href="/catalog" underline="hover" color="inherit">
+                <Link
+                  href="/catalog"
+                  underline="hover"
+                  color={theme.palette.text.primary}
+                >
                   <Typography>Запросы о помощи</Typography>
                 </Link>
               </Box>
