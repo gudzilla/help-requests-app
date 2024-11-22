@@ -9,6 +9,8 @@ import { ProfileMenu } from './components/profileMenu';
 import { ShowOnly } from '@/components/ShowOnly';
 import { LoginButton } from '@/components/LoginButton';
 
+const toolbarStyles = { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' };
+
 export const Header = () => {
   const theme = useTheme();
 
@@ -17,10 +19,7 @@ export const Header = () => {
       <AppBar position="static">
         <Paper elevation={2} sx={{ borderRadius: 0 }}>
           <Container maxWidth="xl">
-            <Toolbar
-              disableGutters
-              sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}
-            >
+            <Toolbar disableGutters sx={toolbarStyles}>
               <Box sx={{ justifySelf: 'start' }}>
                 <Link href="/login">
                   <MainLogo />
@@ -28,7 +27,7 @@ export const Header = () => {
               </Box>
               <Box sx={{ justifySelf: 'center' }}>
                 <Link
-                  href="/catalog"
+                  href="/help-catalog"
                   underline="hover"
                   color={theme.palette.text.primary}
                 >
