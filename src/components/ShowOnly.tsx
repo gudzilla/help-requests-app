@@ -8,7 +8,7 @@ type ShowOnlyProps = {
 
 export const ShowOnly = ({ when, children, otherwise = null }: ShowOnlyProps) => {
   // todo: implement real auth state
-  const isAuth = true;
+  const isAuth = false;
 
   if (!isAuth && when === 'authorized') {
     return otherwise;

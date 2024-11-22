@@ -20,7 +20,7 @@ export const Header = () => {
           <Container maxWidth="xl">
             <Toolbar disableGutters sx={toolbarStyles}>
               <Box sx={{ justifySelf: 'start' }}>
-                <Link href="/login">
+                <Link href="/help-catalog">
                   <MainLogo />
                 </Link>
               </Box>

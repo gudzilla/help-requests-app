@@ -7,7 +7,7 @@ type ProtectedRouteProps = {
 
 export const ProtectedRoute = ({ element }: ProtectedRouteProps) => {
   // todo: add state
-  const isAuthorized = true;
+  const isAuthorized = false;
 
-  return isAuthorized ? element : <Navigate to="/login" replace />;
+  return isAuthorized ? element : <Navigate to="/login" replace={true} />;
 };

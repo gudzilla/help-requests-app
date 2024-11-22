@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <ProtectedRoute element={<Login />} />,
+        element: <Login />,
       },
       {
         path: '/profile',
