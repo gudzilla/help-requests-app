@@ -21,7 +21,14 @@ export const Footer = () => {
   return (
     <>
       <Divider />
-      <Box component="footer">
+      <Box
+        component="footer"
+        sx={{
+          position: 'relative',
+          zIndex: 10,
+          background: theme.palette.background.paper,
+        }}
+      >
         <Container maxWidth="xl">
           <Stack direction="row" sx={linksStackStyles}>
             {LINKS_ARRAY.map((link, index) => (

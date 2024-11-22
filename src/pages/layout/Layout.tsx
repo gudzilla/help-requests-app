@@ -4,16 +4,16 @@ import { Header } from './components/header';
 import { Footer } from './components/footer';
 
 const mainStyles = {
-  border: '2px solid grey',
-  textAlign: 'center',
-  borderRadius: 2,
-  p: 3,
-  bgcolor: '#eee',
+  // todo: delete later
+  // CONTRAST STYLE
+  // border: '2px solid grey',
+  // bgcolor: '#eee',
+  // marginBottom: '12px',
+  // marginTop: '12px',
+
   // 236px is header + footer height
   height: 'calc(100vh - 236px)',
   // todo: delete margins later
-  marginBottom: '12px',
-  marginTop: '12px',
 };
 
 export const Layout = () => {
