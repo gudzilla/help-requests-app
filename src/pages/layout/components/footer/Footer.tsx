@@ -10,7 +10,7 @@ import {
 import { LINKS_ARRAY } from '@/constants/links';
 
 const linksStackStyles = {
-  height: '100%',
+  minHeight: '152px',
   justifyContent: 'space-between',
   alignItems: 'center',
 };
@@ -21,8 +21,8 @@ export const Footer = () => {
   return (
     <>
       <Divider />
-      <Box component="footer" height={'152px'}>
-        <Container maxWidth="xl" sx={{ height: '100%' }}>
+      <Box component="footer">
+        <Container maxWidth="xl">
           <Stack direction="row" sx={linksStackStyles}>
             {LINKS_ARRAY.map((link, index) => (
               <Link
