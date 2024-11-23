@@ -1,38 +1,28 @@
-import { Box, Grid2, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import { AuthForm } from './components/authForm';
+import { TestUsers } from './testUsers';
+
+const mainLayout = {
+  flexGrow: 1,
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  height: '100%',
+};
+
+const sectionStyles = {
+  padding: '64px 40px',
+  '&:not(:last-child)': { borderRight: 1, borderColor: 'divider' },
+};
 
 export const Login = () => {
-  const theme = useTheme();
-
-  const gridItemStyles = {
-    height: '100%',
-    padding: '64px 40px',
-    borderColor: theme.palette.divider,
-  };
-
   return (
-    <Box sx={{ flexGrow: 1, height: '100%' }}>
-      <Grid2 container spacing={0} sx={{ height: '100%' }}>
-        <Grid2
-          size={6}
-          sx={{
-            borderLeft: 1,
-            borderRight: 1,
-            ...gridItemStyles,
-          }}
-        >
-          <AuthForm />
-        </Grid2>
-        <Grid2
-          size={6}
-          sx={{
-            borderRight: 1,
-            ...gridItemStyles,
-          }}
-        >
-          Test Users
-        </Grid2>
-      </Grid2>
+    <Box sx={mainLayout}>
+      <Box component="section" sx={sectionStyles}>
+        <AuthForm />
+      </Box>
+      <Box component="section" sx={sectionStyles}>
+        <TestUsers />
+      </Box>
     </Box>
   );
 };

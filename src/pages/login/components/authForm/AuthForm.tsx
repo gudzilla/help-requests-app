@@ -50,7 +50,9 @@ export const AuthForm = ({ loading, error, onSubmit }) => {
         gap: '90px',
       }}
     >
-      <Typography variant="h4">Авторизация</Typography>
+      <Typography variant="h4" component="h1">
+        Авторизация
+      </Typography>
       <Box
         sx={{
           display: 'grid',
