@@ -4,8 +4,6 @@ import { Header } from './components/header';
 import { Footer } from './components/footer';
 
 export const Layout = () => {
-  const theme = useTheme();
-
   const mainStyles = {
     display: 'flex',
     flexDirection: 'column',

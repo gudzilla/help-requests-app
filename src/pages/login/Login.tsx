@@ -1,6 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, Switch, Typography } from '@mui/material';
 import { AuthForm } from './components/authForm';
 import { TestUsers } from './components/testUsers';
+import { useState } from 'react';
 
 const mainLayout = {
   flexGrow: 1,
@@ -15,14 +16,20 @@ const sectionStyles = {
 };
 
 export const Login = () => {
+  const [gotError, setGotError] = useState(false);
+  const handleToggleSwitch = () => {
+    setGotError(!gotError);
+  };
+
   return (
     <Box sx={mainLayout}>
       <Box component="section" sx={sectionStyles}>
+        <Typography>
+          Form Error <Switch onChange={handleToggleSwitch} />
+        </Typography>
         <AuthForm
-          error={false}
-          onSubmit={() => {
-            alert('Form Submited');
-          }}
+          // todo: pass the real error
+          error={gotError}
         />
       </Box>
       <Box component="section" sx={sectionStyles}>

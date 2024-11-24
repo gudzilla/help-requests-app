@@ -11,10 +11,10 @@ type PasswordInputProps = {
 };
 
 export const PasswordInput = ({
-  onChange,
-  showPassword,
-  onVisibilityClick,
   error,
+  showPassword,
+  onChange,
+  onVisibilityClick,
 }: PasswordInputProps) => {
   return (
     <TextField
@@ -25,7 +25,7 @@ export const PasswordInput = ({
       label="Пароль"
       placeholder="Введите пароль"
       variant="outlined"
-      helperText={error ? 'Введите корректный пароль' : ''}
+      helperText={error ? 'Введите корректный пароль' : '\u200B'}
       type={showPassword ? 'text' : 'password'}
       fullWidth
       slotProps={{

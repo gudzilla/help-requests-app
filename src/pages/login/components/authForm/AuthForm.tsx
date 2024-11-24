@@ -21,7 +21,7 @@ export const AuthForm = ({ loading, error, onSubmit }) => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formState);
+    alert(`Form Submited\nlogin: ${formState.login}\npassword: ${formState.password}`);
     onSubmit({ login: formState.login, password: formState.password });
   };
 

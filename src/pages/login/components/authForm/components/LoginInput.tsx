@@ -8,15 +8,13 @@ type LoginInputProps = {
 };
 
 export const LoginInput = ({ onChange, error }: LoginInputProps) => {
-  const theme = useTheme();
-
   return (
     <TextField
       id="login-input"
       label="Логин"
       type="text"
       placeholder="Введите e-mail"
-      helperText={error ? 'Введите корректный email-адрес' : ''}
+      helperText={error ? 'Введите корректный email-адрес' : '\u200B'}
       fullWidth
       slotProps={{
         inputLabel: {
@@ -24,7 +22,7 @@ export const LoginInput = ({ onChange, error }: LoginInputProps) => {
         },
       }}
       onChange={(e) => onChange(e, 'login')}
-      sx={{ marginBottom: 3 }}
+      sx={{ marginBottom: 2 }}
     />
   );
 };
