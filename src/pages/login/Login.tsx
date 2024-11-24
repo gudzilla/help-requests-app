@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { AuthForm } from './components/authForm';
-import { TestUsers } from './testUsers';
+import { TestUsers } from './components/testUsers';
 
 const mainLayout = {
   flexGrow: 1,
@@ -18,7 +18,12 @@ export const Login = () => {
   return (
     <Box sx={mainLayout}>
       <Box component="section" sx={sectionStyles}>
-        <AuthForm />
+        <AuthForm
+          error={false}
+          onSubmit={() => {
+            alert('Form Submited');
+          }}
+        />
       </Box>
       <Box component="section" sx={sectionStyles}>
         <TestUsers />

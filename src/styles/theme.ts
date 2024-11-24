@@ -1,5 +1,8 @@
-import { createTheme } from '@mui/material/styles';
-export const theme = createTheme({
+import { createTheme, ThemeOptions } from '@mui/material/styles';
+
+const defaultTheme = createTheme();
+
+const customTheme: ThemeOptions = {
   palette: {
     mode: 'light',
   },
@@ -23,5 +26,14 @@ export const theme = createTheme({
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: defaultTheme.palette.error.main,
+        },
+      },
+    },
   },
-});
+};
+
+export const theme = createTheme(customTheme);

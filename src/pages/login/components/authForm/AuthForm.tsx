@@ -1,45 +1,36 @@
 import { useState } from 'react';
-import {
-  Box,
-  Typography,
-  TextField,
-  FormControl,
-  OutlinedInput,
-  InputLabel,
-  InputAdornment,
-  IconButton,
-  FormHelperText,
-  Button,
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
+import { Box, Typography, Button } from '@mui/material';
+import { PasswordInput } from './components/PasswordInput';
+import { LoginInput } from './components/LoginInput';
 
-// todo: add ()
+export type FormStateType = {
+  login: string;
+  password: string;
+};
+
+export type OnFieldChange = (
+  event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  field: keyof FormStateType
+) => void;
+
 export const AuthForm = ({ loading, error, onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const theme = useTheme();
+  const [formState, setFormState] = useState<FormStateType>({ login: '', password: '' });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  };
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
+    console.log(formState);
+    onSubmit({ login: formState.login, password: formState.password });
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    onSubmit({ login, password });
-  };
-
-  const handleLoginInputChange = (event) => {
-    setLogin(event.target.value.trim());
-  };
-
-  const handlePassInputChange = (event) => {
-    setPassword(event.target.value.trim());
+  const handleFieldChange: OnFieldChange = (event, field) => {
+    const newFormState = {
+      ...formState,
+      [field]: event.target.value.trim(),
+    };
+    setFormState(newFormState);
   };
 
   return (
@@ -59,7 +50,9 @@ export const AuthForm = ({ loading, error, onSubmit }) => {
           gap: '30px',
         }}
       >
-        <Typography variant="h5">Вход</Typography>
+        <Typography component="h3" variant="h5">
+          Вход
+        </Typography>
         <Box
           component="form"
           sx={{ maxWidth: '485px' }}
@@ -67,64 +60,13 @@ export const AuthForm = ({ loading, error, onSubmit }) => {
           noValidate
           autoComplete="off"
         >
-          <TextField
-            id="login-input"
-            label="Логин"
-            type="text"
-            placeholder="Введите e-mail"
-            helperText={
-              error ? (
-                <span style={{ color: theme.palette.error.main }}>
-                  {' '}
-                  {'Введите корректный email-адрес'}
-                </span>
-              ) : (
-                ''
-              )
-            }
-            fullWidth
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
-            sx={{ mb: 3 }}
-            onChange={handleLoginInputChange}
+          <LoginInput onChange={handleFieldChange} error={error} />
+          <PasswordInput
+            onChange={handleFieldChange}
+            showPassword={showPassword}
+            onVisibilityClick={handleClickShowPassword}
+            error={error}
           />
-
-          <FormControl fullWidth variant="outlined" sx={{ mb: 3 }}>
-            <InputLabel htmlFor="outlined-adornment-password" shrink>
-              Пароль
-            </InputLabel>
-            <OutlinedInput
-              notched
-              placeholder="Введите пароль"
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              onChange={handlePassInputChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showPassword ? 'hide the password' : 'display the password'
-                    }
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-            {error && (
-              <FormHelperText sx={{ color: theme.palette.error.main }}>
-                {'Введите корректный пароль'}
-              </FormHelperText>
-            )}{' '}
-          </FormControl>
           <Button
             variant="contained"
             size="large"
