@@ -2,35 +2,46 @@ import { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { PasswordInput } from './components/PasswordInput';
 import { LoginInput } from './components/LoginInput';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
-export type FormStateType = {
+export type FormInputs = {
   login: string;
   password: string;
 };
 
-export type OnFieldChange = (
-  event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  field: keyof FormStateType
-) => void;
+const formErrorMessages = {
+  required: 'Поле обязательно к заполнению',
+  login: { invalidEmail: 'Введите корректный email-адрес' },
+  password: { minLength: 'Пароль должен иметь 8 или более символов' },
+};
 
-export const AuthForm = ({ loading, error, onSubmit }) => {
+const formStyles = {
+  maxWidth: '485px',
+  '& > :not(:last-child)': {
+    marginBottom: '14px',
+  },
+};
+
+// export const AuthForm = ({ loading, error, onSubmit }) => {
+export const AuthForm = ({ loading, error }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formState, setFormState] = useState<FormStateType>({ login: '', password: '' });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>({
+    defaultValues: {
+      login: '',
+      password: '',
+    },
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    alert(`Form Submited\nlogin: ${formState.login}\npassword: ${formState.password}`);
-    onSubmit({ login: formState.login, password: formState.password });
-  };
-
-  const handleFieldChange: OnFieldChange = (event, field) => {
-    const newFormState = {
-      ...formState,
-      [field]: event.target.value.trim(),
-    };
-    setFormState(newFormState);
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    alert(`login: ${data.login}\npassword: ${data.password}`);
+    console.log(data);
   };
 
   return (
@@ -55,23 +66,46 @@ export const AuthForm = ({ loading, error, onSubmit }) => {
         </Typography>
         <Box
           component="form"
-          sx={{ maxWidth: '485px' }}
-          onSubmit={handleFormSubmit}
-          noValidate
+          onSubmit={handleSubmit(onSubmit)}
           autoComplete="off"
+          sx={formStyles}
         >
-          <LoginInput onChange={handleFieldChange} error={error} />
-          <PasswordInput
-            onChange={handleFieldChange}
-            showPassword={showPassword}
-            onVisibilityClick={handleClickShowPassword}
-            error={error}
+          <Controller
+            name="login"
+            control={control}
+            rules={{
+              required: formErrorMessages.required,
+              pattern: {
+                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                message: formErrorMessages.login.invalidEmail,
+              },
+            }}
+            render={({ field }) => <LoginInput field={field} errors={errors} />}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: formErrorMessages.required,
+              minLength: {
+                value: 8,
+                message: formErrorMessages.password.minLength,
+              },
+            }}
+            render={({ field }) => (
+              <PasswordInput
+                field={field}
+                showPassword={showPassword}
+                onVisibilityClick={handleClickShowPassword}
+                errors={errors}
+              />
+            )}
           />
           <Button
             variant="contained"
             size="large"
             type="submit"
-            disabled={loading}
             sx={{ width: '100%', marginTop: '15px' }}
           >
             Войти

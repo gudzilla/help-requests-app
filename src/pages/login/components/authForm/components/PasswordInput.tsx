@@ -1,31 +1,29 @@
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { OnFieldChange } from '../AuthForm';
+import { ControllerRenderProps, FieldErrors } from 'react-hook-form';
+import { FormInputs } from '../AuthForm';
 
 type PasswordInputProps = {
-  onChange: OnFieldChange;
+  field: ControllerRenderProps<FormInputs, 'password'>;
   showPassword: boolean;
   onVisibilityClick: () => void;
-  // todo: set proper type for error
-  error: any;
+  errors: FieldErrors<FormInputs> | undefined;
 };
 
 export const PasswordInput = ({
-  error,
+  field,
+  errors,
   showPassword,
-  onChange,
   onVisibilityClick,
 }: PasswordInputProps) => {
   return (
     <TextField
-      sx={{ marginBottom: 2 }}
-      onChange={(e) => {
-        onChange(e, 'password');
-      }}
+      {...field}
       label="Пароль"
       placeholder="Введите пароль"
       variant="outlined"
-      helperText={error ? 'Введите корректный пароль' : '\u200B'}
+      error={!!errors?.password}
+      helperText={errors?.password ? errors.password.message : '\u200B'}
       type={showPassword ? 'text' : 'password'}
       fullWidth
       slotProps={{
