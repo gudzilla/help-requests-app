@@ -3,17 +3,15 @@ import { Box, Typography, Button } from '@mui/material';
 import { PasswordInput } from './components/PasswordInput';
 import { LoginInput } from './components/LoginInput';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-export type FormInputs = {
-  login: string;
-  password: string;
-};
+const FormInputsSchema = z.object({
+  login: z.string().email({ message: 'Введите корректный email-адрес' }),
+  password: z.string().min(8, { message: 'Введите корректный пароль' }),
+});
 
-const formErrorMessages = {
-  required: 'Поле обязательно к заполнению',
-  login: { invalidEmail: 'Введите корректный email-адрес' },
-  password: { minLength: 'Пароль должен иметь 8 или более символов' },
-};
+type FormInputs = z.infer<typeof FormInputsSchema>;
 
 const formStyles = {
   maxWidth: '485px',
@@ -35,6 +33,7 @@ export const AuthForm = ({ loading, error }) => {
       login: '',
       password: '',
     },
+    resolver: zodResolver(FormInputsSchema),
   });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -73,26 +72,12 @@ export const AuthForm = ({ loading, error }) => {
           <Controller
             name="login"
             control={control}
-            rules={{
-              required: formErrorMessages.required,
-              pattern: {
-                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                message: formErrorMessages.login.invalidEmail,
-              },
-            }}
             render={({ field }) => <LoginInput field={field} errors={errors} />}
           />
 
           <Controller
             name="password"
             control={control}
-            rules={{
-              required: formErrorMessages.required,
-              minLength: {
-                value: 8,
-                message: formErrorMessages.password.minLength,
-              },
-            }}
             render={({ field }) => (
               <PasswordInput
                 field={field}
