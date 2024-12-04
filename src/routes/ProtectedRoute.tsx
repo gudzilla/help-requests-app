@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useIsAuthSelector } from '@/store/selectors';
 
 type ProtectedRouteProps = {
   element: ReactElement;
@@ -7,7 +8,7 @@ type ProtectedRouteProps = {
 
 export const ProtectedRoute = ({ element }: ProtectedRouteProps) => {
   // todo: add state
-  const isAuthorized = false;
+  const isAuthenticated = useIsAuthSelector();
 
-  return isAuthorized ? element : <Navigate to="/login" replace={true} />;
+  return isAuthenticated ? element : <Navigate to="/login" replace={true} />;
 };

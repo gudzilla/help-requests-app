@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import { Box, Container, useTheme } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Layout = () => {
   const mainStyles = {
@@ -24,6 +26,7 @@ export const Layout = () => {
       <Container maxWidth="xl">
         <Box component="main" sx={mainStyles}>
           <Outlet />
+          <ToastContainer />
         </Box>
       </Container>
       <Footer />
