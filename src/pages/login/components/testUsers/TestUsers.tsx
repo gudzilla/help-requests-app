@@ -25,7 +25,7 @@ export const TestUsers = () => {
         }}
       >
         {accounts.map(({ title, login, password }, index) => (
-          <Alert severity="info" variant="outlined" key={index}>
+          <Alert severity="info" variant="outlined" key={index} onClick={() => {}}>
             <AlertTitle>{title}</AlertTitle>
             <Typography variant="body2">{`Логин: ${login}`}</Typography>
             <Typography variant="body2">{`Пароль: ${password}`}</Typography>

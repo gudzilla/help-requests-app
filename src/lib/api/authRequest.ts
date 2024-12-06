@@ -14,10 +14,6 @@ export const authRequest = async (data: AuthData) => {
     localStorage.setItem('jwtToken', token);
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-    // DEBUG
-    console.log('Response Data: ', response.data);
-    console.log('LocalStorage: ', localStorage);
-
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {

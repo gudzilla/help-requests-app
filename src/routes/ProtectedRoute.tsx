@@ -4,11 +4,19 @@ import { useIsAuthSelector } from '@/store/selectors';
 
 type ProtectedRouteProps = {
   element: ReactElement;
+  isLoginPage?: boolean;
 };
 
-export const ProtectedRoute = ({ element }: ProtectedRouteProps) => {
-  // todo: add state
+export const ProtectedRoute = ({ element, isLoginPage = false }: ProtectedRouteProps) => {
   const isAuthenticated = useIsAuthSelector();
 
-  return isAuthenticated ? element : <Navigate to="/login" replace={true} />;
+  if (!isAuthenticated && !isLoginPage) {
+    return <Navigate to="/login" replace={true} />;
+  }
+
+  if (isAuthenticated && isLoginPage) {
+    return <Navigate to="/help-catalog" replace={true} />;
+  }
+
+  return element;
 };

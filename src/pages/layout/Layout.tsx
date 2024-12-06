@@ -10,7 +10,7 @@ export const Layout = () => {
     display: 'flex',
     flexDirection: 'column',
 
-    // 236px is header + footer height
+    // 236px is height of header + footer
     minHeight: 'calc(100vh - 236px)',
     overflowY: 'scroll',
     borderLeft: 1,

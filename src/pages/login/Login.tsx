@@ -10,7 +10,7 @@ const mainLayout = {
 };
 
 const sectionStyles = {
-  padding: '64px 40px',
+  'padding': '64px 40px',
   '&:not(:last-child)': { borderRight: 1, borderColor: 'divider' },
 };
 

@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Login /> },
+      { index: true, element: <ProtectedRoute element={<Login />} isLoginPage={true} /> },
       {
         path: '/help-catalog',
         element: <ProtectedRoute element={<HelpCatalog />} />,
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: <ProtectedRoute element={<Login />} isLoginPage={true} />,
       },
       {
         path: '/profile',

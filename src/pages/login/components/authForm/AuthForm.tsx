@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { PasswordInput } from './components/PasswordInput';
 import { LoginInput } from './components/LoginInput';
@@ -9,9 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { authRequest } from '@/lib/api';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useNavigate } from 'react-router-dom';
-import { logIn } from '@/store/authSlice';
+import { logIn } from '@/store/authenticationSlice';
 import { notification } from '@/lib/notifications';
-import { useIsAuthSelector } from '../../../../store/selectors';
+import { AxiosError } from 'axios';
 
 const FormInputsSchema = z.object({
   login: z.string().email({ message: 'Введите корректный email-адрес' }),
@@ -35,12 +35,10 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useIsAuthSelector();
 
   const {
     control,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormInputs>({
     defaultValues: {
@@ -53,19 +51,22 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    console.log(`login: ${data.login}\npassword: ${data.password}`);
-    const result = await authRequest(data);
-    console.log('------------------');
-    console.log('Result');
-    console.log('------------------');
-    console.log(result);
-    console.log(result.auth);
-    if (result?.auth) {
-      console.log('isAuth 1:', isAuth);
-      dispatch(logIn());
-      console.log('isAuth 1:', isAuth);
-      notification('Вход выполнен', 'success');
-      navigate('/help-catalog', { replace: true });
+    setIsLoading(true);
+
+    try {
+      const result = await authRequest(data);
+      if (result?.auth) {
+        dispatch(logIn());
+        notification('Вход выполнен', 'success');
+        navigate('/help-catalog', { replace: true });
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        notification(`Ошибка ${error.code}: ${error.message}`);
+      }
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -89,6 +90,15 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
         <Typography component="h3" variant="h5">
           Вход
         </Typography>
+        {/* TOOGLE LOADING from useState FOR BUTTON */}
+        {/* <Button
+          onClick={() => {
+            const value = isLoading;
+            setIsLoading(!value);
+          }}
+        >
+          Toggle Loading
+        </Button> */}
         <Box
           component="form"
           onSubmit={handleSubmit(onSubmit)}
@@ -122,14 +132,6 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
           >
             ВОЙТИ
           </LoadingButton>
-          {/* <Button
-            variant="contained"
-            size="large"
-            type="submit"
-            sx={{ width: '100%', marginTop: '15px' }}
-          >
-            Войти
-          </Button> */}
         </Box>
       </Box>
     </Box>

@@ -1,6 +1,8 @@
 import { Box, MenuItem, SvgIcon, Typography } from '@mui/material';
 import { PROFILE_MENU_LIST } from '@/pages/layout/components/header/components/profileMenu/constants/profileMenuList';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { logOut } from '@/store/authenticationSlice';
 
 type ProfileMenuItemsProps = {
   closeMenu: () => void;
@@ -8,11 +10,7 @@ type ProfileMenuItemsProps = {
 
 export const ProfileMenuItems = ({ closeMenu }: ProfileMenuItemsProps) => {
   const navigate = useNavigate();
-
-  // todo: make read handler
-  const handleMenuItemClick = (navigateTo: string) => {
-    navigate(navigateTo);
-  };
+  const dispatch = useAppDispatch();
 
   return (
     <Box>
@@ -22,10 +20,9 @@ export const ProfileMenuItems = ({ closeMenu }: ProfileMenuItemsProps) => {
           onClick={() => {
             closeMenu();
             if (menuItem.logout) {
-              // todo: add logout
-              console.log('Выход из аккаунта (в разработке)');
+              dispatch(logOut());
             }
-            handleMenuItemClick(menuItem.navigateTo);
+            navigate(menuItem.navigateTo);
           }}
         >
           <SvgIcon sx={{ marginRight: '32px' }}>{menuItem.icon}</SvgIcon>
