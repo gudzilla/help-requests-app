@@ -32,7 +32,6 @@ const formStyles = {
 // export const AuthForm = ({ loading, error, onSubmit }) => {
 export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -51,8 +50,6 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    setIsLoading(true);
-
     try {
       const result = await authRequest(data);
       if (result?.auth) {
@@ -66,7 +63,6 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
       }
       console.error(error);
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -90,15 +86,6 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
         <Typography component="h3" variant="h5">
           Вход
         </Typography>
-        {/* TOOGLE LOADING from useState FOR BUTTON */}
-        {/* <Button
-          onClick={() => {
-            const value = isLoading;
-            setIsLoading(!value);
-          }}
-        >
-          Toggle Loading
-        </Button> */}
         <Box
           component="form"
           onSubmit={handleSubmit(onSubmit)}
