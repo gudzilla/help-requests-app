@@ -29,4 +29,5 @@ export const authRequest = async (data: AuthData) => {
       }
     } else console.error(error);
   }
+  l;
 };

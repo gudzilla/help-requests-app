@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { logIn } from '@/store/authenticationSlice';
 import { notification } from '@/lib/notifications';
 import { AxiosError } from 'axios';
+import { useAuthenticateMutation } from '@/lib/api/rtkQuery';
 
 const FormInputsSchema = z.object({
   login: z.string().email({ message: 'Введите корректный email-адрес' }),
@@ -20,7 +21,7 @@ const FormInputsSchema = z.object({
 
 export type FormInputs = z.infer<typeof FormInputsSchema>;
 
-type AuthFormProps = {};
+// type AuthFormProps = {};
 
 const formStyles = {
   'maxWidth': '485px',
@@ -30,10 +31,11 @@ const formStyles = {
 };
 
 // export const AuthForm = ({ loading, error, onSubmit }) => {
-export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
+export const AuthForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [authenticate, { data, isLoading, error }] = useAuthenticateMutation();
 
   const {
     control,
@@ -49,21 +51,44 @@ export const AuthForm = ({ loading, error, onSubmitApi }: AuthFormProps) => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
+    // RTK QUERY API
     try {
-      const result = await authRequest(data);
-      if (result?.auth) {
+      const response = await authenticate(formData).unwrap();
+      if (response?.auth) {
         dispatch(logIn());
         notification('Вход выполнен', 'success');
         navigate('/help-catalog', { replace: true });
       }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        notification(`Ошибка ${error.code}: ${error.message}`);
+    } catch (error: any) {
+      if (error.status === 400) {
+        notification(`Ошибка ${error.status}: Неверный логин или пароль`, 'error');
+      } else if (error.originalStatus === 500) {
+        notification(
+          `Ошибка ${error.originalStatus}: Запланированная ошибка сервера, попробуйте снова`,
+          'error'
+        );
+      } else {
+        console.error('Unknown Error:', error);
       }
-      console.error(error);
     } finally {
     }
+
+    // --------- OLD API CALL (AXIOS)
+    //   try {
+    //     const result = await authRequest(data);
+    //     if (result?.auth) {
+    //       dispatch(logIn());
+    //       notification('Вход выполнен', 'success');
+    //       navigate('/help-catalog', { replace: true });
+    //     }
+    //   } catch (error) {
+    //     if (error instanceof AxiosError) {
+    //       notification(`Ошибка ${error.code}: ${error.message}`);
+    //     }
+    //     console.error(error);
+    //   } finally {
+    //   }
   };
 
   return (
