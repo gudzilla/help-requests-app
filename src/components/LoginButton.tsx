@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export const LoginButton = () => {
-  const navigate = useNavigate();
+  // todo: delete?
+  // const navigate = useNavigate();
   const theme = useTheme();
 
   const buttonStyles = {

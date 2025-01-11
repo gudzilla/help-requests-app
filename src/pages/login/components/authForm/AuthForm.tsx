@@ -35,7 +35,8 @@ export const AuthForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [authenticate, { data, isLoading, error }] = useAuthenticateMutation();
+  const [authenticate, { data: authData, isLoading: authIsLoading, error: authError }] =
+    useAuthenticateMutation();
 
   const {
     control,
@@ -57,6 +58,7 @@ export const AuthForm = () => {
       const response = await authenticate(formData).unwrap();
       if (response?.auth) {
         dispatch(logIn());
+        localStorage.setItem('jwtToken', response.token);
         notification('Вход выполнен', 'success');
         navigate('/help-catalog', { replace: true });
       }
@@ -140,7 +142,7 @@ export const AuthForm = () => {
             size="large"
             type="submit"
             sx={{ width: '100%', marginTop: '15px' }}
-            loading={isLoading}
+            loading={authIsLoading}
           >
             ВОЙТИ
           </LoadingButton>

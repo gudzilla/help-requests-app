@@ -9,6 +9,7 @@ const authenticationSlice = createSlice({
   initialState,
   reducers: {
     logIn: () => {
+      // todo: delete
       localStorage.setItem('isAuth', 'true');
       return true;
     },
