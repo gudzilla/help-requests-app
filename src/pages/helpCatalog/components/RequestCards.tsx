@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import ErrorIcon from '@/assets/load-error.svg?react';
-import { notification } from '../../lib/notifications';
+import { notification } from '../../../lib/notifications';
 
 type RequestCardsParams = {
   data: any;
@@ -26,7 +26,7 @@ export const RequestCards = ({ error, isLoading, data }: RequestCardsParams) => 
 
   return (
     <Box>
-      {data.map((title, index) => {
+      {data.map((title: string, index: number) => {
         return (
           <Typography variant="h6" key={index}>
             {title}

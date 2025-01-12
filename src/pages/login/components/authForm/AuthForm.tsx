@@ -6,12 +6,10 @@ import { LoginInput } from './components/LoginInput';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { authRequest } from '@/lib/api';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useNavigate } from 'react-router-dom';
 import { logIn } from '@/store/authenticationSlice';
 import { notification } from '@/lib/notifications';
-import { AxiosError } from 'axios';
 import { useAuthenticateMutation } from '@/lib/api/rtkQuery';
 
 const FormInputsSchema = z.object({
@@ -73,24 +71,7 @@ export const AuthForm = () => {
       } else {
         console.error('Unknown Error:', error);
       }
-    } finally {
     }
-
-    // --------- OLD API CALL (AXIOS)
-    //   try {
-    //     const result = await authRequest(data);
-    //     if (result?.auth) {
-    //       dispatch(logIn());
-    //       notification('Вход выполнен', 'success');
-    //       navigate('/help-catalog', { replace: true });
-    //     }
-    //   } catch (error) {
-    //     if (error instanceof AxiosError) {
-    //       notification(`Ошибка ${error.code}: ${error.message}`);
-    //     }
-    //     console.error(error);
-    //   } finally {
-    //   }
   };
 
   return (

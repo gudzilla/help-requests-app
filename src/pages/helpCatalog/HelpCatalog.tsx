@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Box } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/rtkQuery';
-import { RequestCards } from './RequestCards';
+import { RequestCards } from './components/RequestCards';
 
 export const HelpCatalog = () => {
   const { data: helpRequests = [], isLoading, error } = useGetRequestsQuery();

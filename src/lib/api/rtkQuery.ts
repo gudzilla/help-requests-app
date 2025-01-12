@@ -16,10 +16,12 @@ type AuthResponse = {
   token: string;
 };
 
-// todo: add a type
+type HelpRequestId = string;
+
+// todo: use a type
 type HelpCatalogResponse = any[];
 
-// todo: add a type
+// todo: use a type
 type HelpRequest = {};
 
 export const helpEldersApi = createApi({
@@ -46,7 +48,7 @@ export const helpEldersApi = createApi({
     getRequests: builder.query<HelpCatalogResponse, void>({
       query: () => '/request',
     }),
-    getRequestById: builder.query<HelpRequest, string>({
+    getRequestById: builder.query<HelpRequest, HelpRequestId>({
       query: (requestId) => `/request/${requestId}`,
     }),
   }),

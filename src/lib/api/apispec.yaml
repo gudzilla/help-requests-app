@@ -1,0 +1,376 @@
+openapi: 3.0.0
+info:
+  title: ExpressJS API
+  version: 1.1.0
+  description: API для управления авторизацией пользователей, данными пользователей и запросами о помощи
+
+paths:
+  /api/auth:
+    post:
+      summary: (Auth) Авторизация пользователя и генерация JWT токена
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  example: "user@example.com"
+                password:
+                  type: string
+                  example: "password123"
+      responses:
+        '200':
+          description: Успешный вход и генерация токена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    example: "jwt-token"
+        '400':
+          description: Неверный логин или пароль
+        '500':
+          description: Запланированная ошибка сервера
+
+  /api/user/favourites:
+    get:
+      summary: (LoadUserFavorites) Получение списка избранных запросов пользователя
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Массив избранных запросов пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "request-id-1"
+        '401':
+          description: Неавторизован
+        '500':
+          description: Запланированная ошибка сервера
+
+    post:
+      summary: (AddToFavourites) Добавление запроса в избранное пользователя
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  example: "request-id-1"
+      responses:
+        '200':
+          description: Запрос успешно добавлен в избранное
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Запрос успешно добавлен в избранное."
+        '400':
+          description: Ошибка при добавлении в избранное
+        '500':
+          description: Запланированная ошибка сервера
+
+  /api/user/favourites/{requestId}:
+    delete:
+      summary: (RemoveFromFavourites) Удаление запроса из избранного пользователя
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "request-id-1"
+      responses:
+        '200':
+          description: Запрос успешно удален из избранного
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Запрос успешно удален из избранного."
+        '400':
+          description: Ошибка при удалении из избранного
+        '500':
+          description: Запланированная ошибка сервера
+
+  /api/user:
+    get:
+      summary: (LoadUserInfo) Получение данных профиля пользователя
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Данные профиля пользователя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserData'
+        '401':
+          description: Неавторизован
+        '500':
+          description: Запланированная ошибка сервера
+
+  /api/request/{id}/contribution:
+    post:
+      summary: (ContributeToRequest) Внесение вклада в запрос на помощь
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "request-id-1"
+      responses:
+        '200':
+          description: Вклад успешно внесен
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Вклад успешно внесен."
+        '404':
+          description: Запрос не найден
+        '500':
+          description: Запланированная ошибка сервера
+
+  /api/request/{id}:
+    get:
+      summary: (LoadRequestDetails) Получение деталей запроса на помощь
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "request-id-1"
+      responses:
+        '200':
+          description: Детали запроса на помощь
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelpRequestData'
+        '400':
+          description: Отсутствует ID запроса
+        '404':
+          description: Запрос не найден
+        '500':
+          description: Запланированная ошибка сервера
+
+  /api/request:
+    get:
+      summary: (LoadRequests) Получение всех запросов на помощь
+      responses:
+        '200':
+          description: Список всех запросов на помощь
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HelpRequestData'
+        '500':
+          description: Запланированная ошибка сервера
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    UserData:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "user-id-1"
+        name:
+          type: string
+          example: "Александр"
+        lastName:
+          type: string
+          example: "Иванов"
+        birthdate:
+          type: string
+          format: date
+          example: "1950-07-23"
+        status:
+          type: string
+          enum: ["Начинающий", "Опытный"]
+        baseLocations:
+          type: array
+          items:
+            type: object
+            properties:
+              latitude:
+                type: number
+                example: 40.712776
+              longitude:
+                type: number
+                example: -74.005974
+              district:
+                type: string
+                example: "Центральный"
+              city:
+                type: string
+                example: "Москва"
+        educations:
+          type: array
+          items:
+            type: object
+            properties:
+              organizationName:
+                type: string
+                example: "МГУ"
+              level:
+                type: string
+                enum: ["Среднее общее", "Среднее профессиональное", "Высшее"]
+              specialization:
+                type: string
+                example: "Филология"
+              graduationYear:
+                type: integer
+                example: 1980
+        additionalInfo:
+          type: string
+          example: "Дополнительная информация о пользователе."
+        contacts:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              example: "user@example.com"
+            phone:
+              type: string
+              example: "+123456789"
+            social:
+              type: object
+              properties:
+                telegram:
+                  type: string
+                  example: "@user"
+                whatsapp:
+                  type: string
+                  example: "+123456789"
+                vk:
+                  type: string
+                  example: "user_vk_id"
+        favouriteRequests:
+          type: array
+          items:
+            type: string
+
+    HelpRequestData:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "request-id-1"
+        title:
+          type: string
+          example: "Помощь в проекте"
+        organization:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Благотворительная организация"
+            isVerified:
+              type: boolean
+        description:
+          type: string
+          example: "Описание запроса на помощь."
+        goalDescription:
+          type: string
+          example: "Цель данного запроса."
+        actionsSchedule:
+          type: array
+          items:
+            type: object
+            properties:
+              stepLabel:
+                type: string
+                example: "Шаг 1"
+              isDone:
+                type: boolean
+        endingDate:
+          type: string
+          format: date
+          example: "2023-12-31"
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+              example: 40.712776
+            longitude:
+              type: number
+              example: -74.005974
+            district:
+              type: string
+              example: "Пресненский"
+            city:
+              type: string
+              example: "Москва"
+        contacts:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              example: "contact@example.com"
+            phone:
+              type: string
+              example: "+123456789"
+            website:
+              type: string
+              example: "https://example.com"
+        requesterType:
+          type: string
+          enum: ["person", "organization"]
+        helpType:
+          type: string
+          enum: ["finance", "material"]
+        helperRequirements:
+          type: object
+          properties:
+            helperType:
+              type: string
+              enum: ["group", "single"]
+            isOnline:
+              type: boolean
+            qualification:
+              type: string
+              enum: ["professional", "common"]
+        contributorsCount:
+          type: integer
+          example: 10
+        requestGoal:
+          type: integer
+          example: 10000
+        requestGoalCurrentValue:
+          type: integer
+          example: 2500
+
