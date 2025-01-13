@@ -1,15 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AuthState = boolean;
 
-const initialState: AuthState = localStorage.getItem('isAuth') == 'true';
+const initialState: AuthState = localStorage.getItem('isAuth') === 'true';
 
 const authenticationSlice = createSlice({
   name: 'isAuth',
   initialState,
   reducers: {
-    logIn: () => {
-      // todo: delete
+    // logIn: (state, action: PayloadAction<string>) => {
+    logIn: (_, action: PayloadAction<string>) => {
+      localStorage.setItem('jwtToken', action.payload);
       localStorage.setItem('isAuth', 'true');
       return true;
     },

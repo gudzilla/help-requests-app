@@ -10,7 +10,7 @@ import { useAppDispatch } from '@/lib/redux/hooks';
 import { useNavigate } from 'react-router-dom';
 import { logIn } from '@/store/authenticationSlice';
 import { notification } from '@/lib/notifications';
-import { useAuthenticateMutation } from '@/lib/api/rtkQuery';
+import { useAuthenticateMutation } from '@/lib/api/api';
 
 const FormInputsSchema = z.object({
   login: z.string().email({ message: 'Введите корректный email-адрес' }),
@@ -55,8 +55,7 @@ export const AuthForm = () => {
     try {
       const response = await authenticate(formData).unwrap();
       if (response?.auth) {
-        dispatch(logIn());
-        localStorage.setItem('jwtToken', response.token);
+        dispatch(logIn(response.token));
         notification('Вход выполнен', 'success');
         navigate('/help-catalog', { replace: true });
       }

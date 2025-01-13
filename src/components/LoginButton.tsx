@@ -1,10 +1,8 @@
 import { Button, useTheme } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { notification } from '@/lib/notifications';
 
 export const LoginButton = () => {
-  // todo: delete?
-  // const navigate = useNavigate();
   const theme = useTheme();
 
   const buttonStyles = {
@@ -16,12 +14,16 @@ export const LoginButton = () => {
     },
   };
 
+  const handleClick = () => {
+    notification('Введите данные в форму для входа');
+  };
+
   return (
     <Button
       variant="outlined"
       size="medium"
       endIcon={<KeyboardArrowRightIcon />}
-      // onClick={}
+      onClick={handleClick}
       sx={buttonStyles}
     >
       Войти

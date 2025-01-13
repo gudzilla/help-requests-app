@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authenticationSlice from './authenticationSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { helpEldersApi } from '@/lib/api/rtkQuery';
+import { helpEldersApi } from '@/lib/api/api';
 
 export const store = configureStore({
   reducer: {

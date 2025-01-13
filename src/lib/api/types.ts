@@ -29,7 +29,7 @@ export interface UserData {
   favouriteRequests?: string[];
 }
 
-export interface HelpRequestData {
+export type HelpRequestData = {
   id?: string;
   title?: string;
   organization?: {
@@ -64,4 +64,4 @@ export interface HelpRequestData {
   contributorsCount?: number;
   requestGoal?: number;
   requestGoalCurrentValue?: number;
-}
+};
