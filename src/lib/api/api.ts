@@ -1,10 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
 import { HelpRequestData } from './types';
-
-// Type for error
-export type RTKQueryError = FetchBaseQueryError | SerializedError;
 
 type AuthData = {
   login: string;

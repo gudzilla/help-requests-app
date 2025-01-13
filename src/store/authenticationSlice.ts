@@ -8,7 +8,6 @@ const authenticationSlice = createSlice({
   name: 'isAuth',
   initialState,
   reducers: {
-    // logIn: (state, action: PayloadAction<string>) => {
     logIn: (_, action: PayloadAction<string>) => {
       localStorage.setItem('jwtToken', action.payload);
       localStorage.setItem('isAuth', 'true');

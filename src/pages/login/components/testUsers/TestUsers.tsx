@@ -19,7 +19,7 @@ export const TestUsers = () => {
           gap: '30px',
           maxWidth: '320px',
           // Height to fit exactly 3 alerts
-          // for more you need to scroll
+          // if you have more you need to scroll
           maxHeight: '356px',
           overflowY: 'scroll',
         }}

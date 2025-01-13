@@ -22,7 +22,6 @@ export const PasswordInput = ({
       label="Пароль"
       placeholder="Введите пароль"
       variant="outlined"
-      // error={!!errors?.password}
       helperText={errors?.password ? errors.password.message : '\u200B'}
       type={showPassword ? 'text' : 'password'}
       fullWidth

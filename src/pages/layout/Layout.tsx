@@ -9,15 +9,12 @@ export const Layout = () => {
   const mainStyles = {
     display: 'flex',
     flexDirection: 'column',
-
     // 236px is height of header + footer
     minHeight: 'calc(100vh - 236px)',
     overflowY: 'scroll',
     borderLeft: 1,
     borderRight: 1,
     borderColor: 'divider',
-    // todo: choose one color
-    // borderColor: theme.palette.divider,
   };
 
   return (

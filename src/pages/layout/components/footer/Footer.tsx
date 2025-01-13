@@ -25,7 +25,6 @@ export const Footer = () => {
         component="footer"
         sx={{
           position: 'relative',
-          // bottom: 0,
           zIndex: 10,
           background: theme.palette.background.paper,
         }}

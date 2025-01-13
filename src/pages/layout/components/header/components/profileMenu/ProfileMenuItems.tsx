@@ -1,5 +1,5 @@
 import { Box, MenuItem, SvgIcon, Typography } from '@mui/material';
-import { PROFILE_MENU_LIST } from '@/pages/layout/components/header/components/profileMenu/constants/profileMenuList';
+import { PROFILE_MENU_LIST } from './constants/profileMenuList';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { logOut } from '@/store/authenticationSlice';

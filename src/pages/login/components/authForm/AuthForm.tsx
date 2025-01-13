@@ -8,18 +8,15 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useNavigate } from 'react-router-dom';
-import { logIn } from '@/store/authenticationSlice';
-import { notification } from '@/lib/notifications';
 import { useAuthenticateMutation } from '@/lib/api/api';
+import { authRequest } from '@/lib/api/apiAuthRequest';
 
 const FormInputsSchema = z.object({
   login: z.string().email({ message: 'Введите корректный email-адрес' }),
-  password: z.string().min(8, { message: 'Введите корректный пароль' }),
+  password: z.string().min(8, { message: 'Минимальная длинна пароля 8 символов' }),
 });
 
 export type FormInputs = z.infer<typeof FormInputsSchema>;
-
-// type AuthFormProps = {};
 
 const formStyles = {
   'maxWidth': '485px',
@@ -28,13 +25,11 @@ const formStyles = {
   },
 };
 
-// export const AuthForm = ({ loading, error, onSubmit }) => {
 export const AuthForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [authenticate, { data: authData, isLoading: authIsLoading, error: authError }] =
-    useAuthenticateMutation();
+  const [authenticate, { isLoading: authIsLoading }] = useAuthenticateMutation();
 
   const {
     control,
@@ -50,33 +45,15 @@ export const AuthForm = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    // RTK QUERY API
-    try {
-      const response = await authenticate(formData).unwrap();
-      if (response?.auth) {
-        dispatch(logIn(response.token));
-        notification('Вход выполнен', 'success');
-        navigate('/help-catalog', { replace: true });
-      }
-    } catch (error: any) {
-      if (error.status === 400) {
-        notification(`Ошибка ${error.status}: Неверный логин или пароль`, 'error');
-      } else if (error.originalStatus === 500) {
-        notification(
-          `Ошибка ${error.originalStatus}: Запланированная ошибка сервера, попробуйте снова`,
-          'error'
-        );
-      } else {
-        console.error('Unknown Error:', error);
-      }
-    }
+  const onSubmit: SubmitHandler<FormInputs> = async (logInFormData) => {
+    authRequest(authenticate, logInFormData, dispatch, navigate);
   };
 
   return (
     <Box
       component="section"
       sx={{
+        // todo: change to margin?
         display: 'grid',
         gap: '90px',
       }}
@@ -86,6 +63,7 @@ export const AuthForm = () => {
       </Typography>
       <Box
         sx={{
+          // todo: change to margin?
           display: 'grid',
           gap: '30px',
         }}

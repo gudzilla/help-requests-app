@@ -15,7 +15,6 @@ export const LoginInput = ({ field, errors }: LoginInputProps) => {
       label="Логин"
       type="text"
       placeholder="Введите e-mail"
-      // error={!!errors?.login}
       helperText={errors?.login ? errors.login.message : '\u200B'}
       fullWidth
       slotProps={{
