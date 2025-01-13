@@ -50,25 +50,12 @@ export const AuthForm = () => {
   };
 
   return (
-    <Box
-      component="section"
-      sx={{
-        // todo: change to margin?
-        display: 'grid',
-        gap: '90px',
-      }}
-    >
-      <Typography variant="h4" component="h1">
+    <Box component="section">
+      <Typography variant="h4" component="h1" marginBottom={'90px'}>
         Авторизация
       </Typography>
-      <Box
-        sx={{
-          // todo: change to margin?
-          display: 'grid',
-          gap: '30px',
-        }}
-      >
-        <Typography component="h3" variant="h5">
+      <Box>
+        <Typography component="h3" variant="h5" marginBottom={'30px'}>
           Вход
         </Typography>
         <Box
