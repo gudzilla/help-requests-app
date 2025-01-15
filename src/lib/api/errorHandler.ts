@@ -1,7 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { notification } from '@/lib/notifications';
-import { logOut } from '@/store/authenticationSlice';
+import { logOut, logOutFx } from '@/store/authenticationSlice';
 import { store } from '../../store';
 
 type ServerError = {
@@ -35,9 +35,8 @@ export const errorHandler = (err: FetchBaseQueryError | SerializedError) => {
       console.error(err);
       // todo: delete later | catching 403 error
       if (err.status === 403) {
-        console.error('Error 403 ', err);
-        store.dispatch(logOut());
-        // notification('Token Expired', 'error');
+        notification('Token Expired', 'error');
+        store.dispatch(logOutFx());
       }
       notification(`Ошибка ${err.status}: ${(err as ServerError).data.message}`, 'error');
     } else {

@@ -1,5 +1,5 @@
 import { notification } from '@/lib/notifications';
-import { logIn } from '@/store/authenticationSlice';
+import { logInFx } from '@/store/authenticationSlice';
 import { NavigateFunction } from 'react-router-dom';
 import { useAuthenticateMutation } from './api';
 import { errorHandler } from './errorHandler';
@@ -14,13 +14,13 @@ type LogInData = {
 export const authRequest = async (
   apiRequestFunction: AuthenticateFunction,
   data: LogInData,
-  dispatch: RootDispatch,
+  dispatch: AppDispatch,
   navigate: NavigateFunction
 ) => {
   try {
     const response = await apiRequestFunction(data).unwrap();
     if (response?.auth) {
-      dispatch(logIn(response.token));
+      dispatch(logInFx(response.token));
       notification('Вход выполнен', 'success');
       navigate('/help-catalog', { replace: true });
     }

@@ -2,7 +2,7 @@ import { Box, MenuItem, SvgIcon, Typography } from '@mui/material';
 import { PROFILE_MENU_LIST } from './constants/profileMenuList';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { logOut } from '@/store/authenticationSlice';
+import { logOutFx } from '@/store/authenticationSlice';
 
 type ProfileMenuItemsProps = {
   closeMenu: () => void;
@@ -20,7 +20,7 @@ export const ProfileMenuItems = ({ closeMenu }: ProfileMenuItemsProps) => {
           onClick={() => {
             closeMenu();
             if (menuItem.logout) {
-              dispatch(logOut());
+              dispatch(logOutFx());
             }
             navigate(menuItem.navigateTo);
           }}
