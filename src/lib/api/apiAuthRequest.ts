@@ -2,6 +2,7 @@ import { notification } from '@/lib/notifications';
 import { logIn } from '@/store/authenticationSlice';
 import { NavigateFunction } from 'react-router-dom';
 import { useAuthenticateMutation } from './api';
+import { errorHandler } from './errorHandler';
 
 type AuthenticateFunction = ReturnType<typeof useAuthenticateMutation>[0];
 
@@ -25,15 +26,21 @@ export const authRequest = async (
     }
     // todo: add normal error handler
   } catch (error: any) {
-    if (error.status === 400) {
-      notification(`Ошибка ${error.status}: Неверный логин или пароль`, 'error');
-    } else if (error.originalStatus === 500) {
-      notification(
-        `Ошибка ${error.originalStatus}: Запланированная ошибка сервера, попробуйте снова`,
-        'error'
-      );
-    } else {
-      console.error('Unknown Error:', error);
-    }
+    errorHandler(error);
+
+    // ------------ OLD
+    // if (error.status === 400) {
+    //   console.error(error);
+    //   console.log(error);
+    //   notification(`Ошибка ${error.status}: Неверный логин или пароль`, 'error');
+    // } else if (error.originalStatus === 500) {
+    //   console.log(error);
+    //   notification(
+    //     `Ошибка ${error.originalStatus}: Запланированная ошибка сервера, попробуйте снова`,
+    //     'error'
+    //   );
+    // } else {
+    //   console.error('Unknown Error:', error);
+    // }
   }
 };

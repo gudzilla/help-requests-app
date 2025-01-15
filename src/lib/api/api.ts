@@ -13,7 +13,7 @@ type AuthResponse = {
 
 type HelpRequestId = Pick<HelpRequestData, 'id'>;
 
-type HelpCatalogResponse = HelpRequestData[];
+export type HelpCatalogResponse = HelpRequestData[];
 
 export const helpEldersApi = createApi({
   reducerPath: 'helpEldersApi',
