@@ -24,23 +24,7 @@ export const authRequest = async (
       notification('Вход выполнен', 'success');
       navigate('/help-catalog', { replace: true });
     }
-    // todo: add normal error handler
   } catch (error: any) {
     errorHandler(error);
-
-    // ------------ OLD
-    // if (error.status === 400) {
-    //   console.error(error);
-    //   console.log(error);
-    //   notification(`Ошибка ${error.status}: Неверный логин или пароль`, 'error');
-    // } else if (error.originalStatus === 500) {
-    //   console.log(error);
-    //   notification(
-    //     `Ошибка ${error.originalStatus}: Запланированная ошибка сервера, попробуйте снова`,
-    //     'error'
-    //   );
-    // } else {
-    //   console.error('Unknown Error:', error);
-    // }
   }
 };

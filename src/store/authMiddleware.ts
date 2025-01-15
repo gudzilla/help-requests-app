@@ -1,26 +1,43 @@
-import { Middleware } from '@reduxjs/toolkit';
+// import { Middleware } from '@reduxjs/toolkit';
 
-// Определяем тип экшена вручную
-type LogInAction = {
-  type: 'isAuth/logIn';
-  payload: string;
-};
-type LogOutAction = {
-  type: 'isAuth/logOut';
-};
+// // Определяем тип экшена вручную
+// type LogInAction = {
+//   type: 'isAuth/logIn';
+//   payload: string;
+// };
+// type LogOutAction = {
+//   type: 'isAuth/logOut';
+// };
 
-export const authMiddleware: Middleware<RootState> = () => (next) => (action) => {
-  if (
-    (action as LogInAction).type === 'isAuth/logIn' &&
-    (action as LogInAction).payload
-  ) {
-    localStorage.setItem('jwtToken', (action as LogInAction).payload);
-    localStorage.setItem('isAuth', 'true');
-  }
+// export const authMiddleware: Middleware<RootState> = () => (next) => (action) => {
+//   if (
+//     (action as LogInAction).type === 'isAuth/logIn' &&
+//     (action as LogInAction).payload
+//   ) {
+//     localStorage.setItem('jwtToken', (action as LogInAction).payload);
+//   }
 
-  if ((action as LogOutAction).type === 'isAuth/logOut') {
-    localStorage.removeItem('isAuth');
-    localStorage.removeItem('jwtToken');
-  }
-  return next(action);
-};
+//   if ((action as LogOutAction).type === 'isAuth/logOut') {
+//     localStorage.removeItem('jwtToken');
+//   }
+//   return next(action);
+// };
+
+
+// ----------- EXaMPLE
+
+authenticate: builder.mutation<AuthResponse, AuthData>({
+      query: (userData) => ({
+        url: '/auth',
+        method: 'POST',
+        body: userData,
+      }),
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem('jwtToken', data.token);
+        } catch (error) {
+          console.error('Authentication failed:', error);
+        }
+      },
+    }),
