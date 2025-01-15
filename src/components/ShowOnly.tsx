@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { useIsAuthSelector } from '../store/selectors';
+import { useIsAuthSelector } from '@/store/selectors';
 
 type ShowOnlyProps = {
   when: 'authorized' | 'unauthorized';

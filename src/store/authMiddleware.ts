@@ -22,22 +22,3 @@
 //   }
 //   return next(action);
 // };
-
-
-// ----------- EXaMPLE
-
-authenticate: builder.mutation<AuthResponse, AuthData>({
-      query: (userData) => ({
-        url: '/auth',
-        method: 'POST',
-        body: userData,
-      }),
-      async onQueryStarted(arg, { queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          localStorage.setItem('jwtToken', data.token);
-        } catch (error) {
-          console.error('Authentication failed:', error);
-        }
-      },
-    }),
