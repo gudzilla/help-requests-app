@@ -1,7 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { notification } from '@/lib/notifications';
-import { logOut, logOutFx } from '@/store/authenticationSlice';
+import { logOutFx } from '@/store/authenticationSlice';
 import { store } from '../../store';
 
 type ServerError = {
@@ -30,7 +30,6 @@ const isServerError = (
 
 export const errorHandler = (err: FetchBaseQueryError | SerializedError) => {
   if (isFetchBaseQueryError(err)) {
-    //
     if (isServerError(err)) {
       console.error(err);
       // todo: delete later | catching 403 error
