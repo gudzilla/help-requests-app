@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 type AuthState = boolean;
 
 // todo: можно проверить по токену
-const initialState: AuthState = localStorage.getItem('token') === null;
+const initialState: AuthState = Boolean(localStorage.getItem('jwtToken'));
 
 const authenticationSlice = createSlice({
   name: 'isAuth',
