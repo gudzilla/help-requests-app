@@ -1,35 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 
-type AuthState = boolean;
+const initialState = Boolean(localStorage.getItem('jwtToken'));
 
-// todo: можно проверить по токену
-const initialState: AuthState = Boolean(localStorage.getItem('jwtToken'));
-
-const authenticationSlice = createSlice({
-  name: 'isAuth',
-  initialState,
-  reducers: {
-    logIn: () => {
-      return true;
-    },
-    logOut: () => {
-      return false;
-    },
-  },
+export const logInFx = createAsyncThunk('auth/login', async (token: string) => {
+  localStorage.setItem('jwtToken', token);
 });
 
-export const { logIn, logOut } = authenticationSlice.actions;
-
-export default authenticationSlice.reducer;
-
-export const logInFx = (token: string) => (dispatch: AppDispatch) => {
-  localStorage.setItem('jwtToken', token);
-
-  dispatch(logIn());
-};
-
-export const logOutFx = () => (dispatch: AppDispatch) => {
+export const logOutFx = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('jwtToken');
+});
 
-  dispatch(logOut());
-};
+export const authenticateReducer = createReducer(initialState, (builder) => {
+  builder.addCase(logInFx.fulfilled, () => true);
+  builder.addCase(logOutFx.fulfilled, () => false);
+});
