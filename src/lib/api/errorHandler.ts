@@ -2,11 +2,17 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { notification } from '@/lib/notifications';
 import { logOutFx } from '@/store/authenticationSlice';
-import { store } from '../../store';
 
 type ServerError = {
   status: number;
   data: { message: string };
+};
+
+type ErrorHandlerArgs = {
+  // todo: delete
+  // err: FetchBaseQueryError | SerializedError;
+  err: unknown;
+  dispatch: AppDispatch;
 };
 
 export function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
@@ -28,14 +34,15 @@ const isServerError = (
   return !('error' in err);
 };
 
-export const errorHandler = (err: FetchBaseQueryError | SerializedError) => {
+export const errorHandler = ({ err, dispatch }: ErrorHandlerArgs) => {
+  console.log('Внутри errorHandler');
   if (isFetchBaseQueryError(err)) {
     if (isServerError(err)) {
       console.error(err);
       // todo: delete later | catching 403 error
       if (err.status === 403) {
         notification('Token Expired', 'error');
-        store.dispatch(logOutFx());
+        dispatch(logOutFx());
       }
       notification(`Ошибка ${err.status}: ${(err as ServerError).data.message}`, 'error');
     } else {

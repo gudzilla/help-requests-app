@@ -4,19 +4,11 @@ import { LoadingButton } from '@mui/lab';
 import { PasswordInput } from './components/PasswordInput';
 import { LoginInput } from './components/LoginInput';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticateMutation } from '@/lib/api/api';
-import { authRequest } from '@/lib/api/apiAuthRequest';
-
-const FormInputsSchema = z.object({
-  login: z.string().email({ message: 'Введите корректный email-адрес' }),
-  password: z.string().min(8, { message: 'Минимальная длинна пароля 8 символов' }),
-});
-
-export type FormInputs = z.infer<typeof FormInputsSchema>;
+import { FormInputs, FormInputsSchema } from './types';
 
 const formStyles = {
   'maxWidth': '485px',
@@ -45,8 +37,8 @@ export const AuthForm = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onSubmit: SubmitHandler<FormInputs> = async (logInFormData) => {
-    authRequest(authenticate, logInFormData, dispatch, navigate);
+  const onSubmit: SubmitHandler<FormInputs> = async (loginFormData) => {
+    await authenticate({ loginFormData, navigate });
   };
 
   return (

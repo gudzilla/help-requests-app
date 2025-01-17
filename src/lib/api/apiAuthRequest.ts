@@ -19,6 +19,8 @@ export const authRequest = async (
 ) => {
   try {
     const response = await apiRequestFunction(data).unwrap();
+    // todo: delete later
+    console.log('API answer: ', response);
     if (response?.auth) {
       dispatch(logInFx(response.token));
       notification('Вход выполнен', 'success');

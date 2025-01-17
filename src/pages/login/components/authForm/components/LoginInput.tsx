@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
-import { FormInputs } from '../AuthForm';
 import { ControllerRenderProps, FieldErrors } from 'react-hook-form';
+import { FormInputs } from '../types';
 
 type LoginInputProps = {
   field: ControllerRenderProps<FormInputs, 'login'>;
