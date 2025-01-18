@@ -57,10 +57,11 @@ export const helpEldersApi = createApi({
       async onQueryStarted({ navigate }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-
-          dispatch(logInFx(data.token));
-          notification('Вход выполнен', 'success');
-          navigate('/help-catalog', { replace: true });
+          if (data.auth) {
+            dispatch(logInFx(data.token));
+            notification('Вход выполнен', 'success');
+            navigate('/help-catalog', { replace: true });
+          }
         } catch (error: unknown) {
           if (isOnQueryStartError(error)) {
             errorHandler({ err: error.error, dispatch });

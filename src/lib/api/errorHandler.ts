@@ -1,4 +1,3 @@
-import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { notification } from '@/lib/notifications';
 import { logOutFx } from '@/store/authenticationSlice';
@@ -9,8 +8,6 @@ type ServerError = {
 };
 
 type ErrorHandlerArgs = {
-  // todo: delete
-  // err: FetchBaseQueryError | SerializedError;
   err: unknown;
   dispatch: AppDispatch;
 };
@@ -35,26 +32,27 @@ const isServerError = (
 };
 
 export const errorHandler = ({ err, dispatch }: ErrorHandlerArgs) => {
-  console.log('Внутри errorHandler');
   if (isFetchBaseQueryError(err)) {
     if (isServerError(err)) {
       console.error(err);
-      // todo: delete later | catching 403 error
       if (err.status === 403) {
         notification('Token Expired. Relogin', 'error');
         dispatch(logOutFx());
+      } else {
+        notification(
+          `Ошибка ${err.status}: ${(err as ServerError).data.message}`,
+          'error'
+        );
       }
-      notification(`Ошибка ${err.status}: ${(err as ServerError).data.message}`, 'error');
     } else {
       switch (err.status) {
         // Сюда попадет запланированная ошибка сервера с кодом 500.
         // Так как на беке вернули не JSON в error.data
         case 'PARSING_ERROR':
-          console.error(err);
-          notification(`Ошибка ${err.originalStatus}: ${err.data}`, 'error');
+          console.error('PARSING_ERROR: ', err);
           break;
         default:
-          console.log(err.error);
+          console.error(err.error);
           notification(`Ошибка ${err.status}: ${err.error}`, 'error');
       }
     }

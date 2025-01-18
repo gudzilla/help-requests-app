@@ -1,7 +1,7 @@
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ControllerRenderProps, FieldErrors } from 'react-hook-form';
-import { FormInputs } from '../AuthForm';
+import { FormInputs } from '../types';
 
 type PasswordInputProps = {
   field: ControllerRenderProps<FormInputs, 'password'>;
