@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <ProtectedRoute element={<Login />} isLoginPage={true} /> },
+      { index: true, element: <ProtectedRoute element={<Login />} when={'login'} /> },
       {
         path: '/help-catalog',
         children: [
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <ProtectedRoute element={<Login />} isLoginPage={true} />,
+        element: <ProtectedRoute element={<Login />} when={'login'} />,
       },
       {
         path: '/profile',

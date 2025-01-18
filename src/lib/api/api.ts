@@ -65,8 +65,9 @@ export const helpEldersApi = createApi({
         } catch (error: unknown) {
           if (isOnQueryStartError(error)) {
             errorHandler({ err: error.error, dispatch });
+          } else {
+            console.error('Неизвестная ошибка: ', error);
           }
-          console.error('Неизвестная ошибка: ', error);
         }
       },
     }),
