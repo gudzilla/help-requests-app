@@ -76,7 +76,7 @@ export const helpEldersApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-        } catch (error) {
+        } catch (error: unknown) {
           if (isOnQueryStartError(error)) {
             errorHandler({ err: error.error, dispatch });
           }
