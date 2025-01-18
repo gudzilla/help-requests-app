@@ -5,7 +5,6 @@ import { notification } from '../notifications';
 import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
 
-// WITH onQueryStarted
 type AuthData = {
   loginFormData: {
     login: string;
@@ -14,25 +13,23 @@ type AuthData = {
   navigate: NavigateFunction;
 };
 
-// WITH apiAuthRequest
-// type AuthData = {
-//   login: string;
-//   password: string;
-// };
-
 type AuthResponse = {
   auth: boolean;
   token: string;
 };
 
 type OnQueryStartError = {
-  error?: unknown;
+  error: unknown;
   isUnhandledError?: boolean;
   meta?: {
     request?: Record<string, any>;
     response?: Record<string, any>;
   };
 };
+
+function isOnQueryStartError(error: unknown): error is OnQueryStartError {
+  return typeof error === 'object' && error != null && 'error' in error;
+}
 
 type HelpRequestId = Pick<HelpRequestData, 'id'>;
 
@@ -65,24 +62,22 @@ export const helpEldersApi = createApi({
           notification('Вход выполнен', 'success');
           navigate('/help-catalog', { replace: true });
         } catch (error: unknown) {
-          const typedError = error as OnQueryStartError;
-          errorHandler({ err: typedError.error, dispatch });
-
-          // todo: delete
-          // console.log(`Ошибка поймана внутри onQueryStarted.`);
-          // console.error('Ошибка onQueryStarted: ', error); // Вывод ошибки в читабельном формате
-          // console.log('Ошибка (JSON):', JSON.stringify(error, null, 2)); // Строковый формат
-          // errorHandler({ err: error.error, dispatch });
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch });
+          }
+          console.error('Неизвестная ошибка: ', error);
         }
       },
     }),
     getRequests: builder.query<HelpCatalogResponse, void>({
       query: () => '/request',
-      async onQueryStarted(_, { queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
         } catch (error) {
-          console.error('Ошибка на getRequests=>onQueryStarted ', error);
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch });
+          }
         }
       },
     }),

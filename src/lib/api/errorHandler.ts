@@ -41,7 +41,7 @@ export const errorHandler = ({ err, dispatch }: ErrorHandlerArgs) => {
       console.error(err);
       // todo: delete later | catching 403 error
       if (err.status === 403) {
-        notification('Token Expired', 'error');
+        notification('Token Expired. Relogin', 'error');
         dispatch(logOutFx());
       }
       notification(`Ошибка ${err.status}: ${(err as ServerError).data.message}`, 'error');
