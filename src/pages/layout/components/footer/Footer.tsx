@@ -8,9 +8,10 @@ import {
   useTheme,
 } from '@mui/material';
 import { LINKS_ARRAY } from '@/constants/links';
+import { footerMinHeight } from '@/styles/theme';
 
 const linksStackStyles = {
-  minHeight: '152px',
+  minHeight: `${footerMinHeight}px`,
   justifyContent: 'space-between',
   alignItems: 'center',
 };
