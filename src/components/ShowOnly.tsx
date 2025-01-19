@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
+import { useIsAuthSelector } from '@/store/selectors';
 
 type ShowOnlyProps = {
   when: 'authorized' | 'unauthorized';
@@ -7,14 +8,13 @@ type ShowOnlyProps = {
 };
 
 export const ShowOnly = ({ when, children, otherwise = null }: ShowOnlyProps) => {
-  // todo: implement real auth state
-  const isAuth = true;
+  const isAuthenticated = useIsAuthSelector();
 
-  if (!isAuth && when === 'authorized') {
+  if (!isAuthenticated && when === 'authorized') {
     return otherwise;
   }
 
-  if (isAuth && when === 'unauthorized') {
+  if (isAuthenticated && when === 'unauthorized') {
     return otherwise;
   }
 

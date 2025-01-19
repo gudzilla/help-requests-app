@@ -8,9 +8,10 @@ import {
   useTheme,
 } from '@mui/material';
 import { LINKS_ARRAY } from '@/constants/links';
+import { footerMinHeight } from '@/styles/theme';
 
 const linksStackStyles = {
-  height: '100%',
+  minHeight: `${footerMinHeight}px`,
   justifyContent: 'space-between',
   alignItems: 'center',
 };
@@ -21,8 +22,15 @@ export const Footer = () => {
   return (
     <>
       <Divider />
-      <Box component="footer" height={'152px'}>
-        <Container maxWidth="xl" sx={{ height: '100%' }}>
+      <Box
+        component="footer"
+        sx={{
+          position: 'relative',
+          zIndex: 10,
+          background: theme.palette.background.paper,
+        }}
+      >
+        <Container maxWidth="xl">
           <Stack direction="row" sx={linksStackStyles}>
             {LINKS_ARRAY.map((link, index) => (
               <Link

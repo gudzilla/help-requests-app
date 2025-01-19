@@ -1,14 +1,13 @@
 import { Button, useTheme } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { notification } from '@/lib/notifications';
 
 export const LoginButton = () => {
-  const navigate = useNavigate();
   const theme = useTheme();
 
   const buttonStyles = {
-    color: theme.palette.text.primary,
-    borderColor: theme.palette.text.primary,
+    'color': theme.palette.text.primary,
+    'borderColor': theme.palette.text.primary,
     '&:hover': {
       borderColor: theme.palette.text.primary,
       backgroundColor: theme.palette.action.hover,
@@ -16,14 +15,13 @@ export const LoginButton = () => {
   };
 
   const handleClick = () => {
-    navigate('/login');
+    notification('Введите данные в форму для входа');
   };
 
   return (
     <Button
       variant="outlined"
       size="medium"
-      // color="warning"
       endIcon={<KeyboardArrowRightIcon />}
       onClick={handleClick}
       sx={buttonStyles}

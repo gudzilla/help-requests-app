@@ -1,15 +1,14 @@
 import { Box, Link, Paper, useTheme } from '@mui/material';
 import MainLogo from '@/assets/main-logo.svg?react';
-// FROM EXAMPLE
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ProfileMenu } from './components/profileMenu';
 import { ShowOnly } from '@/components/ShowOnly';
 import { LoginButton } from '@/components/LoginButton';
 
-const toolbarStyles = { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' };
+const toolbarStyles = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+};
 
 export const Header = () => {
   const theme = useTheme();
@@ -21,7 +20,7 @@ export const Header = () => {
           <Container maxWidth="xl">
             <Toolbar disableGutters sx={toolbarStyles}>
               <Box sx={{ justifySelf: 'start' }}>
-                <Link href="/login">
+                <Link href="/help-catalog">
                   <MainLogo />
                 </Link>
               </Box>

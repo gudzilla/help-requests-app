@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Tooltip, IconButton, Paper, Menu } from '@mui/material';
+import { Tooltip, IconButton, Paper, Menu, Box } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { ProfileMenuItems } from './ProfileMenuItems';
+import { ProfileMenuList } from './ProfileMenuList';
 
 export const ProfileMenu = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -15,7 +15,7 @@ export const ProfileMenu = () => {
   };
 
   return (
-    <>
+    <Box>
       <Tooltip title="Открыть меню профиля">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <AccountCircleIcon sx={{ color: '#BDBDBD', height: '40px', width: '40px' }} />
@@ -38,9 +38,9 @@ export const ProfileMenu = () => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          <ProfileMenuItems closeMenu={handleCloseUserMenu} />
+          <ProfileMenuList closeMenu={handleCloseUserMenu} />
         </Menu>
       </Paper>
-    </>
+    </Box>
   );
 };
