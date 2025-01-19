@@ -9,7 +9,7 @@ import { footerMinHeight, headerMinHeight } from '@/styles/theme';
 const mainStyles = {
   display: 'flex',
   flexDirection: 'column',
-  minHeight: `calc(100vh - (${headerMinHeight + footerMinHeight}))`,
+  minHeight: `calc(100vh - (${headerMinHeight}px + ${footerMinHeight}px))`,
   overflowY: 'scroll',
   borderLeft: 1,
   borderRight: 1,
