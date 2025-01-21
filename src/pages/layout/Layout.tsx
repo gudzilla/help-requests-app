@@ -14,12 +14,14 @@ const mainStyles = {
   borderLeft: 1,
   borderRight: 1,
   borderColor: 'divider',
+  backgroundColor: '#f5f5f5',
 };
 
 export const Layout = () => {
   return (
     <Box>
       <Header />
+      {/* <Container maxWidth="xl" sx={{ backgroundColor: '#fff' }}> */}
       <Container maxWidth="xl">
         <Box component="main" sx={mainStyles}>
           <Outlet />

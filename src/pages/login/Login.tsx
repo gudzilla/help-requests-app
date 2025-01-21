@@ -7,6 +7,7 @@ const mainLayout = {
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   height: '100%',
+  backgroundColor: '#fff',
 };
 
 const sectionStyles = {
