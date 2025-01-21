@@ -18,6 +18,8 @@ type AuthResponse = {
   token: string;
 };
 
+type FavoritesResponse = string[];
+
 type OnQueryStartError = {
   error: unknown;
   isUnhandledError?: boolean;
@@ -71,7 +73,7 @@ export const helpEldersApi = createApi({
         }
       },
     }),
-    getRequests: builder.query<HelpCatalogResponse, void>({
+    getRequests: builder.query<HelpRequestData[], void>({
       query: () => '/request',
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -86,8 +88,15 @@ export const helpEldersApi = createApi({
     getRequestById: builder.query<HelpRequestData, HelpRequestId>({
       query: (requestId) => `/request/${requestId}`,
     }),
+    getFavorites: builder.query<FavoritesResponse, void>({
+      query: () => `/user/favorites`,
+    }),
   }),
 });
 
-export const { useAuthenticateMutation, useGetRequestsQuery, useGetRequestByIdQuery } =
-  helpEldersApi;
+export const {
+  useAuthenticateMutation,
+  useGetRequestsQuery,
+  useGetRequestByIdQuery,
+  useGetFavoritesQuery,
+} = helpEldersApi;

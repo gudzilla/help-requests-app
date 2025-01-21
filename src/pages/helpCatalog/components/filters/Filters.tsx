@@ -15,8 +15,6 @@ export const Filters = () => {
     how: { items: false, finance: false },
   });
 
-  console.log(filters);
-
   const handleFilterChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     filterType: FilterType

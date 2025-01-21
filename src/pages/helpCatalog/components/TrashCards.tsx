@@ -3,14 +3,20 @@ import ErrorIcon from '@/assets/load-error.svg?react';
 import { HelpRequestData } from '@/lib/api/types';
 import { useGetRequestsQuery } from '@/lib/api/api';
 
-export const RequestCards = () => {
+export const TrashCards = () => {
   const { data, isLoading, error } = useGetRequestsQuery();
   // const memoizedHelpRequests = useMemo(() => data, [data]);
-
   let helpRequestsSlice: HelpRequestData[] = [];
   if (data) {
-    helpRequestsSlice = data.slice(0, 10);
+    helpRequestsSlice = data.slice(0, 5);
+    console.log(helpRequestsSlice);
+
+    // TODO DELETE
+    for (let help of helpRequestsSlice) {
+      console.log('Location = ', help.location);
+    }
   }
+
   const dataSliceMinimized = helpRequestsSlice.map((item) => ({
     title: item.title,
     id: item.id,

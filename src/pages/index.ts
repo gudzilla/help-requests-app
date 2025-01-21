@@ -1,8 +1,15 @@
 import { Layout } from './layout/Layout';
 import { NotFound } from './notFound/NotFound';
-import { HelpCatalog } from './helpCatalog/HelpCatalog';
-import { HelpRequest } from './helpRequest/HelpRequest';
+import { HelpCatalogPage } from './helpCatalog/HelpCatalogPage';
+import { HelpRequestPage } from './helpRequest/HelpRequestPage';
 import { Login } from './login/Login';
 import { Profile } from './profile/Profile';
 
-export { Layout, NotFound, HelpCatalog, HelpRequest, Login, Profile };
+export {
+  Layout,
+  NotFound,
+  HelpCatalogPage as HelpCatalog,
+  HelpRequestPage as HelpRequest,
+  Login,
+  Profile,
+};

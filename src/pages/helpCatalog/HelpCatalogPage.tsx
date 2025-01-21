@@ -1,14 +1,29 @@
-import { Box, InputAdornment, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  InputAdornment,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Filters } from './components/filters/Filters';
+import { TrashCards } from './components/TrashCards';
+import { useGetFavoritesQuery } from '../../lib/api/api';
+import { HelpRequestsView } from './components/helpRequestsView/HelpRequestsView';
 
 const mainContentStyle = {
   flex: 1,
 };
 
-const resultsSectionStyle = {};
+export const HelpCatalogPage = () => {
+  const { data: favoritesList } = useGetFavoritesQuery();
+  if (favoritesList) {
+    console.log('favoritesList = ', favoritesList);
+    console.log('favoritesList.favoriteRequests = ', favoritesList?.favoriteRequests);
+  }
 
-export const HelpCatalog = () => {
   return (
     <Stack padding="30px 40px" direction="column" spacing={2}>
       <Typography component="h1" variant="h4">
@@ -37,16 +52,9 @@ export const HelpCatalog = () => {
               />
             </Stack>
           </Paper>
-          <Paper>
-            <Box sx={resultsSectionStyle}>
-              <Stack padding="12px 36px 40px 36px">
-                <Typography variant="h6">Найдено: 33</Typography>
-              </Stack>
-            </Box>
-          </Paper>
+          <HelpRequestsView />
         </Stack>
       </Stack>
-      {/* <RequestCards /> */}
     </Stack>
   );
 };
