@@ -24,19 +24,23 @@ const styles = {
     width: '32px',
     p: 0,
     border: '1px solid rgba(0, 0, 0, 0.12)',
+    marginLeft: 'auto',
   },
   favoriteButtonIcon: {
     color: 'rgba(0, 0, 0, 0.56)',
   },
   title: {
-    p: 0,
-    display: '-webkit-box',
-    overflow: 'hidden',
-    lineClamp: 3, // For better compatibility
-    WebkitBoxOrient: 'vertical',
-    WebkitLineClamp: 3, // Limit to 3 lines
-    // lineHeight: 1.5, // высота строки
-    // height: '4.5em', // 3 строки * высота строки (1.5 * 3 = 4.5em)
+    'p': 0,
+    'display': '-webkit-box',
+    'overflow': 'hidden',
+    'WebkitBoxOrient': 'vertical',
+    'lineClamp': 3, // For better compatibility
+    'WebkitLineClamp': 3, // Limit to 3 lines
+    '& .MuiCardHeader-title': {
+      lineHeight: 1.3,
+    },
+    // prettier-ignore
+    height: '5.85rem',
   },
   goalDescription: {
     display: '-webkit-box',
@@ -130,13 +134,21 @@ export const RequestCard = ({
   return (
     <>
       {isLargeView && (
-        <Card onClick={handleCardClick} sx={{ maxWidth: 320 }}>
+        <Card
+          onClick={handleCardClick}
+          elevation={3}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            maxWidth: 320,
+          }}
+        >
           <CardMedia
             sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           >
             {getImage(requesterType, helpType)}
           </CardMedia>
-          <Box sx={{ p: '16px', display: 'flex' }}>
+          <Box sx={{ p: '16px', display: 'flex', gap: '8px' }}>
             <CardHeader title={title} sx={styles.title} />
             {isFavourite ? (
               <Button
@@ -157,78 +169,86 @@ export const RequestCard = ({
             )}
           </Box>
           <Divider />
-          <CardContent
+          <Box
             sx={{
-              p: '10px 16px',
+              padding: '10px 16px 20px 16px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '20px',
+              flexGrow: 1,
             }}
           >
-            <Stack gap="4px">
-              <Typography variant="subtitle2">Организатор</Typography>
-              <Typography variant="body2">{organization}</Typography>
-            </Stack>
-            <Stack gap="4px">
-              <Typography variant="subtitle2">Локация</Typography>
-              {/* Conditional render for Online or with Location */}
-              {isHelpOnline ? (
-                <Typography variant="body2">Онлайн</Typography>
-              ) : (
-                <>
-                  <Typography variant="body2">Область: {locationDistrict}</Typography>
-                  <Typography variant="body2">
-                    Населенный пункт: {locationCity}
+            <CardContent
+              sx={{
+                padding: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
+                marginBottom: '20px',
+              }}
+            >
+              <Stack gap="4px">
+                <Typography variant="subtitle2">Организатор</Typography>
+                <Typography variant="body2">{organization}</Typography>
+              </Stack>
+              <Stack gap="4px">
+                <Typography variant="subtitle2">Локация</Typography>
+                {/* Conditional render for Online or with Location */}
+                {isHelpOnline ? (
+                  <Typography variant="body2">Онлайн</Typography>
+                ) : (
+                  <>
+                    <Typography variant="body2">Область: {locationDistrict}</Typography>
+                    <Typography variant="body2">
+                      Населенный пункт: {locationCity}
+                    </Typography>
+                  </>
+                )}
+              </Stack>
+              <Stack gap="4px">
+                <Typography variant="subtitle2">Цель сбора</Typography>
+                <Typography variant="body2" sx={styles.goalDescription}>
+                  {goalDescription}
+                </Typography>
+              </Stack>
+              <Stack gap="4px">
+                <Typography variant="subtitle2">Завершение</Typography>
+                <Typography variant="body2">
+                  {new Date(endingDate).toLocaleDateString()}
+                </Typography>
+              </Stack>
+            </CardContent>
+            <CardActions
+              sx={{ display: 'block', padding: 0, marginTop: 'auto' }}
+              disableSpacing
+            >
+              <Stack gap="4px" marginBottom={'10px'}>
+                <Typography variant="subtitle2">Мы собрали</Typography>
+                <LinearProgress
+                  variant="determinate"
+                  value={goalProgressInPercent}
+                  sx={{ borderRadius: 1 }}
+                />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+                    {requestGoalCurrentValue} руб
                   </Typography>
-                </>
-              )}
-            </Stack>
-            <Stack gap="4px">
-              <Typography variant="subtitle2">Цель сбора</Typography>
-              <Typography variant="body2" sx={styles.goalDescription}>
-                {goalDescription}
-              </Typography>
-            </Stack>
-            <Stack gap="4px">
-              <Typography variant="subtitle2">Завершение</Typography>
-              <Typography variant="body2">
-                {new Date(endingDate).toLocaleDateString()}
-              </Typography>
-            </Stack>
-            <Stack gap="4px">
-              <Typography variant="subtitle2">Мы собрали</Typography>
-              <LinearProgress
-                variant="determinate"
-                value={goalProgressInPercent}
-                sx={{ borderRadius: 1 }}
-              />
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+                    {requestGoal} руб
+                  </Typography>
+                </Box>
+              </Stack>
+              <Stack gap="4px">
                 <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
-                  {requestGoalCurrentValue} руб
+                  {contributorsCount === 0
+                    ? 'Вы будете первым'
+                    : `Нас уже: ${contributorsCount}`}
                 </Typography>
-                <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
-                  {requestGoal} руб
-                </Typography>
-              </Box>
-            </Stack>
-          </CardContent>
-          <CardActions sx={{ display: 'block', p: '0 16px 20px 16px' }}>
-            <Stack gap="4px">
-              <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
-                {contributorsCount === 0
-                  ? 'Вы будете первым'
-                  : `Нас уже: ${contributorsCount}`}
-              </Typography>
-              <Button
-                variant="contained"
-                onClick={handleHelpButtonClick}
-                size="large"
-                sx={{ width: '100%' }}
-              >
-                ПОМОЧЬ
-              </Button>
-            </Stack>
-          </CardActions>
+                <Button variant="contained" onClick={handleHelpButtonClick} size="large">
+                  ПОМОЧЬ
+                </Button>
+              </Stack>
+            </CardActions>
+          </Box>
         </Card>
       )}
 

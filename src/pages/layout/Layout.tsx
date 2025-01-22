@@ -22,7 +22,7 @@ export const Layout = () => {
     <Box>
       <Header />
       {/* <Container maxWidth="xl" sx={{ backgroundColor: '#fff' }}> */}
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" disableGutters>
         <Box component="main" sx={mainStyles}>
           <Outlet />
           <ToastContainer />
