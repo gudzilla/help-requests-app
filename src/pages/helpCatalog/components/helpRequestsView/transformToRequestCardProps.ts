@@ -3,6 +3,7 @@ import { DataForRequestCard } from './RequestCard';
 
 function transformToRequestCardProps(helpRequest: HelpRequestData): DataForRequestCard {
   return {
+    id: helpRequest.id || '',
     title: helpRequest.title || '',
     organization: helpRequest.organization?.title || '',
     goalDescription: helpRequest.goalDescription || '',

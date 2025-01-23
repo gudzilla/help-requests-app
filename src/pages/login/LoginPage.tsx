@@ -15,7 +15,7 @@ const sectionStyles = {
   '&:not(:last-child)': { borderRight: 1, borderColor: 'divider' },
 };
 
-export const Login = () => {
+export const LoginPage = () => {
   return (
     <Box sx={mainLayout}>
       <Box component="section" sx={sectionStyles}>

@@ -1,17 +1,8 @@
-import {
-  Box,
-  Button,
-  InputAdornment,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Stack, Typography } from '@mui/material';
 import { Filters } from './components/filters/Filters';
-import { TrashCards } from './components/TrashCards';
 import { useGetFavoritesQuery } from '../../lib/api/api';
 import { HelpRequestsView } from './components/helpRequestsView/HelpRequestsView';
+import { SearchBar } from './components/search/SearchBar';
 
 const mainContentStyle = {
   flex: 1,
@@ -32,26 +23,7 @@ export const HelpCatalogPage = () => {
       <Stack direction="row" spacing={'20px'}>
         <Filters />
         <Stack direction="column" spacing={'20px'} sx={mainContentStyle}>
-          <Paper>
-            <Stack direction="column" padding="20px 36px 40px 36px" spacing={'10px'}>
-              <Typography variant="h6">Поиск</Typography>
-              <TextField
-                id="standard-search"
-                type="search"
-                variant="standard"
-                placeholder="Введите название задачи или организации"
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
-            </Stack>
-          </Paper>
+          <SearchBar />
           <HelpRequestsView />
         </Stack>
       </Stack>

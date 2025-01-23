@@ -16,6 +16,7 @@ import StarIcon from '@mui/icons-material/Star';
 import CardImage1 from '@/assets/card-image-1.svg?react';
 import CardImage2 from '@/assets/card-image-2.svg?react';
 import CardImage3 from '@/assets/card-image-3.svg?react';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   favoriteButton: {
@@ -39,6 +40,8 @@ const styles = {
     '& .MuiCardHeader-title': {
       lineHeight: 1.3,
     },
+
+    // проблема в том что height меняется в 'height'
     // prettier-ignore
     height: '5.85rem',
   },
@@ -52,16 +55,13 @@ const styles = {
 };
 
 export type DataForRequestCard = {
+  id: string;
   title: string;
-  // organization.title
   organization: string;
   goalDescription: string;
   endingDate: string;
-  // location.district
   locationDistrict: string;
-  // location.city
   locationCity: string;
-  // helperRequirements.isOnline
   isHelpOnline: boolean;
   requesterType: 'person' | 'organization';
   helpType: 'finance' | 'material';
@@ -78,6 +78,7 @@ type RequestCardProps = {
 
 export const RequestCard = ({
   dataForRequestCard: {
+    id,
     title,
     organization,
     goalDescription,
@@ -100,6 +101,7 @@ export const RequestCard = ({
   const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
 
   const isLargeView = view === 'large';
+  const navigate = useNavigate();
 
   const getImage = (requesterType, helpType) => {
     if (requesterType === 'organization') {
@@ -121,8 +123,7 @@ export const RequestCard = ({
   };
 
   const handleCardClick = () => {
-    //  ТУТ НАДО ОТКРЫТЬ СТРАНИЦУ Request'а
-    console.log('Переход на страницу реквеста');
+    navigate(`/help-catalog/${id}`);
   };
 
   const handleHelpButtonClick = (e) => {
@@ -313,24 +314,3 @@ export const RequestCard = ({
     </>
   );
 };
-
-// RequestCard.propTypes = {
-//   id: pt.string,
-//   title: pt.string,
-//   organization: pt.string,
-//   goalDescription: pt.string,
-//   endingDate: pt.string,
-//   locationDistrict: pt.string,
-//   locationCity: pt.string,
-//   isHelpOnline: pt.bool,
-//   contributorsCount: pt.number,
-//   requestGoal: pt.number,
-//   requestGoalCurrentValue: pt.number,
-//   isFavourite: pt.bool,
-//   addToFavourite: pt.func,
-//   removeFromFavourites: pt.func,
-//   onDonate: pt.func,
-//   requesterType: pt.oneOf(['person', 'organization']),
-//   helpType: pt.oneOf(['finance', 'material']),
-//   view: pt.oneOf(['large', 'small']),
-// };

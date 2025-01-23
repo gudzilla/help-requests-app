@@ -1,30 +1,44 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataForRequestCard, RequestCard } from './RequestCard';
-import ErrorIcon from '@/assets/load-error.svg?react';
+import { RTKQueryRequestError } from '@/lib/api/types';
+import { ResultsError } from './ResultsError';
+import { ResultsLoading } from './ResultsLoading';
 
-export const Results = ({ cardsPage, error }) => {
+const StyleForErrorAndLoading = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  height: '816px',
+};
+
+type ResultsProps = {
+  cards: [] | DataForRequestCard[];
+  error: RTKQueryRequestError;
+  isLoading: boolean;
+};
+export const Results = (props: ResultsProps) => {
+  const { cards, error, isLoading } = props;
+
   if (error) {
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          height: '816px',
-        }}
-      >
-        <ErrorIcon style={{ marginBottom: '24px' }} />
-        <Typography color="error" variant="h5">
-          Ошибка! Не удалось загрузить информацию
-        </Typography>
+      <Box sx={StyleForErrorAndLoading}>
+        <ResultsError />
+      </Box>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Box sx={StyleForErrorAndLoading}>
+        <ResultsLoading />
       </Box>
     );
   }
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      {cardsPage.map((request: DataForRequestCard) => {
+      {cards.map((request: DataForRequestCard) => {
         return (
           <RequestCard key={request.title} dataForRequestCard={request} view="large" />
         );
