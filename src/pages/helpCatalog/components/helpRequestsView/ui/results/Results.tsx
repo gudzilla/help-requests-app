@@ -20,14 +20,6 @@ type ResultsProps = {
 export const Results = (props: ResultsProps) => {
   const { cards, error, isLoading } = props;
 
-  if (error) {
-    return (
-      <Box sx={StyleForErrorAndLoading}>
-        <ResultsError />
-      </Box>
-    );
-  }
-
   if (isLoading) {
     return (
       <Box sx={StyleForErrorAndLoading}>
@@ -36,6 +28,13 @@ export const Results = (props: ResultsProps) => {
     );
   }
 
+  if (error) {
+    return (
+      <Box sx={StyleForErrorAndLoading}>
+        <ResultsError />
+      </Box>
+    );
+  }
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
       {cards.map((request: DataForRequestCard) => {
