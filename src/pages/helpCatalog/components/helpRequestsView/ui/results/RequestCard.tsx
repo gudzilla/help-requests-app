@@ -35,22 +35,26 @@ const styles = {
     'display': '-webkit-box',
     'overflow': 'hidden',
     'WebkitBoxOrient': 'vertical',
-    'lineClamp': 3, // For better compatibility
-    'WebkitLineClamp': 3, // Limit to 3 lines
+    'lineClamp': 3,
+    'WebkitLineClamp': 3,
     '& .MuiCardHeader-title': {
       lineHeight: 1.3,
     },
-
     // проблема в том что height меняется в 'height'
     // prettier-ignore
     height: '5.85rem',
   },
+  oneLineText: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
   goalDescription: {
     display: '-webkit-box',
     overflow: 'hidden',
-    lineClamp: 2, // For better compatibility
     WebkitBoxOrient: 'vertical',
-    WebkitLineClamp: 2, // Limit to 3 lines
+    lineClamp: 2,
+    WebkitLineClamp: 2,
   },
 };
 
@@ -69,6 +73,9 @@ export type DataForRequestCard = {
   requestGoal: number;
   requestGoalCurrentValue: number;
 };
+
+type RequesterType = DataForRequestCard['requesterType'];
+type HelpType = DataForRequestCard['helpType'];
 
 type RequestCardProps = {
   dataForRequestCard: DataForRequestCard;
@@ -103,7 +110,7 @@ export const RequestCard = ({
   const isLargeView = view === 'large';
   const navigate = useNavigate();
 
-  const getImage = (requesterType, helpType) => {
+  const getImage = (requesterType: RequesterType, helpType: HelpType) => {
     if (requesterType === 'organization') {
       return <CardImage2 />;
     } else if (helpType === 'finance') {
@@ -113,21 +120,22 @@ export const RequestCard = ({
     }
   };
 
-  const handleAddToFavourite = (e) => {
-    e.stopPropagation();
-    // addToFavourite();
-  };
-  const handleRemoveFromFavourite = (e) => {
-    e.stopPropagation();
-    // removeFromFavourites();
-  };
+  // ----------------- FAVORITE LOGIN -------------------
+  // const handleAddToFavourite = (e) => {
+  //   e.stopPropagation();
+  //   // addToFavourite();
+  // };
+  // const handleRemoveFromFavourite = (e) => {
+  //   e.stopPropagation();
+  //   // removeFromFavourites();
+  // };
 
   const handleCardClick = () => {
     navigate(`/help-catalog/${id}`);
   };
 
-  const handleHelpButtonClick = (e) => {
-    e.stopPropagation();
+  const handleHelpButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     console.log('Help Button');
     // onDonate();
   };
@@ -141,7 +149,7 @@ export const RequestCard = ({
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            maxWidth: 320,
+            width: 320,
           }}
         >
           <CardMedia
@@ -154,7 +162,7 @@ export const RequestCard = ({
             {isFavourite ? (
               <Button
                 variant="outlined"
-                onClick={handleRemoveFromFavourite}
+                // onClick={handleRemoveFromFavourite}
                 sx={styles.favoriteButton}
               >
                 <StarIcon sx={styles.favoriteButtonIcon} />
@@ -162,7 +170,7 @@ export const RequestCard = ({
             ) : (
               <Button
                 variant="outlined"
-                onClick={handleAddToFavourite}
+                // onClick={handleAddToFavourite}
                 sx={styles.favoriteButton}
               >
                 <StarBorderIcon sx={styles.favoriteButtonIcon} />
@@ -189,7 +197,9 @@ export const RequestCard = ({
             >
               <Stack gap="4px">
                 <Typography variant="subtitle2">Организатор</Typography>
-                <Typography variant="body2">{organization}</Typography>
+                <Typography variant="body2" sx={styles.oneLineText}>
+                  {organization}
+                </Typography>
               </Stack>
               <Stack gap="4px">
                 <Typography variant="subtitle2">Локация</Typography>
@@ -198,8 +208,10 @@ export const RequestCard = ({
                   <Typography variant="body2">Онлайн</Typography>
                 ) : (
                   <>
-                    <Typography variant="body2">Область: {locationDistrict}</Typography>
-                    <Typography variant="body2">
+                    <Typography variant="body2" sx={styles.oneLineText}>
+                      Область: {locationDistrict}
+                    </Typography>
+                    <Typography variant="body2" sx={styles.oneLineText}>
                       Населенный пункт: {locationCity}
                     </Typography>
                   </>
@@ -211,17 +223,17 @@ export const RequestCard = ({
                   {goalDescription}
                 </Typography>
               </Stack>
-              <Stack gap="4px">
-                <Typography variant="subtitle2">Завершение</Typography>
-                <Typography variant="body2">
-                  {new Date(endingDate).toLocaleDateString()}
-                </Typography>
-              </Stack>
             </CardContent>
             <CardActions
               sx={{ display: 'block', padding: 0, marginTop: 'auto' }}
               disableSpacing
             >
+              <Stack gap="4px" marginBottom={'20px'}>
+                <Typography variant="subtitle2">Завершение</Typography>
+                <Typography variant="body2">
+                  {new Date(endingDate).toLocaleDateString()}
+                </Typography>
+              </Stack>
               <Stack gap="4px" marginBottom={'10px'}>
                 <Typography variant="subtitle2">Мы собрали</Typography>
                 <LinearProgress
@@ -255,7 +267,7 @@ export const RequestCard = ({
 
       {/* ---------------------- SMALL VIEW --------------------*/}
       {!isLargeView && (
-        <Card sx={{ maxWidth: 320 }}>
+        <Card sx={{ width: 320 }}>
           <CardContent
             sx={{
               p: '10px 16px',

@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import { Filters } from './components/filters/Filters';
 import { useGetFavoritesQuery } from '../../lib/api/api';
 import { HelpRequestsView } from './components/helpRequestsView/HelpRequestsView';
-import { SearchBar } from './components/search/SearchBar';
+import { SearchBar } from './components/searchBar/SearchBar';
 
 const mainContentStyle = {
   flex: 1,

@@ -1,5 +1,5 @@
 import { HelpRequestData } from '@/lib/api/types';
-import { DataForRequestCard } from './RequestCard';
+import { DataForRequestCard } from './ui/results/RequestCard';
 
 function transformToRequestCardProps(helpRequest: HelpRequestData): DataForRequestCard {
   return {
