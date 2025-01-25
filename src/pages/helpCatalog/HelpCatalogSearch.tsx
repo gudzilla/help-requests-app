@@ -1,7 +1,7 @@
 import { InputAdornment, Paper, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const SearchBar = () => {
+export const HelpCatalogSearch = () => {
   return (
     <Paper>
       <Stack direction="column" padding="20px 36px 40px 36px" spacing={'10px'}>

@@ -8,7 +8,7 @@ export type RTKQueryRequestError = FetchBaseQueryError | SerializedError | undef
 //  -------------------------- HELP-ELDERS  API RESPONSE TYPES
 
 export interface UserData {
-  id?: string;
+  id: string;
   name?: string;
   lastName?: string;
   birthdate?: string;
@@ -39,7 +39,7 @@ export interface UserData {
 }
 
 export type HelpRequestData = {
-  id?: string;
+  id: string;
   title?: string;
   organization?: {
     title?: string;

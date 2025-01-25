@@ -7,7 +7,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 
 type CardsView = 'vertical' | 'horizontal' | 'map';
 
-export function ViewModeSwitcher() {
+export function ResultsViewModeSwitcher() {
   const [view, setView] = React.useState<CardsView>('vertical');
 
   const handleAlignment = (

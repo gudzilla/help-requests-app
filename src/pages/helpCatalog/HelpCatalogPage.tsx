@@ -1,19 +1,20 @@
 import { Stack, Typography } from '@mui/material';
 import { Filters } from './components/filters/Filters';
 import { useGetFavoritesQuery } from '../../lib/api/api';
-import { HelpRequestsView } from './components/helpRequestsView/HelpRequestsView';
-import { SearchBar } from './components/searchBar/SearchBar';
+import { Results } from './components/results/Results';
+import { HelpCatalogSearch } from './HelpCatalogSearch';
 
 const mainContentStyle = {
   flex: 1,
 };
 
 export const HelpCatalogPage = () => {
-  const { data: favoritesList } = useGetFavoritesQuery();
-  if (favoritesList) {
-    console.log('favoritesList = ', favoritesList);
-    console.log('favoritesList.favoriteRequests = ', favoritesList?.favoriteRequests);
-  }
+  // ----------------FAVORITES ---------------
+  // const { data: favoritesList } = useGetFavoritesQuery();
+  // if (favoritesList) {
+  //   console.log('favoritesList = ', favoritesList);
+  //   console.log('favoritesList.favoriteRequests = ', favoritesList?.favoriteRequests);
+  // }
 
   return (
     <Stack padding="30px 40px" direction="column" spacing={2}>
@@ -23,8 +24,8 @@ export const HelpCatalogPage = () => {
       <Stack direction="row" spacing={'20px'}>
         <Filters />
         <Stack direction="column" spacing={'20px'} sx={mainContentStyle}>
-          <SearchBar />
-          <HelpRequestsView />
+          <HelpCatalogSearch />
+          <Results />
         </Stack>
       </Stack>
     </Stack>

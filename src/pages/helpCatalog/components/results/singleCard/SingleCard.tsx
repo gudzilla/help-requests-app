@@ -17,48 +17,11 @@ import CardImage1 from '@/assets/card-image-1.svg?react';
 import CardImage2 from '@/assets/card-image-2.svg?react';
 import CardImage3 from '@/assets/card-image-3.svg?react';
 import { useNavigate } from 'react-router-dom';
+import { styles } from './styles';
+import { useContributionMutation } from '@/lib/api/api';
+import { errorHandler } from '../../../../../lib/api/errorHandler';
 
-const styles = {
-  favoriteButton: {
-    minWidth: '32px',
-    height: '32px',
-    width: '32px',
-    p: 0,
-    border: '1px solid rgba(0, 0, 0, 0.12)',
-    marginLeft: 'auto',
-  },
-  favoriteButtonIcon: {
-    color: 'rgba(0, 0, 0, 0.56)',
-  },
-  title: {
-    'p': 0,
-    'display': '-webkit-box',
-    'overflow': 'hidden',
-    'WebkitBoxOrient': 'vertical',
-    'lineClamp': 3,
-    'WebkitLineClamp': 3,
-    '& .MuiCardHeader-title': {
-      lineHeight: 1.3,
-    },
-    // проблема в том что height меняется в 'height'
-    // prettier-ignore
-    height: '5.85rem',
-  },
-  oneLineText: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  goalDescription: {
-    display: '-webkit-box',
-    overflow: 'hidden',
-    WebkitBoxOrient: 'vertical',
-    lineClamp: 2,
-    WebkitLineClamp: 2,
-  },
-};
-
-export type DataForRequestCard = {
+export type DataForSingleCard = {
   id: string;
   title: string;
   organization: string;
@@ -74,42 +37,45 @@ export type DataForRequestCard = {
   requestGoalCurrentValue: number;
 };
 
-type RequesterType = DataForRequestCard['requesterType'];
-type HelpType = DataForRequestCard['helpType'];
+type RequesterType = DataForSingleCard['requesterType'];
+type HelpType = DataForSingleCard['helpType'];
 
-type RequestCardProps = {
-  dataForRequestCard: DataForRequestCard;
+type SingleCardProps = {
+  dataForRequestCard: DataForSingleCard;
   view: 'large' | 'small';
   isFavourite?: boolean;
 };
 
-export const RequestCard = ({
-  dataForRequestCard: {
-    id,
-    title,
-    organization,
-    goalDescription,
-    endingDate,
-    locationCity,
-    locationDistrict,
-    isHelpOnline,
-    contributorsCount,
-    requestGoal,
-    requestGoalCurrentValue,
-    requesterType,
-    helpType,
-    // addToFavourite,
-    // removeFromFavourites,
-    // onDonate,
-  },
-  view = 'large',
-  isFavourite = false,
-}: RequestCardProps) => {
+export const SingleCard = (props: SingleCardProps) => {
+  const {
+    view = 'large',
+    isFavourite = false,
+    dataForRequestCard: {
+      id,
+      title,
+      organization,
+      goalDescription,
+      endingDate,
+      locationCity,
+      locationDistrict,
+      isHelpOnline,
+      contributorsCount,
+      requestGoal,
+      requestGoalCurrentValue,
+      requesterType,
+      helpType,
+      // addToFavourite,
+      // removeFromFavourites,
+      // onDonate,
+    },
+  } = props;
+
   const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
-
-  const isLargeView = view === 'large';
+  const isLargeView = Boolean(view === 'large');
   const navigate = useNavigate();
+  const [contribution, { isLoading, error }] = useContributionMutation();
 
+  // логика выбора картинки для карточки
   const getImage = (requesterType: RequesterType, helpType: HelpType) => {
     if (requesterType === 'organization') {
       return <CardImage2 />;
@@ -134,10 +100,11 @@ export const RequestCard = ({
     navigate(`/help-catalog/${id}`);
   };
 
-  const handleHelpButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleHelpButtonClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    console.log('Help Button');
+    console.log('Кнопка ПОМОЧЬ нажата');
     // onDonate();
+    await contribution(id);
   };
 
   return (

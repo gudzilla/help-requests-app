@@ -1,9 +1,9 @@
 import { HelpRequestData } from '@/lib/api/types';
-import { DataForRequestCard } from './ui/results/RequestCard';
+import { DataForSingleCard } from './SingleCard';
 
-function transformToRequestCardProps(helpRequest: HelpRequestData): DataForRequestCard {
+function transformToSingleCardProps(helpRequest: HelpRequestData): DataForSingleCard {
   return {
-    id: helpRequest.id || '',
+    id: helpRequest.id,
     title: helpRequest.title || '',
     organization: helpRequest.organization?.title || '',
     goalDescription: helpRequest.goalDescription || '',
@@ -21,11 +21,10 @@ function transformToRequestCardProps(helpRequest: HelpRequestData): DataForReque
 
 export function transformDataForCardsView(
   requestsArray: HelpRequestData[]
-): DataForRequestCard[] {
+): DataForSingleCard[] {
   const preparedArray = [];
-
   for (let request of requestsArray) {
-    preparedArray.push(transformToRequestCardProps(request));
+    preparedArray.push(transformToSingleCardProps(request));
   }
 
   return preparedArray;

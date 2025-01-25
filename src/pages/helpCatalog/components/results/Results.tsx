@@ -1,16 +1,16 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import { DataForRequestCard } from './ui/results/RequestCard';
+import { DataForSingleCard } from './singleCard/SingleCard';
 import { useGetRequestsQuery } from '@/lib/api/api';
-import { transformDataForCardsView } from './transformToRequestCardProps';
-import { Results } from './ui/results/Results';
-import { ViewModeSwitcher } from './ViewModeSwitcher';
-import { PaginationView } from './ui/paginationView/PaginationView';
+import { transformDataForCardsView } from './singleCard/transformToSingleCardProps';
+import { HelpCards } from './HelpCards';
+import { ResultsViewModeSwitcher } from './ResultsViewModeSwitcher';
+import { ResultsPagination } from './ResultsPagination';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 
 const ITEMS_PER_PAGE = 3;
 
-export const HelpRequestsView = () => {
+export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const {
     data: helpRequestsData,
@@ -21,7 +21,7 @@ export const HelpRequestsView = () => {
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
   const isLoading = isLoadingQuery || isFakeLoading;
   const resultsFound = helpRequestsData?.length;
-  let itemsReadyForRender: DataForRequestCard[] | [] = [];
+  let itemsReadyForRender: DataForSingleCard[] | [] = [];
   let totalPages = 0;
 
   const handlePageChange = (value: number) => {
@@ -54,11 +54,11 @@ export const HelpRequestsView = () => {
             <Typography variant="h6">
               Найдено: {error || isLoading ? '0' : resultsFound}
             </Typography>
-            <ViewModeSwitcher />
+            <ResultsViewModeSwitcher />
           </Stack>
-          <Results cards={itemsReadyForRender} error={error} isLoading={isLoading} />
+          <HelpCards cards={itemsReadyForRender} error={error} isLoading={isLoading} />
           {helpRequestsData && (
-            <PaginationView
+            <ResultsPagination
               currentPage={currentPage}
               totalPages={totalPages}
               setPage={handlePageChange}

@@ -33,7 +33,7 @@ function isOnQueryStartError(error: unknown): error is OnQueryStartError {
   return typeof error === 'object' && error != null && 'error' in error;
 }
 
-type HelpRequestId = Pick<HelpRequestData, 'id'>;
+type HelpRequestId = HelpRequestData['id'];
 
 export type HelpCatalogResponse = HelpRequestData[];
 
@@ -51,6 +51,7 @@ export const helpEldersApi = createApi({
   }),
   endpoints: (builder) => ({
     authenticate: builder.mutation<AuthResponse, AuthData>({
+      // todo: должен ли еще принимать navigate?
       query: ({ loginFormData }) => ({
         url: '/auth',
         method: 'POST',
@@ -91,6 +92,25 @@ export const helpEldersApi = createApi({
     getFavorites: builder.query<FavoritesResponse, void>({
       query: () => `/user/favorites`,
     }),
+    contribution: builder.mutation<string, string>({
+      query: (requestId) => ({
+        url: `/request/${requestId}/contribution`,
+        method: 'POST',
+        body: { requestId },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          notification('Успех! Спасибо за помощь', 'success');
+        } catch (error: unknown) {
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch });
+          } else {
+            console.error('Неизвестная ошибка: ', error);
+          }
+        }
+      },
+    }),
   }),
 });
 
@@ -99,4 +119,5 @@ export const {
   useGetRequestsQuery,
   useGetRequestByIdQuery,
   useGetFavoritesQuery,
+  useContributionMutation,
 } = helpEldersApi;
