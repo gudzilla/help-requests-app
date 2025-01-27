@@ -67,9 +67,7 @@ export const helpEldersApi = createApi({
           }
         } catch (error: unknown) {
           if (isOnQueryStartError(error)) {
-            errorHandler({ err: error.error, dispatch });
-          } else {
-            console.error('Неизвестная ошибка: ', error);
+            errorHandler({ err: error.error, dispatch, toastOn500: true });
           }
         }
       },
@@ -97,16 +95,17 @@ export const helpEldersApi = createApi({
         url: `/request/${requestId}/contribution`,
         method: 'POST',
         body: { requestId },
+        responseHandler: (response) => response.text(),
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           notification('Успех! Спасибо за помощь', 'success');
         } catch (error: unknown) {
+          // todo: delete
+          console.log(error);
           if (isOnQueryStartError(error)) {
-            errorHandler({ err: error.error, dispatch });
-          } else {
-            console.error('Неизвестная ошибка: ', error);
+            errorHandler({ err: error.error, dispatch, toastOn500: true });
           }
         }
       },

@@ -32,7 +32,7 @@ export const Results = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFakeLoading(false);
-    }, 1100);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 

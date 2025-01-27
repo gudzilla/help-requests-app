@@ -10,6 +10,7 @@ type ServerError = {
 type ErrorHandlerArgs = {
   err: unknown;
   dispatch: AppDispatch;
+  toastOn500?: boolean;
 };
 
 export function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
@@ -31,21 +32,26 @@ const isServerError = (
   return !('error' in err);
 };
 
-export const errorHandler = ({ err, dispatch }: ErrorHandlerArgs) => {
+export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandlerArgs) => {
   if (isFetchBaseQueryError(err)) {
     if (isServerError(err)) {
       console.error(err);
       if (err.status === 403) {
-        notification('Token Expired. Relogin', 'error');
+        notification('Токен истек. Перезайдите в ваш профиль.', 'error');
         dispatch(logOutFx());
+      } else if (err.status === 500 && toastOn500) {
+        notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
       } else {
+        // todo: для дргих ошибок сервера нужны
+        // конкретные ответы в зависимости от эндпойнта
         notification(
-          `Ошибка ${err.status}: ${(err as ServerError).data.message}`,
+          `Ошибка Cервера ${err.status}: ${(err as ServerError).data.message}`,
           'error'
         );
       }
     } else {
       switch (err.status) {
+        // todo: больше не будет попадать
         // Сюда попадет запланированная ошибка сервера с кодом 500.
         // Так как на беке вернули не JSON в error.data
         case 'PARSING_ERROR':
@@ -56,10 +62,10 @@ export const errorHandler = ({ err, dispatch }: ErrorHandlerArgs) => {
           notification(`Ошибка ${err.status}: ${err.error}`, 'error');
       }
     }
-  }
-
-  if (isErrorWithMessage(err)) {
+  } else if (isErrorWithMessage(err)) {
     console.error('Error with message:', err);
     notification(err.message, 'error');
+  } else {
+    console.error('Неизвестная ошибка: ', err);
   }
 };
