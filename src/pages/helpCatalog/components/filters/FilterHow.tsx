@@ -12,7 +12,7 @@ type FilterHowProps = {
 };
 
 export function FilterHow({ state, onChange }: FilterHowProps) {
-  const { items, finance } = state;
+  const { material, finance } = state;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e, 'how');
@@ -24,7 +24,9 @@ export function FilterHow({ state, onChange }: FilterHowProps) {
         <FormLabel component="legend">Чем мы помогаем</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox checked={items} onChange={handleChange} name="items" />}
+            control={
+              <Checkbox checked={material} onChange={handleChange} name="material" />
+            }
             label="Вещи"
           />
           <FormControlLabel

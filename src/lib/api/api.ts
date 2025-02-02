@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HelpRequestData } from './types';
-import { logInFx } from '@/store/authenticationSlice';
+import { logInFx } from '@/store/authenticationReducer';
 import { notification } from '../notifications';
 import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
@@ -85,9 +85,11 @@ export const helpEldersApi = createApi({
       },
     }),
     getRequestById: builder.query<HelpRequestData, HelpRequestId>({
+      // todo: тост на 500 ошибку НЕ нужен
       query: (requestId) => `/request/${requestId}`,
     }),
     getFavorites: builder.query<FavoritesResponse, void>({
+      // todo: ошибка 500 показать ТОСТ
       query: () => `/user/favorites`,
     }),
     contribution: builder.mutation<string, string>({
@@ -102,8 +104,6 @@ export const helpEldersApi = createApi({
           await queryFulfilled;
           notification('Успех! Спасибо за помощь', 'success');
         } catch (error: unknown) {
-          // todo: delete
-          console.log(error);
           if (isOnQueryStartError(error)) {
             errorHandler({ err: error.error, dispatch, toastOn500: true });
           }

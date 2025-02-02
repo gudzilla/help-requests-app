@@ -1,6 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { notification } from '@/lib/notifications';
-import { logOutFx } from '@/store/authenticationSlice';
+import { logOutFx } from '@/store/authenticationReducer';
 
 type ServerError = {
   status: number;
@@ -42,7 +42,7 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
       } else if (err.status === 500 && toastOn500) {
         notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
       } else {
-        // todo: для дргих ошибок сервера нужны
+        // todo: для других ошибок сервера нужны
         // конкретные ответы в зависимости от эндпойнта
         notification(
           `Ошибка Cервера ${err.status}: ${(err as ServerError).data.message}`,
@@ -56,6 +56,9 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
         // Так как на беке вернули не JSON в error.data
         case 'PARSING_ERROR':
           console.error('PARSING_ERROR: ', err);
+          if (err.originalStatus === 500 && toastOn500) {
+            notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
+          }
           break;
         default:
           console.error(err.error);

@@ -1,4 +1,22 @@
 export const styles = {
+  card: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 320,
+  },
+  cardBody: {
+    padding: '10px 16px 20px 16px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
+  cardBodyContent: {
+    padding: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    marginBottom: '20px',
+  },
   favoriteButton: {
     minWidth: '32px',
     height: '32px',
@@ -20,7 +38,7 @@ export const styles = {
     '& .MuiCardHeader-title': {
       lineHeight: 1.3,
     },
-    // проблема в том что height меняется в 'height'
+    // Ignore нужен чтобы height НЕ менялся в 'height' (со скорбками)
     // prettier-ignore
     height: '5.85rem',
   },

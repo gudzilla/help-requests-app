@@ -1,5 +1,5 @@
 import { HelpRequestData } from '@/lib/api/types';
-import { DataForSingleCard } from './SingleCard';
+import { DataForSingleCard } from './types';
 
 function transformToSingleCardProps(helpRequest: HelpRequestData): DataForSingleCard {
   return {

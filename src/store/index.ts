@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authenticateReducer } from './authenticationSlice';
+import { authenticationReducer } from './authenticationReducer';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { helpEldersApi } from '../lib/api/api';
 
 export const store = configureStore({
   reducer: {
-    auth: authenticateReducer,
+    auth: authenticationReducer,
     [helpEldersApi.reducerPath]: helpEldersApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,

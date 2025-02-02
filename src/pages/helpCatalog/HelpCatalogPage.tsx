@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { Filters } from './components/filters/Filters';
-import { useGetFavoritesQuery } from '../../lib/api/api';
+import { useGetFavoritesQuery } from '@/lib/api/api';
 import { Results } from './components/results/Results';
 import { HelpCatalogSearch } from './HelpCatalogSearch';
 

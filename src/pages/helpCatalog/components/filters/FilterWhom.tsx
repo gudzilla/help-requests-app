@@ -12,8 +12,6 @@ type FilterWhomProps = {
 };
 
 export function FilterWhom({ state, onChange }: FilterWhomProps) {
-  const { pensioners, eldersHome } = state;
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e, 'whom');
   };
@@ -25,13 +23,21 @@ export function FilterWhom({ state, onChange }: FilterWhomProps) {
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox checked={pensioners} onChange={handleChange} name="pensioners" />
+              <Checkbox
+                checked={state === 'pensioners'}
+                onChange={handleChange}
+                name="pensioners"
+              />
             }
             label="Пенсионерам"
           />
           <FormControlLabel
             control={
-              <Checkbox checked={eldersHome} onChange={handleChange} name="eldersHome" />
+              <Checkbox
+                checked={state === 'eldersHome'}
+                onChange={handleChange}
+                name="eldersHome"
+              />
             }
             label="Дома престарелых"
           />

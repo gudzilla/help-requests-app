@@ -1,5 +1,5 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import { DataForSingleCard } from './singleCard/SingleCard';
+import { DataForSingleCard } from './singleCard/types';
 import { useGetRequestsQuery } from '@/lib/api/api';
 import { transformDataForCardsView } from './singleCard/transformToSingleCardProps';
 import { HelpCards } from './HelpCards';
@@ -17,11 +17,11 @@ export const Results = () => {
     isLoading: isLoadingQuery,
     error,
   } = useGetRequestsQuery();
-  // Фейковый стейт для отображения загрузки
+  // Фейковый стейт чтобы удлинить отображение загрузки
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
   const isLoading = isLoadingQuery || isFakeLoading;
   const resultsFound = helpRequestsData?.length;
-  let itemsReadyForRender: DataForSingleCard[] | [] = [];
+  let itemsReadyForRender: DataForSingleCard[] = [];
   let totalPages = 0;
 
   const handlePageChange = (value: number) => {
@@ -37,6 +37,7 @@ export const Results = () => {
   }, []);
 
   if (helpRequestsData) {
+    console.log('helpRequestsData = ', helpRequestsData.slice(0, 10));
     const { currentItems, totalPages: total } = usePagination(
       helpRequestsData,
       ITEMS_PER_PAGE,

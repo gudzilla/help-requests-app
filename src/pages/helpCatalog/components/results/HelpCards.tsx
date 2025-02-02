@@ -22,7 +22,7 @@ export const HelpCards = (props: HelpCardsProps) => {
   if (isLoading) {
     return (
       <Box sx={StyleForErrorAndLoading}>
-        <CircularProgress size="5rem" />;
+        <CircularProgress size="5rem" />
       </Box>
     );
   }

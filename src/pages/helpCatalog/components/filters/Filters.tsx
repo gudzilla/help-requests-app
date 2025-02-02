@@ -11,8 +11,8 @@ const filtersSectionStyle = {
 
 export const Filters = () => {
   const [filters, setFilters] = React.useState<FiltersType>({
-    whom: { pensioners: false, eldersHome: false },
-    how: { items: false, finance: false },
+    whom: null,
+    // how: { material: false, finance: false },
   });
 
   const handleFilterChange = (
@@ -21,13 +21,17 @@ export const Filters = () => {
   ) => {
     const { name, checked } = event.target;
 
-    setFilters({
-      ...filters,
-      [filterType]: {
-        ...filters[filterType],
-        [name]: checked,
-      },
-    });
+    if (checked) {
+      setFilters({
+        ...filters,
+        [filterType]: name,
+      });
+    } else {
+      setFilters({
+        ...filters,
+        [filterType]: null,
+      });
+    }
   };
 
   return (
@@ -38,7 +42,7 @@ export const Filters = () => {
           <Divider />
         </Box>
         <FilterWhom state={filters.whom} onChange={handleFilterChange} />
-        <FilterHow state={filters.how} onChange={handleFilterChange} />
+        {/* <FilterHow state={filters.how} onChange={handleFilterChange} /> */}
       </Stack>
     </Paper>
   );
