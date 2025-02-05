@@ -7,6 +7,7 @@ import { ResultsViewModeSwitcher } from './ResultsViewModeSwitcher';
 import { ResultsPagination } from './ResultsPagination';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
+import { useFilteredDataSelector } from '../../state/selectors/useApplyFiltersSelector';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -37,7 +38,8 @@ export const Results = () => {
   }, []);
 
   if (helpRequestsData) {
-    console.log('helpRequestsData = ', helpRequestsData.slice(0, 10));
+    console.log('helpRequestsData has data!');
+    // const filteredData = useFilteredDataSelector();
     const { currentItems, totalPages: total } = usePagination(
       helpRequestsData,
       ITEMS_PER_PAGE,

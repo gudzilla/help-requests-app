@@ -1,7 +1,8 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { DataForSingleCard, SingleCard } from './singleCard/SingleCard';
+import { SingleCard } from './singleCard/SingleCard';
 import { RTKQueryRequestError } from '@/lib/api/types';
 import ErrorIcon from '@/assets/load-error.svg?react';
+import { DataForSingleCard } from './singleCard/types';
 
 const StyleForErrorAndLoading = {
   display: 'flex',
@@ -12,7 +13,7 @@ const StyleForErrorAndLoading = {
 };
 
 type HelpCardsProps = {
-  cards: [] | DataForSingleCard[];
+  cards: DataForSingleCard[];
   error: RTKQueryRequestError;
   isLoading: boolean;
 };

@@ -4,16 +4,20 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { FilterType, FilterWhomType } from './types';
+import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
+import { useAppDispatch } from '@/lib/redux/hooks';
 
-type FilterWhomProps = {
-  state: FilterWhomType;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>, filterType: FilterType) => void;
-};
+export function FilterWhom() {
+  const { requesterType } = useFiltersStateSelector();
+  const dispatch = useAppDispatch();
 
-export function FilterWhom({ state, onChange }: FilterWhomProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e, 'whom');
+    const { name, checked } = e.target;
+    if (checked) {
+      dispatch({ type: 'filters/setRequesterType', payload: name });
+    } else {
+      dispatch({ type: 'filters/setRequesterType', payload: null });
+    }
   };
 
   return (
@@ -24,9 +28,9 @@ export function FilterWhom({ state, onChange }: FilterWhomProps) {
           <FormControlLabel
             control={
               <Checkbox
-                checked={state === 'pensioners'}
+                checked={requesterType === 'person'}
                 onChange={handleChange}
-                name="pensioners"
+                name="person"
               />
             }
             label="Пенсионерам"
@@ -34,9 +38,9 @@ export function FilterWhom({ state, onChange }: FilterWhomProps) {
           <FormControlLabel
             control={
               <Checkbox
-                checked={state === 'eldersHome'}
+                checked={requesterType === 'organization'}
                 onChange={handleChange}
-                name="eldersHome"
+                name="organization"
               />
             }
             label="Дома престарелых"

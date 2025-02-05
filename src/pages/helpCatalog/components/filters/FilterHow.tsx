@@ -4,20 +4,21 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { FilterType, FilterHowType } from './types';
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { useFiltersStateSelector } from '../../state/selectors';
 
-type FilterHowProps = {
-  state: FilterHowType;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>, filterType: FilterType) => void;
-};
-
-export function FilterHow({ state, onChange }: FilterHowProps) {
-  const { material, finance } = state;
+export function FilterHow() {
+  const { helpType } = useFiltersStateSelector();
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e, 'how');
+    const { name, checked } = e.target;
+    if (checked) {
+      dispatch({ type: 'filters/setHelpType', payload: name });
+    } else {
+      dispatch({ type: 'filters/setHelpType', payload: null });
+    }
   };
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <FormControl component="fieldset" variant="standard" error={false}>
@@ -25,13 +26,21 @@ export function FilterHow({ state, onChange }: FilterHowProps) {
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox checked={material} onChange={handleChange} name="material" />
+              <Checkbox
+                checked={helpType === 'material'}
+                onChange={handleChange}
+                name="material"
+              />
             }
             label="Вещи"
           />
           <FormControlLabel
             control={
-              <Checkbox checked={finance} onChange={handleChange} name="finance" />
+              <Checkbox
+                checked={helpType === 'finance'}
+                onChange={handleChange}
+                name="finance"
+              />
             }
             label="Финансирование"
           />

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { HelpRequestData } from '../lib/api/types';
+import { HelpRequestData } from '@/lib/api/types';
 
 // export type HelpRequestFiltersType = {
 //   [K in keyof Pick<HelpRequestData, 'requesterType' | 'helpType'>]:
@@ -14,22 +14,22 @@ import { HelpRequestData } from '../lib/api/types';
 //   };
 // };
 
-type HelperType = HelpRequestData['helperRequirements'];
+type HelperRequirementsType = HelpRequestData['helperRequirements'];
 
 type HelpRequestFiltersType = {
   requesterType: HelpRequestData['requesterType'] | null;
   helpType: HelpRequestData['helpType'] | null;
   helperRequirements: {
-    helperType: HelperType['helperType'] | null;
+    helperType: HelperRequirementsType['helperType'] | null;
     isOnline: boolean | null;
-    qualification: HelperType['qualification'] | null;
+    qualification: HelperRequirementsType['qualification'] | null;
   };
   searchQuery: string;
 };
 
 const initialState: HelpRequestFiltersType = {
-  requesterType: null,
   helpType: null,
+  requesterType: null,
   helperRequirements: {
     helperType: null,
     isOnline: null,
@@ -42,11 +42,21 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    incrementByAmount(state, action: PayloadAction<number>) {
-      state.value += action.payload;
+    setHelpType(state, action: PayloadAction<HelpRequestFiltersType['helpType']>) {
+      state.helpType = action.payload;
     },
+    setRequesterType(
+      state,
+      action: PayloadAction<HelpRequestFiltersType['requesterType']>
+    ) {
+      state.requesterType = action.payload;
+    },
+    // todo: вопрос - МОГУТ ЛИ БЫТЬ ОДИНАКОВЫЕ НАЗВАНИЯ ACTIONS в разных SLICES/Reducers ?
+    // logout() {
+    //   console.log('Второй LogOutFs');
+    // },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = filtersSlice.actions;
+export const { setHelpType, setRequesterType } = filtersSlice.actions;
 export default filtersSlice.reducer;
