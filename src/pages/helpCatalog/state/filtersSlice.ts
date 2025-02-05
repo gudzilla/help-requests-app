@@ -16,9 +16,9 @@ import { HelpRequestData } from '@/lib/api/types';
 
 type HelperRequirementsType = HelpRequestData['helperRequirements'];
 
-type HelpRequestFiltersType = {
-  requesterType: HelpRequestData['requesterType'] | null;
+export type HelpRequestFiltersType = {
   helpType: HelpRequestData['helpType'] | null;
+  requesterType: HelpRequestData['requesterType'] | null;
   helperRequirements: {
     helperType: HelperRequirementsType['helperType'] | null;
     isOnline: boolean | null;

@@ -2,6 +2,7 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { SingleCard } from './singleCard/SingleCard';
 import { RTKQueryRequestError } from '@/lib/api/types';
 import ErrorIcon from '@/assets/load-error.svg?react';
+import NoResults from '@/assets/not-found-result.svg?react';
 import { DataForSingleCard } from './singleCard/types';
 
 const StyleForErrorAndLoading = {
@@ -16,9 +17,10 @@ type HelpCardsProps = {
   cards: DataForSingleCard[];
   error: RTKQueryRequestError;
   isLoading: boolean;
+  noResults: boolean | undefined;
 };
 export const HelpCards = (props: HelpCardsProps) => {
-  const { cards, error, isLoading } = props;
+  const { cards, error, isLoading, noResults } = props;
 
   if (isLoading) {
     return (
@@ -38,12 +40,22 @@ export const HelpCards = (props: HelpCardsProps) => {
       </Box>
     );
   }
+
+  if (noResults) {
+    return (
+      <Box sx={StyleForErrorAndLoading}>
+        <NoResults style={{ marginBottom: '24px' }} />
+        <Typography variant="h5" paddingLeft={'62px'}>
+          Запросы не найдены
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '818px' }}>
       {cards.map((request: DataForSingleCard) => {
-        return (
-          <SingleCard key={request.title} dataForRequestCard={request} view="large" />
-        );
+        return <SingleCard key={request.id} dataForRequestCard={request} view="large" />;
       })}
     </Box>
   );

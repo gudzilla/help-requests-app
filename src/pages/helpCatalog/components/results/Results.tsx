@@ -7,23 +7,38 @@ import { ResultsViewModeSwitcher } from './ResultsViewModeSwitcher';
 import { ResultsPagination } from './ResultsPagination';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
-import { useFilteredDataSelector } from '../../state/selectors/useApplyFiltersSelector';
+import { useFilteredDataSelector } from '../../state/selectors/useFilteredDataSelector';
+import { useFiltersStateSelector } from '../../state/selectors';
 
 const ITEMS_PER_PAGE = 3;
 
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
-  const {
-    data: helpRequestsData,
-    isLoading: isLoadingQuery,
-    error,
-  } = useGetRequestsQuery();
+  const { isLoading: isLoadingQuery, error } = useGetRequestsQuery();
+  const filters = useFiltersStateSelector();
+
   // Фейковый стейт чтобы удлинить отображение загрузки
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
   const isLoading = isLoadingQuery || isFakeLoading;
-  const resultsFound = helpRequestsData?.length;
   let itemsReadyForRender: DataForSingleCard[] = [];
   let totalPages = 0;
+  let resultsFound = 0;
+
+  // ФИЛЬТРОВАННЫЕ ДАННЫЕ
+  const filteredData = useFilteredDataSelector();
+  const hasNoResultsOnFilter = filteredData?.length === 0;
+
+  if (filteredData) {
+    resultsFound = filteredData.length;
+    // --------------------------------- PAGINATION -----------------
+    const { currentItems, totalPages: total } = usePagination(
+      filteredData,
+      ITEMS_PER_PAGE,
+      currentPage
+    );
+    itemsReadyForRender = transformDataForCardsView(currentItems);
+    totalPages = total;
+  }
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
@@ -37,17 +52,10 @@ export const Results = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (helpRequestsData) {
-    console.log('helpRequestsData has data!');
-    // const filteredData = useFilteredDataSelector();
-    const { currentItems, totalPages: total } = usePagination(
-      helpRequestsData,
-      ITEMS_PER_PAGE,
-      currentPage
-    );
-    itemsReadyForRender = transformDataForCardsView(currentItems);
-    totalPages = total;
-  }
+  // ----------- ПЕРЕХОД НА 1-ю СТР ПРИ СМЕНЕ ФИЛЬТРОВ
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
 
   return (
     <Paper>
@@ -59,8 +67,13 @@ export const Results = () => {
             </Typography>
             <ResultsViewModeSwitcher />
           </Stack>
-          <HelpCards cards={itemsReadyForRender} error={error} isLoading={isLoading} />
-          {helpRequestsData && (
+          <HelpCards
+            cards={itemsReadyForRender}
+            error={error}
+            isLoading={isLoading}
+            noResults={hasNoResultsOnFilter}
+          />
+          {filteredData && (
             <ResultsPagination
               currentPage={currentPage}
               totalPages={totalPages}
