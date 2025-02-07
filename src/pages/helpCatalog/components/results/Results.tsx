@@ -27,6 +27,7 @@ export const Results = () => {
   // ФИЛЬТРОВАННЫЕ ДАННЫЕ
   const filteredData = useFilteredDataSelector();
   const hasNoResultsOnFilter = filteredData?.length === 0;
+  const dataNotEmpty = !hasNoResultsOnFilter;
 
   if (filteredData) {
     resultsFound = filteredData.length;
@@ -73,7 +74,7 @@ export const Results = () => {
             isLoading={isLoading}
             noResults={hasNoResultsOnFilter}
           />
-          {filteredData && (
+          {filteredData && dataNotEmpty && (
             <ResultsPagination
               currentPage={currentPage}
               totalPages={totalPages}

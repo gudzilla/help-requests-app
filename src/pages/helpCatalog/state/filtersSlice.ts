@@ -2,30 +2,20 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { HelpRequestData } from '@/lib/api/types';
 
-// export type HelpRequestFiltersType = {
-//   [K in keyof Pick<HelpRequestData, 'requesterType' | 'helpType'>]:
-//     | HelpRequestData[K]
-//     | null;
-// } & {
-//   helperRequirements: {
-//     [P in keyof HelpRequestData['helperRequirements']]:
-//       | HelpRequestData['helperRequirements'][P]
-//       | null;
-//   };
-// };
-
-type HelperRequirementsType = HelpRequestData['helperRequirements'];
+export type HelperRequirementsType = HelpRequestData['helperRequirements'];
 
 export type HelpRequestFiltersType = {
   helpType: HelpRequestData['helpType'] | null;
   requesterType: HelpRequestData['requesterType'] | null;
   helperRequirements: {
     helperType: HelperRequirementsType['helperType'] | null;
-    isOnline: boolean | null;
+    isOnline: HelperRequirementsType['isOnline'] | null;
     qualification: HelperRequirementsType['qualification'] | null;
   };
   searchQuery: string;
 };
+
+export type HelperRequirementsFilterType = HelpRequestFiltersType['helperRequirements'];
 
 const initialState: HelpRequestFiltersType = {
   helpType: null,
@@ -51,6 +41,12 @@ const filtersSlice = createSlice({
     ) {
       state.requesterType = action.payload;
     },
+    setVolunteerQualification(
+      state,
+      action: PayloadAction<HelperRequirementsFilterType['qualification']>
+    ) {
+      state.helperRequirements.qualification = action.payload;
+    },
     // todo: вопрос - МОГУТ ЛИ БЫТЬ ОДИНАКОВЫЕ НАЗВАНИЯ ACTIONS в разных SLICES/Reducers ?
     // logout() {
     //   console.log('Второй LogOutFs');
@@ -58,5 +54,6 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setHelpType, setRequesterType } = filtersSlice.actions;
+export const { setHelpType, setRequesterType, setVolunteerQualification } =
+  filtersSlice.actions;
 export default filtersSlice.reducer;

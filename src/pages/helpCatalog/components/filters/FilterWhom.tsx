@@ -6,6 +6,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
+import { HelpRequestData } from '@/lib/api/types';
+import { setRequesterType } from '../../state/filtersSlice';
+
+type RequesterType = HelpRequestData['requesterType'];
+type StrictRequesterTypeMap = { [K in RequesterType]: K };
+
+const requesterTypeValues: StrictRequesterTypeMap = {
+  person: 'person',
+  organization: 'organization',
+} as const;
 
 export function FilterWhom() {
   const { requesterType } = useFiltersStateSelector();
@@ -14,39 +24,39 @@ export function FilterWhom() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     if (checked) {
-      dispatch({ type: 'filters/setRequesterType', payload: name });
+      dispatch(setRequesterType(name as RequesterType));
     } else {
-      dispatch({ type: 'filters/setRequesterType', payload: null });
+      dispatch(setRequesterType(null));
     }
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <FormControl component="fieldset" variant="standard" error={false}>
-        <FormLabel component="legend">Кому мы помогаем</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={requesterType === 'person'}
-                onChange={handleChange}
-                name="person"
-              />
-            }
-            label="Пенсионерам"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={requesterType === 'organization'}
-                onChange={handleChange}
-                name="organization"
-              />
-            }
-            label="Дома престарелых"
-          />
-        </FormGroup>
-      </FormControl>
-    </Box>
+    // <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <FormControl component="fieldset" variant="standard">
+      <FormLabel component="legend">Кому мы помогаем</FormLabel>
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={requesterType === requesterTypeValues.person}
+              onChange={handleChange}
+              name={requesterTypeValues.person}
+            />
+          }
+          label="Пенсионерам"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={requesterType === requesterTypeValues.organization}
+              onChange={handleChange}
+              name={requesterTypeValues.organization}
+            />
+          }
+          label="Дома престарелых"
+        />
+      </FormGroup>
+    </FormControl>
+    // </Box>
   );
 }

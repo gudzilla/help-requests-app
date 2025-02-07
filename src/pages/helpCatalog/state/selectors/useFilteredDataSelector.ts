@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/lib/redux/hooks';
 import { createSelector } from '@reduxjs/toolkit';
 import { HelpRequestData } from '../../../../lib/api/types';
-import { HelpRequestFiltersType } from '../filtersSlice';
+import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../filtersSlice';
 
 // todo: ВОПРОС - || [] верно или лучше по другому ?
 const requestsDataSelector = (state: RootState) =>
@@ -18,10 +18,18 @@ const filterByRequester =
   (requesterType: HelpRequestFiltersType['requesterType']) => (data: HelpRequestData) =>
     requesterType === null ? true : requesterType === data.requesterType;
 
+const filterByQualification =
+  (qualification: HelperRequirementsFilterType['qualification']) =>
+  (data: HelpRequestData) =>
+    qualification === null
+      ? true
+      : qualification === data.helperRequirements.qualification;
+
 const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) => {
   const filterFunctions = [
     filterByType(filters.helpType),
     filterByRequester(filters.requesterType),
+    filterByQualification(filters.helperRequirements.qualification),
   ];
 
   return data.filter((requestData) =>

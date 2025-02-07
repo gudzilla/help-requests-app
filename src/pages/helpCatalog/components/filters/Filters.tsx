@@ -1,6 +1,7 @@
 import { Box, Divider, Paper, Stack, Typography } from '@mui/material';
 import { FilterWhom } from './FilterWhom';
 import { FilterHow } from './FilterHow';
+import { FiltersVolunteer } from './filtersVolunteer/FiltersVolunteer';
 
 const filtersSectionStyle = {
   width: '320px',
@@ -17,6 +18,7 @@ export const Filters = () => {
         </Box>
         <FilterWhom />
         <FilterHow />
+        <FiltersVolunteer />
       </Stack>
     </Paper>
   );

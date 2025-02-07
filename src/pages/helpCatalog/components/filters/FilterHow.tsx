@@ -6,6 +6,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useFiltersStateSelector } from '../../state/selectors';
+import { setHelpType } from '../../state/filtersSlice';
+import { HelpRequestData } from '../../../../lib/api/types';
+
+type HelpType = HelpRequestData['helpType'];
+type StrictHelpTypeMap = { [K in HelpType]: K };
+
+const helpTypeValues: StrictHelpTypeMap = {
+  finance: 'finance',
+  material: 'material',
+} as const;
 
 export function FilterHow() {
   const { helpType } = useFiltersStateSelector();
@@ -14,38 +24,40 @@ export function FilterHow() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     if (checked) {
-      dispatch({ type: 'filters/setHelpType', payload: name });
+      dispatch(setHelpType(name as HelpType));
     } else {
-      dispatch({ type: 'filters/setHelpType', payload: null });
+      // dispatch({ type: 'filters/setHelpType', payload: null });
+      dispatch(setHelpType(null));
     }
   };
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <FormControl component="fieldset" variant="standard" error={false}>
-        <FormLabel component="legend">Чем мы помогаем</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={helpType === 'material'}
-                onChange={handleChange}
-                name="material"
-              />
-            }
-            label="Вещи"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={helpType === 'finance'}
-                onChange={handleChange}
-                name="finance"
-              />
-            }
-            label="Финансирование"
-          />
-        </FormGroup>
-      </FormControl>
-    </Box>
+    // <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    // <Box>
+    <FormControl component="fieldset" variant="standard">
+      <FormLabel component="legend">Чем мы помогаем</FormLabel>
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={helpType === helpTypeValues.material}
+              onChange={handleChange}
+              name={helpTypeValues.material}
+            />
+          }
+          label="Вещи"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={helpType === helpTypeValues.finance}
+              onChange={handleChange}
+              name={helpTypeValues.finance}
+            />
+          }
+          label="Финансирование"
+        />
+      </FormGroup>
+    </FormControl>
+    // </Box>
   );
 }
