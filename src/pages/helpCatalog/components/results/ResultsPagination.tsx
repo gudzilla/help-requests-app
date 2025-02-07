@@ -10,7 +10,7 @@ type ResultsPaginationProps = {
 
 export function ResultsPagination(props: ResultsPaginationProps) {
   const { totalPages, currentPage, setPage } = props;
-  // const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  // todo: вопрос - unknown?
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };

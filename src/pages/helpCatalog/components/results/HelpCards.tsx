@@ -10,8 +10,7 @@ const StyleForErrorAndLoading = {
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  // height: '816px',
-  height: '60vh',
+  height: '64vh',
 };
 
 type HelpCardsProps = {

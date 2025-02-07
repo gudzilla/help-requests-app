@@ -17,8 +17,9 @@ export const Results = () => {
   const { isLoading: isLoadingQuery, error } = useGetRequestsQuery();
   const filters = useFiltersStateSelector();
 
-  // Фейковый стейт чтобы удлинить отображение загрузки
+  // Cтейт чтобы удлинить отображение загрузки
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
+
   const isLoading = isLoadingQuery || isFakeLoading;
   let itemsReadyForRender: DataForSingleCard[] = [];
   let totalPages = 0;
@@ -26,8 +27,10 @@ export const Results = () => {
 
   // ФИЛЬТРОВАННЫЕ ДАННЫЕ
   const filteredData = useFilteredDataSelector();
+
   const hasNoResultsOnFilter = filteredData?.length === 0;
   const dataNotEmpty = !hasNoResultsOnFilter;
+  const showPagination = filteredData && dataNotEmpty && !error && !isLoading;
 
   if (filteredData) {
     resultsFound = filteredData.length;
@@ -49,7 +52,7 @@ export const Results = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFakeLoading(false);
-    }, 1000);
+    }, 700);
     return () => clearTimeout(timer);
   }, []);
 
@@ -74,7 +77,7 @@ export const Results = () => {
             isLoading={isLoading}
             noResults={hasNoResultsOnFilter}
           />
-          {filteredData && dataNotEmpty && (
+          {showPagination && (
             <ResultsPagination
               currentPage={currentPage}
               totalPages={totalPages}

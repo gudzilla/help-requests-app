@@ -3,18 +3,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box } from '@mui/material';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
-import { useAppDispatch } from '@/lib/redux/hooks';
-import {
-  HelperRequirementsType,
-  setVolunteerQualification,
-} from '../../../state/filtersSlice';
+import { Box, Stack } from '@mui/material';
+import { Qualification } from './Qualification';
+import { VolunteerFormat } from './VolunteerFormat';
+import { VolunteersNeeded } from './VolunteersNeeded';
 
 const style = {
   summary: {
@@ -32,29 +24,7 @@ const style = {
   },
 };
 
-type Qualification = HelperRequirementsType['qualification'];
-type StrictQualificationMap = { [K in Qualification]: K };
-
-const qualificationValues: StrictQualificationMap = {
-  professional: 'professional',
-  common: 'common',
-} as const;
-
 export const FiltersVolunteer = () => {
-  const {
-    helperRequirements: { qualification },
-  } = useFiltersStateSelector();
-  const dispatch = useAppDispatch();
-
-  const handleQualificationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-
-    if (checked) {
-      dispatch(setVolunteerQualification(name as Qualification));
-    } else {
-      dispatch(setVolunteerQualification(null));
-    }
-  };
   return (
     <Box>
       <Accordion defaultExpanded elevation={0}>
@@ -62,31 +32,11 @@ export const FiltersVolunteer = () => {
           <Typography component="span">Волонтерство</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ backgroundColor: '#f5f5f5', borderRadius: 1 }}>
-          <FormControl component="fieldset" variant="standard">
-            <FormLabel component="legend">Специализация</FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={qualification === qualificationValues.professional}
-                    onChange={handleQualificationChange}
-                    name={qualificationValues.professional}
-                  />
-                }
-                label="Квалифицированная"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={qualification === qualificationValues.common}
-                    onChange={handleQualificationChange}
-                    name={qualificationValues.common}
-                  />
-                }
-                label="Не требует профессии"
-              />
-            </FormGroup>
-          </FormControl>
+          <Stack gap={'16px'}>
+            <Qualification />
+            <VolunteerFormat />
+            <VolunteersNeeded />
+          </Stack>
         </AccordionDetails>
       </Accordion>
     </Box>

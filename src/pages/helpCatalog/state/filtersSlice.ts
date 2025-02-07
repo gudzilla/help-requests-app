@@ -47,6 +47,18 @@ const filtersSlice = createSlice({
     ) {
       state.helperRequirements.qualification = action.payload;
     },
+    setVolunteerFormat(
+      state,
+      action: PayloadAction<HelperRequirementsFilterType['isOnline']>
+    ) {
+      state.helperRequirements.isOnline = action.payload;
+    },
+    setVolunteersNeeded(
+      state,
+      action: PayloadAction<HelperRequirementsFilterType['helperType']>
+    ) {
+      state.helperRequirements.helperType = action.payload;
+    },
     // todo: вопрос - МОГУТ ЛИ БЫТЬ ОДИНАКОВЫЕ НАЗВАНИЯ ACTIONS в разных SLICES/Reducers ?
     // logout() {
     //   console.log('Второй LogOutFs');
@@ -54,6 +66,11 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setHelpType, setRequesterType, setVolunteerQualification } =
-  filtersSlice.actions;
+export const {
+  setHelpType,
+  setRequesterType,
+  setVolunteerQualification,
+  setVolunteerFormat,
+  setVolunteersNeeded,
+} = filtersSlice.actions;
 export default filtersSlice.reducer;

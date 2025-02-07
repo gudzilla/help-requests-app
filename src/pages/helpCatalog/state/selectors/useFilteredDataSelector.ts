@@ -3,11 +3,9 @@ import { createSelector } from '@reduxjs/toolkit';
 import { HelpRequestData } from '../../../../lib/api/types';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../filtersSlice';
 
-// todo: ВОПРОС - || [] верно или лучше по другому ?
 const requestsDataSelector = (state: RootState) =>
   // ЧТО ЗА НАФИГ с (undefined)
   state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[];
-// state.helpEldersApi.queries.getRequests?.data ;
 const filtersSelector = (state: RootState) => state.filters;
 
 const filterByType =
@@ -25,11 +23,21 @@ const filterByQualification =
       ? true
       : qualification === data.helperRequirements.qualification;
 
+const filterByFormat =
+  (isOnline: HelperRequirementsFilterType['isOnline']) => (data: HelpRequestData) =>
+    isOnline === null ? true : isOnline === data.helperRequirements.isOnline;
+
+const filterByPeopleNeeded =
+  (helperType: HelperRequirementsFilterType['helperType']) => (data: HelpRequestData) =>
+    helperType === null ? true : helperType === data.helperRequirements.helperType;
+
 const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) => {
   const filterFunctions = [
     filterByType(filters.helpType),
     filterByRequester(filters.requesterType),
     filterByQualification(filters.helperRequirements.qualification),
+    filterByFormat(filters.helperRequirements.isOnline),
+    filterByPeopleNeeded(filters.helperRequirements.helperType),
   ];
 
   return data.filter((requestData) =>
