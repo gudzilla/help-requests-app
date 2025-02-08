@@ -2,6 +2,29 @@ import { useAppSelector } from '@/lib/redux/hooks';
 import { createSelector } from '@reduxjs/toolkit';
 import { HelpRequestData } from '../../../../lib/api/types';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../filtersSlice';
+import { isAfter, isValid, parseISO, startOfDay } from 'date-fns';
+
+const isDate2LaterThanDate1 = (first: Date, second: string): boolean => {
+  const date1 = new Date(first);
+  const date2 = new Date(second);
+
+  console.log('date1 as Date = ', date1);
+  console.log('date2 as String = ', date2);
+
+  const isDate2AfterDate1 =
+    date2.getUTCFullYear() > date1.getUTCFullYear() ||
+    (date2.getUTCFullYear() === date1.getUTCFullYear() &&
+      date2.getUTCMonth() > date1.getUTCMonth()) ||
+    (date2.getUTCFullYear() === date1.getUTCFullYear() &&
+      date2.getUTCMonth() === date1.getUTCMonth() &&
+      date2.getUTCDate() > date1.getUTCDate());
+
+  return isDate2AfterDate1;
+};
+
+// const isDate2AfterDate1 = (date1: Date, date2: Date): boolean => {
+//   return isAfter(startOfDay(parseISO(date2)), startOfDay(parseISO(date1)));
+// };
 
 const requestsDataSelector = (state: RootState) =>
   // ЧТО ЗА НАФИГ с (undefined)
@@ -31,6 +54,14 @@ const filterByPeopleNeeded =
   (helperType: HelperRequirementsFilterType['helperType']) => (data: HelpRequestData) =>
     helperType === null ? true : helperType === data.helperRequirements.helperType;
 
+const filterByDate =
+  (helpDate: HelpRequestFiltersType['helpDate']) => (data: HelpRequestData) => {
+    if (helpDate === null) {
+      return true;
+    }
+    return isDate2LaterThanDate1(helpDate, data.endingDate);
+  };
+
 const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) => {
   const filterFunctions = [
     filterByType(filters.helpType),
@@ -38,6 +69,7 @@ const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) 
     filterByQualification(filters.helperRequirements.qualification),
     filterByFormat(filters.helperRequirements.isOnline),
     filterByPeopleNeeded(filters.helperRequirements.helperType),
+    filterByDate(filters.helpDate),
   ];
 
   return data.filter((requestData) =>

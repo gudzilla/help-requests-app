@@ -31,7 +31,7 @@ export const SingleCardActions = (props: SingleCardActionsProps) => {
       <Stack gap="4px" marginBottom={'20px'}>
         <Typography variant="subtitle2">Завершение</Typography>
         <Typography variant="body2">
-          {new Date(endingDate).toLocaleDateString()}
+          {new Date(endingDate).toLocaleDateString('ru-RU')}
         </Typography>
       </Stack>
       <Stack gap="4px" marginBottom={'10px'}>
