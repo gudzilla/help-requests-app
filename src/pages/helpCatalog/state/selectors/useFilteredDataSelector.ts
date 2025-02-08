@@ -62,6 +62,17 @@ const filterByDate =
     return isDate2LaterThanDate1(helpDate, data.endingDate);
   };
 
+const filteredBySearchQuery =
+  (searchQuery: HelpRequestFiltersType['searchQuery']) => (data: HelpRequestData) => {
+    if (searchQuery === '') {
+      return true;
+    }
+    return (
+      data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      data.organization.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
 const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) => {
   const filterFunctions = [
     filterByType(filters.helpType),
@@ -70,6 +81,7 @@ const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) 
     filterByFormat(filters.helperRequirements.isOnline),
     filterByPeopleNeeded(filters.helperRequirements.helperType),
     filterByDate(filters.helpDate),
+    filteredBySearchQuery(filters.searchQuery),
   ];
 
   return data.filter((requestData) =>

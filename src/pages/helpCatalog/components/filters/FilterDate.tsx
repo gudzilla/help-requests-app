@@ -11,13 +11,9 @@ import { useFiltersStateSelector } from '../../state/selectors';
 export const FilterDate = () => {
   const dispatch = useAppDispatch();
   const { helpDate } = useFiltersStateSelector();
-  const hasData = helpDate !== null;
+  const dateIsNotNull = helpDate !== null;
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
-      {/* <DatePicker
-        label="Выберите дату"
-        onChange={(newValue) => dispatch(setFilterDate(newValue))}
-      /> */}
       <FormControl>
         <FormLabel sx={{ marginBottom: '10px' }}>Помощь актуальна до:</FormLabel>
         <DatePicker
@@ -38,7 +34,7 @@ export const FilterDate = () => {
                 ...params.InputProps,
                 endAdornment: (
                   <>
-                    {hasData && (
+                    {dateIsNotNull && (
                       <InputAdornment position="end">
                         <IconButton
                           onClick={() => {

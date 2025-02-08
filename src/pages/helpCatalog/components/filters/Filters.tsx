@@ -3,7 +3,7 @@ import { FilterWhom } from './FilterWhom';
 import { FilterHow } from './FilterHow';
 import { FiltersVolunteer } from './filtersVolunteer/FiltersVolunteer';
 import { FilterDate } from './FilterDate';
-import { useAppDispatch } from '../../../../lib/redux/hooks';
+import { useAppDispatch } from '@/lib/redux/hooks';
 import { removeAllFilters } from '../../state/filtersSlice';
 
 const filtersSectionStyle = {

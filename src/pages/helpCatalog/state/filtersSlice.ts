@@ -64,13 +64,12 @@ const filtersSlice = createSlice({
     setFilterDate(state, action: PayloadAction<HelpRequestFiltersType['helpDate']>) {
       state.helpDate = action.payload;
     },
+    setSearchQuery(state, action: PayloadAction<HelpRequestFiltersType['searchQuery']>) {
+      state.searchQuery = action.payload;
+    },
     removeAllFilters() {
       return initialState;
     },
-    // todo: вопрос - МОГУТ ЛИ БЫТЬ ОДИНАКОВЫЕ НАЗВАНИЯ ACTIONS в разных SLICES/Reducers ?
-    // logout() {
-    //   console.log('Второй LogOutFs');
-    // },
   },
 });
 
@@ -81,6 +80,7 @@ export const {
   setVolunteerFormat,
   setVolunteersNeeded,
   setFilterDate,
+  setSearchQuery,
   removeAllFilters,
 } = filtersSlice.actions;
 export default filtersSlice.reducer;
