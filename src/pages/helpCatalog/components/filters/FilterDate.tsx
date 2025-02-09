@@ -12,13 +12,21 @@ export const FilterDate = () => {
   const dispatch = useAppDispatch();
   const { helpDate } = useFiltersStateSelector();
   const dateIsNotNull = helpDate !== null;
+
+  const dateValue = dateIsNotNull ? new Date(helpDate) : null;
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
       <FormControl>
         <FormLabel sx={{ marginBottom: '10px' }}>Помощь актуальна до:</FormLabel>
         <DatePicker
-          value={helpDate}
-          onChange={(newValue) => dispatch(setFilterDate(newValue))}
+          value={dateValue}
+          onChange={(newValue) => {
+            if (newValue !== null) {
+              const date = new Date(newValue);
+              dispatch(setFilterDate(date.toISOString()));
+            }
+          }}
           slotProps={{
             textField: ({ inputProps, ...params }) => ({
               ...params,

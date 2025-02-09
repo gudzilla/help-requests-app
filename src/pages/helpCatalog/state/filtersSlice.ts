@@ -1,22 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { HelpRequestData } from '@/lib/api/types';
-
-export type HelperRequirementsType = HelpRequestData['helperRequirements'];
-
-export type HelpRequestFiltersType = {
-  helpType: HelpRequestData['helpType'] | null;
-  requesterType: HelpRequestData['requesterType'] | null;
-  helperRequirements: {
-    helperType: HelperRequirementsType['helperType'] | null;
-    isOnline: HelperRequirementsType['isOnline'] | null;
-    qualification: HelperRequirementsType['qualification'] | null;
-  };
-  helpDate: Date | null;
-  searchQuery: string;
-};
-
-export type HelperRequirementsFilterType = HelpRequestFiltersType['helperRequirements'];
+import { HelperRequirementsFilterType, HelpRequestFiltersType } from './types';
 
 const initialState: HelpRequestFiltersType = {
   helpType: null,

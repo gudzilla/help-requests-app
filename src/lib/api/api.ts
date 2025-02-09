@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { HelpRequestData } from './types';
+import { HelpRequestData, UserData } from './types';
 import { logInFx } from '@/store/authenticationReducer';
 import { notification } from '../notifications';
 import { errorHandler } from './errorHandler';
@@ -92,6 +92,10 @@ export const helpEldersApi = createApi({
       // todo: ошибка 500 показать ТОСТ
       query: () => `/user/favorites`,
     }),
+    getUser: builder.query<UserData, void>({
+      // todo: ошибка 500 показать ТОСТ
+      query: () => `/user`,
+    }),
     contribution: builder.mutation<string, string>({
       query: (requestId) => ({
         url: `/request/${requestId}/contribution`,
@@ -119,4 +123,5 @@ export const {
   useGetRequestByIdQuery,
   useGetFavoritesQuery,
   useContributionMutation,
+  useGetUserQuery,
 } = helpEldersApi;

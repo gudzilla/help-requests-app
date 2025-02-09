@@ -1,33 +1,23 @@
 import { useAppSelector } from '@/lib/redux/hooks';
 import { createSelector } from '@reduxjs/toolkit';
-import { HelpRequestData } from '../../../../lib/api/types';
-import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../filtersSlice';
+import { HelpRequestData } from '@/lib/api/types';
 import { isAfter, isValid, parseISO, startOfDay } from 'date-fns';
+import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../types';
 
-const isDate2LaterThanDate1 = (first: Date, second: string): boolean => {
-  const date1 = new Date(first);
-  const date2 = new Date(second);
+// ----------------- Compare two dates with Date-Fns ----------------
+function isValidISOString(isoString: string) {
+  const date = parseISO(isoString);
+  return isValid(date);
+}
 
-  console.log('date1 as Date = ', date1);
-  console.log('date2 as String = ', date2);
-
-  const isDate2AfterDate1 =
-    date2.getUTCFullYear() > date1.getUTCFullYear() ||
-    (date2.getUTCFullYear() === date1.getUTCFullYear() &&
-      date2.getUTCMonth() > date1.getUTCMonth()) ||
-    (date2.getUTCFullYear() === date1.getUTCFullYear() &&
-      date2.getUTCMonth() === date1.getUTCMonth() &&
-      date2.getUTCDate() > date1.getUTCDate());
-
-  return isDate2AfterDate1;
+const isDate2LaterThanDate1 = (date1: string, date2: string): boolean => {
+  if (isValidISOString(date1) && isValidISOString(date2)) {
+    return isAfter(startOfDay(parseISO(date2)), startOfDay(parseISO(date1)));
+  }
+  return false;
 };
 
-// const isDate2AfterDate1 = (date1: Date, date2: Date): boolean => {
-//   return isAfter(startOfDay(parseISO(date2)), startOfDay(parseISO(date1)));
-// };
-
 const requestsDataSelector = (state: RootState) =>
-  // ЧТО ЗА НАФИГ с (undefined)
   state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[];
 const filtersSelector = (state: RootState) => state.filters;
 
@@ -109,6 +99,6 @@ const filteredDataSelector = createSelector(
 export const useFilteredDataSelector = () => useAppSelector(filteredDataSelector);
 
 // ----------------- OTHER WAY TO ACCESS DATA IN getRequests
-// const requestsData = (state: RootState) =>
-//   state.helpEldersApi.queries['getRequests']?.data ?? [];
-// state.helpEldersApi.queries.getRequests?.data || [];
+// state.helpEldersApi.queries['getRequests(undefined)']?.data;
+// state.helpEldersApi.queries['getRequests(undefined)']?.data ?? [];
+// state.helpEldersApi.queries['getRequests(undefined)']?.data || [];
