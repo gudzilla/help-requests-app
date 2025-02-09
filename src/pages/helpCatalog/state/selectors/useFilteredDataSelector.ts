@@ -85,13 +85,10 @@ const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) 
 const filteredDataSelector = createSelector(
   [requestsDataSelector, filtersSelector],
   (data, filters) => {
-    console.log('filteredDataSelector');
-
     if (!data) {
       return null;
     }
     let filteredData = data;
-    console.log('INSIDE FILTERS');
     filteredData = applyFilters(data, filters);
 
     return filteredData;
