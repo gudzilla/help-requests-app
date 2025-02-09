@@ -41,7 +41,7 @@ export const SingleCard = (props: SingleCardProps) => {
   const navigate = useNavigate();
   const [contribution] = useContributionMutation();
 
-  // ----------------- FAVORITE LOGIN -------------------
+  // ----------------- FAVORITE LOGIC -------------------
   // const handleAddToFavourite = (e) => {
   //   e.stopPropagation();
   //   // addToFavourite();

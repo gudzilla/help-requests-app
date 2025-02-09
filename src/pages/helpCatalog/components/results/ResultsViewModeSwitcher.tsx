@@ -10,10 +10,7 @@ type CardsView = 'vertical' | 'horizontal' | 'map';
 export function ResultsViewModeSwitcher() {
   const [view, setView] = React.useState<CardsView>('vertical');
 
-  const handleAlignment = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: CardsView
-  ) => {
+  const handleAlignment = (_: React.MouseEvent<HTMLElement>, newAlignment: CardsView) => {
     setView(newAlignment);
   };
 

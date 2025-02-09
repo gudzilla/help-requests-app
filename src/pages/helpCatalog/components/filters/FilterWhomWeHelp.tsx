@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -17,7 +16,7 @@ const requesterTypeValues: StrictRequesterTypeMap = {
   organization: 'organization',
 } as const;
 
-export function FilterWhom() {
+export function FilterWhomWeHelp() {
   const { requesterType } = useFiltersStateSelector();
   const dispatch = useAppDispatch();
 
@@ -31,7 +30,6 @@ export function FilterWhom() {
   };
 
   return (
-    // <Box sx={{ display: 'flex', flexDirection: 'column' }}>
     <FormControl component="fieldset" variant="standard">
       <FormLabel component="legend">Кому мы помогаем</FormLabel>
       <FormGroup>
@@ -57,6 +55,5 @@ export function FilterWhom() {
         />
       </FormGroup>
     </FormControl>
-    // </Box>
   );
 }

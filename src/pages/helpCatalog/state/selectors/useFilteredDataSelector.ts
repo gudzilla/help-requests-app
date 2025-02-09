@@ -4,6 +4,10 @@ import { HelpRequestData } from '@/lib/api/types';
 import { isAfter, isValid, parseISO, startOfDay } from 'date-fns';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../types';
 
+const requestsDataSelector = (state: RootState) =>
+  state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[];
+const filtersSelector = (state: RootState) => state.filters;
+
 // ----------------- Compare two dates with Date-Fns ----------------
 function isValidISOString(isoString: string) {
   const date = parseISO(isoString);
@@ -17,10 +21,7 @@ const isDate2LaterThanDate1 = (date1: string, date2: string): boolean => {
   return false;
 };
 
-const requestsDataSelector = (state: RootState) =>
-  state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[];
-const filtersSelector = (state: RootState) => state.filters;
-
+// ----------------- FILTER FUNCTIONS ----------------
 const filterByType =
   (helpType: HelpRequestFiltersType['helpType']) => (data: HelpRequestData) =>
     helpType === null ? true : data.helpType === helpType;

@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HelpRequestData, UserData } from './types';
-import { logInFx } from '@/store/authenticationReducer';
 import { notification } from '../notifications';
 import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
+import { logInFx } from '@/store/authenticationReducer';
 
 type AuthData = {
   loginFormData: {
@@ -51,7 +51,6 @@ export const helpEldersApi = createApi({
   }),
   endpoints: (builder) => ({
     authenticate: builder.mutation<AuthResponse, AuthData>({
-      // todo: должен ли еще принимать navigate?
       query: ({ loginFormData }) => ({
         url: '/auth',
         method: 'POST',
@@ -90,7 +89,7 @@ export const helpEldersApi = createApi({
     }),
     getFavorites: builder.query<FavoritesResponse, void>({
       // todo: ошибка 500 показать ТОСТ
-      query: () => `/user/favorites`,
+      query: () => `/user/favourites`,
     }),
     getUser: builder.query<UserData, void>({
       // todo: ошибка 500 показать ТОСТ

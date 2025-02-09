@@ -7,8 +7,7 @@ import { ResultsViewModeSwitcher } from './ResultsViewModeSwitcher';
 import { ResultsPagination } from './ResultsPagination';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
-import { useFilteredDataSelector } from '../../state/selectors/useFilteredDataSelector';
-import { useFiltersStateSelector } from '../../state/selectors';
+import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -34,7 +33,7 @@ export const Results = () => {
 
   if (filteredData) {
     resultsFound = filteredData.length;
-    // --------------------------------- PAGINATION -----------------
+    // ---------------------- PAGINATION -----------------
     const { currentItems, totalPages: total } = usePagination(
       filteredData,
       ITEMS_PER_PAGE,

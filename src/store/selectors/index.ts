@@ -1,3 +1,1 @@
-import { useIsAuthSelector } from './useIsAuthSelector';
-
-export { useIsAuthSelector };
+export { useIsAuthSelector } from './useIsAuthSelector';

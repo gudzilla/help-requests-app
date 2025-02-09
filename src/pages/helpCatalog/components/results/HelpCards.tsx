@@ -5,7 +5,7 @@ import ErrorIcon from '@/assets/load-error.svg?react';
 import NoResults from '@/assets/not-found-result.svg?react';
 import { DataForSingleCard } from './singleCard/types';
 
-const StyleForErrorAndLoading = {
+const StyleToStrechContainer = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -24,7 +24,7 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (isLoading) {
     return (
-      <Box sx={StyleForErrorAndLoading}>
+      <Box sx={StyleToStrechContainer}>
         <CircularProgress size="5rem" />
       </Box>
     );
@@ -32,7 +32,7 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (error) {
     return (
-      <Box sx={StyleForErrorAndLoading}>
+      <Box sx={StyleToStrechContainer}>
         <ErrorIcon style={{ marginBottom: '24px' }} />
         <Typography color="error" variant="h5">
           Ошибка! Не удалось загрузить информацию
@@ -43,7 +43,7 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (noResults) {
     return (
-      <Box sx={StyleForErrorAndLoading}>
+      <Box sx={StyleToStrechContainer}>
         <NoResults style={{ marginBottom: '24px' }} />
         <Typography variant="h5" paddingLeft={'62px'}>
           Запросы не найдены

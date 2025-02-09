@@ -9,11 +9,10 @@ const mainContentStyle = {
 };
 
 export const HelpCatalogPage = () => {
-  // ----------------FAVORITES ---------------
+  // ---------------- GET FAVORITES LIST ---------------
   // const { data: favoritesList } = useGetFavoritesQuery();
   // if (favoritesList) {
   //   console.log('favoritesList = ', favoritesList);
-  //   console.log('favoritesList.favoriteRequests = ', favoritesList?.favoriteRequests);
   // }
 
   return (

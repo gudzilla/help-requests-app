@@ -7,7 +7,8 @@ import {
 } from '@mui/material';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { HelperRequirementsType, setVolunteersNeeded } from '../../../state/filtersSlice';
+import { setVolunteersNeeded } from '../../../state/filtersSlice';
+import { HelperRequirementsType } from '../../../state/types';
 
 type HelperType = HelperRequirementsType['helperType'];
 type StrictHelperTypeMap = { [K in HelperType]: K };

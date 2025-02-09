@@ -5,9 +5,9 @@ import {
   FormGroup,
   FormLabel,
 } from '@mui/material';
-import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { setVolunteerFormat } from '../../../state/filtersSlice';
+import { useFiltersStateSelector } from '../../../state/selectors';
 
 const isOnlineValues = {
   true: 'true',

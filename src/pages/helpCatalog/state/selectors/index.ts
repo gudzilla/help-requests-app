@@ -1,4 +1,4 @@
-// import { useFilteredDataSelector } from './useFilteredDataSelector';
+import { useFilteredDataSelector } from './useFilteredDataSelector';
 import { useFiltersStateSelector } from './useFiltersStateSelector';
 
-export { useFiltersStateSelector };
+export { useFiltersStateSelector, useFilteredDataSelector };

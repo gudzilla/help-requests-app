@@ -20,9 +20,7 @@ export const HelpCatalogSearch = () => {
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = event;
+    const { value } = event.target;
     setSearchInput(value);
     debouncedChangeHandler(value);
   };

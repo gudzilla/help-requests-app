@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
-import { FilterWhom } from './FilterWhom';
-import { FilterHow } from './FilterHow';
+import { FilterWhomWeHelp } from './FilterWhomWeHelp';
+import { FilterHowWeHelp } from './FilterHowWeHelp';
 import { FiltersVolunteer } from './filtersVolunteer/FiltersVolunteer';
 import { FilterDate } from './FilterDate';
 import { useAppDispatch } from '@/lib/redux/hooks';
@@ -24,8 +24,8 @@ export const Filters = () => {
           <Typography variant="h6">Фильтрация</Typography>
           <Divider />
         </Box>
-        <FilterWhom />
-        <FilterHow />
+        <FilterWhomWeHelp />
+        <FilterHowWeHelp />
         <FiltersVolunteer />
         <FilterDate />
         <Button

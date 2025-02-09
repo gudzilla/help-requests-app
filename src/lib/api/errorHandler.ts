@@ -51,9 +51,8 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
       }
     } else {
       switch (err.status) {
-        // todo: больше не будет попадать
         // Сюда попадет запланированная ошибка сервера с кодом 500.
-        // Так как на беке вернули не JSON в error.data
+        // Если бэк отдал не json данные а text/plane
         case 'PARSING_ERROR':
           console.error('PARSING_ERROR: ', err);
           if (err.originalStatus === 500 && toastOn500) {

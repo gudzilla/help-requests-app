@@ -13,7 +13,7 @@ const style = {
     'border': '1px solid',
     'borderColor': 'divider',
     '&.Mui-expanded': {
-      minHeight: 'auto', // Чтобы не менялась при раскрытии
+      minHeight: 'auto', // Чтобы высота не менялась при раскрытии
     },
     '.MuiAccordionSummary-content': {
       '&.Mui-expanded': {

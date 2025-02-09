@@ -7,10 +7,8 @@ import {
 } from '@mui/material';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import {
-  HelperRequirementsType,
-  setVolunteerQualification,
-} from '../../../state/filtersSlice';
+import { setVolunteerQualification } from '../../../state/filtersSlice';
+import { HelperRequirementsType } from '../../../state/types';
 
 type Qualification = HelperRequirementsType['qualification'];
 type StrictQualificationMap = { [K in Qualification]: K };

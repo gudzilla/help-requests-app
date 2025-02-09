@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authenticationReducer } from './authenticationReducer';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { helpEldersApi } from '../lib/api/api';
 import filtersSlice from '../pages/helpCatalog/state/filtersSlice';
+import { authenticationReducer } from './authenticationReducer';
 
 export const store = configureStore({
   reducer: {

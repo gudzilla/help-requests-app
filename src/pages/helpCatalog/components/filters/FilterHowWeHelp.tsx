@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -17,7 +16,7 @@ const helpTypeValues: StrictHelpTypeMap = {
   material: 'material',
 } as const;
 
-export function FilterHow() {
+export function FilterHowWeHelp() {
   const { helpType } = useFiltersStateSelector();
   const dispatch = useAppDispatch();
 
@@ -26,13 +25,10 @@ export function FilterHow() {
     if (checked) {
       dispatch(setHelpType(name as HelpType));
     } else {
-      // dispatch({ type: 'filters/setHelpType', payload: null });
       dispatch(setHelpType(null));
     }
   };
   return (
-    // <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-    // <Box>
     <FormControl component="fieldset" variant="standard">
       <FormLabel component="legend">Чем мы помогаем</FormLabel>
       <FormGroup>
@@ -58,6 +54,5 @@ export function FilterHow() {
         />
       </FormGroup>
     </FormControl>
-    // </Box>
   );
 }

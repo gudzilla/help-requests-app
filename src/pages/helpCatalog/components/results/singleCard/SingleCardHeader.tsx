@@ -26,6 +26,14 @@ type SingleCardHeaderProps = {
 };
 
 export const SingleCardHeader = (props: SingleCardHeaderProps) => {
+  // const handleRemoveFromFavourite = (e) => {
+  //   e.stopPropagation();
+  //   console.log('remove from favourite');
+  // };
+  // const handleAddToFavourite = (e) => {
+  //   e.stopPropagation();
+  //   console.log('add to favourite');
+  // };
   const { title, requesterType, helpType, isFavourite } = props;
   return (
     <>
@@ -34,23 +42,17 @@ export const SingleCardHeader = (props: SingleCardHeaderProps) => {
       </CardMedia>
       <Box sx={{ p: '16px', display: 'flex', gap: '8px' }}>
         <CardHeader title={title} sx={styles.title} />
-        {isFavourite ? (
-          <Button
-            // variant="outlined"
-            // onClick={handleRemoveFromFavourite}
-            sx={styles.favoriteButton}
-          >
-            <StarIcon sx={styles.favoriteButtonIcon} />
-          </Button>
-        ) : (
-          <Button
-            // variant="outlined"
-            // onClick={handleAddToFavourite}
-            sx={styles.favoriteButton}
-          >
-            <StarBorderIcon sx={styles.favoriteButtonIcon} />
-          </Button>
-        )}
+        <Button
+          // variant="outlined"
+          // onClick={isFavourite ? handleRemoveFromFavourite : handleAddToFavourite}
+          sx={styles.favoriteButton}
+        >
+          {isFavourite ? (
+            <StarIcon sx={styles.favIcon} />
+          ) : (
+            <StarBorderIcon sx={styles.favIcon} />
+          )}
+        </Button>
       </Box>
     </>
   );
