@@ -1,9 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { HelpRequestData } from './types';
-import { logInFx } from '@/store/authenticationSlice';
+import { HelpRequestData, UserData } from './types';
 import { notification } from '../notifications';
 import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
+import { logInFx } from '@/store/authenticationReducer';
+
+type PARSING_ERROR = {
+  /**
+   * * `"PARSING_ERROR"`:
+   *   An error happened during parsing.
+   *   Most likely a non-JSON-response was returned with the default `responseHandler` "JSON",
+   *   or an error occurred while executing a custom `responseHandler`.
+   **/
+  status: 'PARSING_ERROR';
+  originalStatus: number;
+  data: string;
+  error: string;
+};
 
 type AuthData = {
   loginFormData: {
@@ -18,6 +31,8 @@ type AuthResponse = {
   token: string;
 };
 
+export type FavoritesResponse = HelpRequestData['id'][];
+
 type OnQueryStartError = {
   error: unknown;
   isUnhandledError?: boolean;
@@ -31,7 +46,7 @@ function isOnQueryStartError(error: unknown): error is OnQueryStartError {
   return typeof error === 'object' && error != null && 'error' in error;
 }
 
-type HelpRequestId = Pick<HelpRequestData, 'id'>;
+type HelpRequestId = HelpRequestData['id'];
 
 export type HelpCatalogResponse = HelpRequestData[];
 
@@ -59,19 +74,16 @@ export const helpEldersApi = createApi({
           const { data } = await queryFulfilled;
           if (data.auth) {
             dispatch(logInFx(data.token));
-            notification('Вход выполнен', 'success');
             navigate('/help-catalog', { replace: true });
           }
         } catch (error: unknown) {
           if (isOnQueryStartError(error)) {
-            errorHandler({ err: error.error, dispatch });
-          } else {
-            console.error('Неизвестная ошибка: ', error);
+            errorHandler({ err: error.error, dispatch, toastOn500: true });
           }
         }
       },
     }),
-    getRequests: builder.query<HelpCatalogResponse, void>({
+    getRequests: builder.query<HelpRequestData[], void>({
       query: () => '/request',
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -84,10 +96,117 @@ export const helpEldersApi = createApi({
       },
     }),
     getRequestById: builder.query<HelpRequestData, HelpRequestId>({
+      // todo: тост на 500 ошибку НЕ нужен
       query: (requestId) => `/request/${requestId}`,
+    }),
+    getUser: builder.query<UserData, void>({
+      // todo: ошибка 500 показать ТОСТ
+      query: () => `/user`,
+    }),
+    contribution: builder.mutation<string, string>({
+      query: (requestId) => ({
+        url: `/request/${requestId}/contribution`,
+        method: 'POST',
+        body: { requestId },
+        responseHandler: (response) => response.text(),
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          notification('Успех! Спасибо за помощь', 'success');
+        } catch (error: unknown) {
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch, toastOn500: true });
+          }
+        }
+      },
+    }),
+    getFavourites: builder.query<FavoritesResponse, void>({
+      query: () => `/user/favourites`,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error: unknown) {
+          console.error(error);
+          console.log('Не удалось загрузить избранное.');
+          if (isOnQueryStartError(error)) {
+            console.log(error);
+            if ((error.error as PARSING_ERROR).originalStatus === 500) {
+              console.log('Повторный запрос избранного getFavourites');
+              dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
+              // dispatch(
+              //   helpEldersApi.endpoints.getFavourites.initiate(undefined, {
+              //     forceRefetch: true,
+              //   })
+              // );
+            }
+            errorHandler({ err: error.error, dispatch });
+          }
+        }
+      },
+    }),
+
+    addToFavourites: builder.mutation<void, string>({
+      query: (requestId) => ({
+        url: `/user/favourites/`,
+        method: 'POST',
+        body: { requestId },
+        responseHandler: (response) => response.text(),
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
+          dispatch(
+            helpEldersApi.endpoints.getFavourites.initiate(undefined, {
+              forceRefetch: true,
+            })
+          );
+        } catch (error: unknown) {
+          notification('Ошибка добавления в избранное.', 'error');
+          if (isOnQueryStartError(error)) {
+            // todo: errors отдельный тост для ошибки 400
+            errorHandler({ err: error.error, dispatch });
+          }
+        }
+      },
+    }),
+    deleteFromFavourites: builder.mutation<void, string>({
+      query: (requestId) => ({
+        url: `/user/favourites/${requestId}`,
+        method: 'DELETE',
+        body: { requestId },
+        responseHandler: (response) => response.text(),
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
+          dispatch(
+            helpEldersApi.endpoints.getFavourites.initiate(undefined, {
+              forceRefetch: true,
+            })
+          );
+        } catch (error: unknown) {
+          // console.log('deleteFromFavourites ERROR');
+          notification('Ошибка удаления из избранного.', 'error');
+          if (isOnQueryStartError(error)) {
+            // todo: тут есть в теории ошибка 400. Надо наверное ТОСТ тоже
+            // errorHandler({ err: error.error, dispatch, toastOn500: true });
+          }
+        }
+      },
     }),
   }),
 });
 
-export const { useAuthenticateMutation, useGetRequestsQuery, useGetRequestByIdQuery } =
-  helpEldersApi;
+export const {
+  useAuthenticateMutation,
+  useGetRequestsQuery,
+  useGetRequestByIdQuery,
+  useGetFavouritesQuery,
+  useContributionMutation,
+  useGetUserQuery,
+  useAddToFavouritesMutation,
+  useDeleteFromFavouritesMutation,
+} = helpEldersApi;
