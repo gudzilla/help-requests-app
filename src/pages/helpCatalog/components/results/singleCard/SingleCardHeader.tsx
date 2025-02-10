@@ -1,4 +1,4 @@
-import { Box, Button, CardHeader, CardMedia } from '@mui/material';
+import { Box, Button, CardHeader, CardMedia, Tooltip } from '@mui/material';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import CardImage1 from '@/assets/card-image-1.svg?react';
@@ -45,17 +45,18 @@ export const SingleCardHeader = (props: SingleCardHeaderProps) => {
       </CardMedia>
       <Box sx={{ p: '16px', display: 'flex', gap: '8px' }}>
         <CardHeader title={title} sx={styles.title} />
-        <Button
-          // variant="outlined"
-          onClick={isFavourite ? removeFromFavourite : addToFavourite}
-          sx={styles.favoriteButton}
-        >
-          {isFavourite ? (
-            <StarIcon sx={styles.favIcon} />
-          ) : (
-            <StarBorderIcon sx={styles.favIcon} />
-          )}
-        </Button>
+        <Tooltip title={isFavourite ? 'Удалить из избранного' : 'Добавить в избранное'}>
+          <Button
+            onClick={isFavourite ? removeFromFavourite : addToFavourite}
+            sx={styles.favoriteButton}
+          >
+            {isFavourite ? (
+              <StarIcon sx={styles.favIcon} />
+            ) : (
+              <StarBorderIcon sx={styles.favIcon} />
+            )}
+          </Button>
+        </Tooltip>
       </Box>
     </Box>
   );
