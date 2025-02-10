@@ -156,7 +156,6 @@ export const helpEldersApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
           dispatch(
             helpEldersApi.endpoints.getFavourites.initiate(undefined, {
               forceRefetch: true,
@@ -181,7 +180,6 @@ export const helpEldersApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
           dispatch(
             helpEldersApi.endpoints.getFavourites.initiate(undefined, {
               forceRefetch: true,
