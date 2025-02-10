@@ -1,5 +1,6 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, CardActions, LinearProgress, Stack, Typography } from '@mui/material';
+import { debounce } from 'lodash';
 
 type SingleCardActionsProps = {
   endingDate: string;
@@ -7,7 +8,7 @@ type SingleCardActionsProps = {
   requestGoalCurrentValue: number;
   requestGoal: number;
   contributorsCount: number;
-  handleHelpButtonClick: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  handleHelpButtonClick: ReturnType<typeof debounce>;
   isLoading: boolean;
   onCardClick: () => void;
 };
