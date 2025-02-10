@@ -23,20 +23,23 @@ type SingleCardHeaderProps = {
   requesterType: CardRequesterType;
   helpType: CardHelpType;
   isFavourite: boolean;
+  addToFavourite: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  removeFromFavourite: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onCardClick: () => void;
 };
 
 export const SingleCardHeader = (props: SingleCardHeaderProps) => {
-  // const handleRemoveFromFavourite = (e) => {
-  //   e.stopPropagation();
-  //   console.log('remove from favourite');
-  // };
-  // const handleAddToFavourite = (e) => {
-  //   e.stopPropagation();
-  //   console.log('add to favourite');
-  // };
-  const { title, requesterType, helpType, isFavourite } = props;
+  const {
+    title,
+    requesterType,
+    helpType,
+    isFavourite,
+    addToFavourite,
+    removeFromFavourite,
+    onCardClick,
+  } = props;
   return (
-    <>
+    <Box onClick={onCardClick}>
       <CardMedia sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {getImage(requesterType, helpType)}
       </CardMedia>
@@ -44,7 +47,7 @@ export const SingleCardHeader = (props: SingleCardHeaderProps) => {
         <CardHeader title={title} sx={styles.title} />
         <Button
           // variant="outlined"
-          // onClick={isFavourite ? handleRemoveFromFavourite : handleAddToFavourite}
+          onClick={isFavourite ? removeFromFavourite : addToFavourite}
           sx={styles.favoriteButton}
         >
           {isFavourite ? (
@@ -54,6 +57,6 @@ export const SingleCardHeader = (props: SingleCardHeaderProps) => {
           )}
         </Button>
       </Box>
-    </>
+    </Box>
   );
 };

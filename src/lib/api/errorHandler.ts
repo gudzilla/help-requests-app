@@ -45,7 +45,7 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
         // todo: для других ошибок сервера нужны
         // конкретные ответы в зависимости от эндпойнта
         notification(
-          `Ошибка Cервера ${err.status}: ${(err as ServerError).data.message}`,
+          `Ошибка Cервера ${err.status}: ${(err as ServerError).data.message || err.data}`,
           'error'
         );
       }

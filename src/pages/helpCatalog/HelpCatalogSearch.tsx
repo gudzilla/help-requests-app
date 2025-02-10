@@ -9,7 +9,7 @@ import { useFiltersStateSelector } from './state/selectors';
 export const HelpCatalogSearch = () => {
   const dispatch = useAppDispatch();
   const { searchQuery } = useFiltersStateSelector();
-  const [searchInput, setSearchInput] = useState<string>(searchQuery);
+  const [searchInput, setSearchInput] = useState(searchQuery);
 
   const debouncedChangeHandler = useMemo(
     () =>

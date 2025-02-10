@@ -2,11 +2,16 @@ import { Divider, Box, Card } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import { styles } from './styles';
-import { useContributionMutation } from '@/lib/api/api';
+import {
+  useAddToFavouritesMutation,
+  useContributionMutation,
+  useDeleteFromFavouritesMutation,
+} from '@/lib/api/api';
 import { DataForSingleCard } from './types';
 import { SingleCardHeader } from './SingleCardHeader';
 import { SingleCardContent } from './SingleCardContent';
 import { SingleCardActions } from './SingleCardActions';
+import { useFavouritesSelector } from '@/store/selectors';
 
 type SingleCardProps = {
   dataForRequestCard: DataForSingleCard;
@@ -17,7 +22,6 @@ type SingleCardProps = {
 export const SingleCard = (props: SingleCardProps) => {
   const {
     view = 'large',
-    isFavourite = false,
     dataForRequestCard: {
       id,
       title,
@@ -39,17 +43,23 @@ export const SingleCard = (props: SingleCardProps) => {
 
   const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
   const navigate = useNavigate();
-  const [contribution] = useContributionMutation();
+  const [contribution, { isLoading }] = useContributionMutation();
+  const [addToFavourite] = useAddToFavouritesMutation();
+  const [deleteFromFavourites] = useDeleteFromFavouritesMutation();
+  const favouritesList = useFavouritesSelector();
+  const isFavourite = favouritesList.includes(id);
 
   // ----------------- FAVORITE LOGIC -------------------
-  // const handleAddToFavourite = (e) => {
-  //   e.stopPropagation();
-  //   // addToFavourite();
-  // };
-  // const handleRemoveFromFavourite = (e) => {
-  //   e.stopPropagation();
-  //   // removeFromFavourites();
-  // };
+  const handleAddToFavourite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    addToFavourite(id);
+  };
+  const handleRemoveFromFavourite = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    deleteFromFavourites(id);
+  };
 
   const handleCardClick = () => {
     navigate(`/help-catalog/${id}`);
@@ -62,12 +72,15 @@ export const SingleCard = (props: SingleCardProps) => {
 
   if (view === 'large') {
     return (
-      <Card onClick={handleCardClick} elevation={3} sx={styles.card}>
+      <Card elevation={3} sx={styles.card}>
         <SingleCardHeader
           helpType={helpType}
           isFavourite={isFavourite}
           requesterType={requesterType}
           title={title}
+          addToFavourite={handleAddToFavourite}
+          removeFromFavourite={handleRemoveFromFavourite}
+          onCardClick={handleCardClick}
         />
         <Divider />
         <Box sx={styles.cardBody}>
@@ -77,6 +90,7 @@ export const SingleCard = (props: SingleCardProps) => {
             organization={organization}
             locationCity={locationCity}
             locationDistrict={locationDistrict}
+            onCardClick={handleCardClick}
           />
           <SingleCardActions
             requestGoal={requestGoal}
@@ -85,6 +99,8 @@ export const SingleCard = (props: SingleCardProps) => {
             goalProgressInPercent={goalProgressInPercent}
             requestGoalCurrentValue={requestGoalCurrentValue}
             handleHelpButtonClick={handleHelpButtonClick}
+            isLoading={isLoading}
+            onCardClick={handleCardClick}
           />
         </Box>
       </Card>

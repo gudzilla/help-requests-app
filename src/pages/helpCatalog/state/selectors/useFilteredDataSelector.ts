@@ -5,7 +5,8 @@ import { isAfter, isValid, parseISO, startOfDay } from 'date-fns';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../types';
 
 const requestsDataSelector = (state: RootState) =>
-  state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[];
+  (state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[]) ??
+  [];
 const filtersSelector = (state: RootState) => state.filters;
 
 // ----------------- Compare two dates with Date-Fns ----------------

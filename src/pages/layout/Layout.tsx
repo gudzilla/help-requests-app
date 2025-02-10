@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
-import { ToastContainer } from 'react-toastify';
+import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { footerMinHeight, headerMinHeight } from '@/styles/theme';
 
@@ -24,7 +24,20 @@ export const Layout = () => {
       <Container maxWidth="xl" disableGutters>
         <Box component="main" sx={mainStyles}>
           <Outlet />
-          <ToastContainer />
+          <ToastContainer
+            position="top-right"
+            // autoClose={3500}
+            limit={5}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Slide}
+          />
         </Box>
       </Container>
       <Footer />

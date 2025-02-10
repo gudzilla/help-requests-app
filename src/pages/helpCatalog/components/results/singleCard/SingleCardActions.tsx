@@ -1,3 +1,4 @@
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Button,
@@ -14,6 +15,8 @@ type SingleCardActionsProps = {
   requestGoal: number;
   contributorsCount: number;
   handleHelpButtonClick: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  isLoading: boolean;
+  onCardClick: () => void;
 };
 
 export const SingleCardActions = (props: SingleCardActionsProps) => {
@@ -24,17 +27,19 @@ export const SingleCardActions = (props: SingleCardActionsProps) => {
     requestGoal,
     contributorsCount,
     handleHelpButtonClick,
+    isLoading,
+    onCardClick,
   } = props;
 
   return (
     <CardActions sx={{ display: 'block', padding: 0, marginTop: 'auto' }} disableSpacing>
-      <Stack gap="4px" marginBottom={'20px'}>
+      <Stack gap="4px" marginBottom={'20px'} onClick={onCardClick}>
         <Typography variant="subtitle2">Завершение</Typography>
         <Typography variant="body2">
           {new Date(endingDate).toLocaleDateString('ru-RU')}
         </Typography>
       </Stack>
-      <Stack gap="4px" marginBottom={'10px'}>
+      <Stack gap="4px" marginBottom={'10px'} onClick={onCardClick}>
         <Typography variant="subtitle2">Мы собрали</Typography>
         <LinearProgress
           variant="determinate"
@@ -54,9 +59,14 @@ export const SingleCardActions = (props: SingleCardActionsProps) => {
         <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
           {contributorsCount === 0 ? 'Вы будете первым' : `Нас уже: ${contributorsCount}`}
         </Typography>
-        <Button variant="contained" onClick={handleHelpButtonClick} size="large">
+        <LoadingButton
+          variant="contained"
+          onClick={handleHelpButtonClick}
+          size="large"
+          loading={isLoading}
+        >
           ПОМОЧЬ
-        </Button>
+        </LoadingButton>
       </Stack>
     </CardActions>
   );

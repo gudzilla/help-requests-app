@@ -7,14 +7,21 @@ type SingleCardContentProps = {
   locationCity: string;
   goalDescription: string;
   isHelpOnline: boolean;
+  onCardClick: () => void;
 };
 
 export const SingleCardContent = (props: SingleCardContentProps) => {
-  const { organization, locationDistrict, locationCity, goalDescription, isHelpOnline } =
-    props;
+  const {
+    organization,
+    locationDistrict,
+    locationCity,
+    goalDescription,
+    isHelpOnline,
+    onCardClick,
+  } = props;
 
   return (
-    <CardContent sx={styles.cardBodyContent}>
+    <CardContent sx={styles.cardBodyContent} onClick={onCardClick}>
       <Stack gap="4px">
         <Typography variant="subtitle2">Организатор</Typography>
         <Typography variant="body2" sx={styles.oneLineText}>

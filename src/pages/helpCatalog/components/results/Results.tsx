@@ -13,13 +13,18 @@ const ITEMS_PER_PAGE = 3;
 
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
-  const { isLoading: isLoadingQuery, error } = useGetRequestsQuery();
+  const {
+    isLoading: isLoadingRequests,
+    error,
+    isFetching: isFetchingRequests,
+    refetch: refetchRequests,
+  } = useGetRequestsQuery();
   const filters = useFiltersStateSelector();
 
   // Cтейт чтобы удлинить отображение загрузки
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
 
-  const isLoading = isLoadingQuery || isFakeLoading;
+  const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
   let itemsReadyForRender: DataForSingleCard[] = [];
   let totalPages = 0;
   let resultsFound = 0;
@@ -45,6 +50,10 @@ export const Results = () => {
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
+  };
+
+  const handleRefetchRequests = () => {
+    refetchRequests();
   };
 
   // Удлиняю время отображения загрузки в UI через isFakeLoading с setTimeout
@@ -75,6 +84,7 @@ export const Results = () => {
             error={error}
             isLoading={isLoading}
             noResults={hasNoResultsOnFilter}
+            refetchRequests={handleRefetchRequests}
           />
           {showPagination && (
             <ResultsPagination

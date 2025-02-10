@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { SingleCard } from './singleCard/SingleCard';
 import { RTKQueryRequestError } from '@/lib/api/types';
 import ErrorIcon from '@/assets/load-error.svg?react';
@@ -18,9 +18,11 @@ type HelpCardsProps = {
   error: RTKQueryRequestError;
   isLoading: boolean;
   noResults: boolean | undefined;
+  refetchRequests: () => void;
 };
+
 export const HelpCards = (props: HelpCardsProps) => {
-  const { cards, error, isLoading, noResults } = props;
+  const { cards, error, isLoading, noResults, refetchRequests } = props;
 
   if (isLoading) {
     return (
@@ -33,10 +35,16 @@ export const HelpCards = (props: HelpCardsProps) => {
   if (error) {
     return (
       <Box sx={StyleToStrechContainer}>
-        <ErrorIcon style={{ marginBottom: '24px' }} />
-        <Typography color="error" variant="h5">
-          Ошибка! Не удалось загрузить информацию
-        </Typography>
+        <Stack gap={'24px'}>
+          {/* <ErrorIcon style={{ marginBottom: '24px' }} /> */}
+          <ErrorIcon style={{ alignSelf: 'center' }} />
+          <Typography color="error" variant="h5">
+            Ошибка! Не удалось загрузить информацию
+          </Typography>
+          <Button variant="outlined" onClick={refetchRequests}>
+            Повторить запрос
+          </Button>
+        </Stack>
       </Box>
     );
   }

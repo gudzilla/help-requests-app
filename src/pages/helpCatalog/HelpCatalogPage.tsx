@@ -1,8 +1,8 @@
 import { Stack, Typography } from '@mui/material';
 import { Filters } from './components/filters/Filters';
-import { useGetFavoritesQuery } from '@/lib/api/api';
 import { Results } from './components/results/Results';
 import { HelpCatalogSearch } from './HelpCatalogSearch';
+import { useGetFavouritesQuery } from '@/lib/api/api';
 
 const mainContentStyle = {
   flex: 1,
@@ -10,11 +10,10 @@ const mainContentStyle = {
 
 export const HelpCatalogPage = () => {
   // ---------------- GET FAVORITES LIST ---------------
-  // const { data: favoritesList } = useGetFavoritesQuery();
-  // if (favoritesList) {
-  //   console.log('favoritesList = ', favoritesList);
-  // }
-
+  const { data: favoritesList } = useGetFavouritesQuery();
+  if (favoritesList) {
+    // console.log('favoritesList = ', favoritesList);
+  }
   return (
     <Stack padding="30px 40px" direction="column" spacing={2}>
       <Typography component="h1" variant="h4">

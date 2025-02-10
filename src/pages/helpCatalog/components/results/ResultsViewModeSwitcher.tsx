@@ -25,7 +25,7 @@ export function ResultsViewModeSwitcher() {
       <ToggleButton value="vertical" aria-label="Вертикальный вид">
         <GridOnIcon />
       </ToggleButton>
-      <ToggleButton value="horizontal" aria-label="Горизонтальный вид">
+      <ToggleButton value="horizontal" aria-label="Горизонтальный вид" disabled>
         <ListAltIcon />
       </ToggleButton>
       <ToggleButton value="map" aria-label="Вид на карте" disabled>
