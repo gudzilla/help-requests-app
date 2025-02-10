@@ -39,8 +39,9 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
       if (err.status === 403) {
         notification('Токен истек. Перезайдите в ваш профиль.', 'error');
         dispatch(logOutFx());
-      } else if (err.status === 500 && toastOn500) {
-        notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
+      } else if (err.status === 500) {
+        toastOn500 &&
+          notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
       } else {
         // todo: для других ошибок сервера нужны
         // конкретные ответы в зависимости от эндпойнта

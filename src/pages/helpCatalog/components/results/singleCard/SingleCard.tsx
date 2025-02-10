@@ -12,6 +12,7 @@ import { SingleCardHeader } from './SingleCardHeader';
 import { SingleCardContent } from './SingleCardContent';
 import { SingleCardActions } from './SingleCardActions';
 import { useFavouritesSelector } from '@/store/selectors';
+import { debounce } from 'lodash';
 
 type SingleCardProps = {
   dataForRequestCard: DataForSingleCard;
@@ -43,7 +44,7 @@ export const SingleCard = (props: SingleCardProps) => {
 
   const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
   const navigate = useNavigate();
-  const [contribution, { isLoading }] = useContributionMutation();
+  const [contribution, { isLoading: isLoadingContribution }] = useContributionMutation();
   const [addToFavourite] = useAddToFavouritesMutation();
   const [deleteFromFavourites] = useDeleteFromFavouritesMutation();
   const favouritesList = useFavouritesSelector();
@@ -65,10 +66,13 @@ export const SingleCard = (props: SingleCardProps) => {
     navigate(`/help-catalog/${id}`);
   };
 
-  const handleHelpButtonClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    await contribution(id);
-  };
+  const handleHelpButtonClick = debounce(
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      await contribution(id);
+    },
+    200
+  );
 
   if (view === 'large') {
     return (
@@ -99,7 +103,7 @@ export const SingleCard = (props: SingleCardProps) => {
             goalProgressInPercent={goalProgressInPercent}
             requestGoalCurrentValue={requestGoalCurrentValue}
             handleHelpButtonClick={handleHelpButtonClick}
-            isLoading={isLoading}
+            isLoading={isLoadingContribution}
             onCardClick={handleCardClick}
           />
         </Box>

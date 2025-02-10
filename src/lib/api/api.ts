@@ -122,32 +122,25 @@ export const helpEldersApi = createApi({
       },
     }),
     getFavourites: builder.query<FavoritesResponse, void>({
-      // todo: ошибка 500 показать ТОСТ
       query: () => `/user/favourites`,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
-          // console.log('getFavourites PENDING');
           await queryFulfilled;
-          // console.log('getFavourites FULFILLED');
-          // notification('Список избранного загружен', 'success');
         } catch (error: unknown) {
           console.error(error);
-          // console.log('getFavourites ERROR');
-          // notification('Не удалось загрузить избранное.', 'error');
           console.log('Не удалось загрузить избранное.');
           if (isOnQueryStartError(error)) {
-            // console.log(error);
+            console.log(error);
             if ((error.error as PARSING_ERROR).originalStatus === 500) {
-              // notification('Делаем повторный запрос для Избранного', 'info');
-
-              console.log('Делаем повторный запрос для Избранного');
-              dispatch(
-                helpEldersApi.endpoints.getFavourites.initiate(undefined, {
-                  forceRefetch: true,
-                })
-              );
+              console.log('Повторный запрос избранного getFavourites');
+              dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
+              // dispatch(
+              //   helpEldersApi.endpoints.getFavourites.initiate(undefined, {
+              //     forceRefetch: true,
+              //   })
+              // );
             }
-            // errorHandler({ err: error.error, dispatch, toastOn500: true });
+            errorHandler({ err: error.error, dispatch });
           }
         }
       },
@@ -162,21 +155,18 @@ export const helpEldersApi = createApi({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
-          // console.log('addToFavourites PENDING');
           await queryFulfilled;
-          // console.log('addToFavourites FULFILLED');
-          notification('Добавлено в избранное', 'success');
+          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
           dispatch(
             helpEldersApi.endpoints.getFavourites.initiate(undefined, {
               forceRefetch: true,
             })
           );
         } catch (error: unknown) {
-          // console.log('addToFavourites ERROR');
           notification('Ошибка добавления в избранное.', 'error');
           if (isOnQueryStartError(error)) {
-            // todo: тут есть в теории ошибка 400. Надо наверное ТОСТ тоже
-            // errorHandler({ err: error.error, dispatch, toastOn500: true });
+            // todo: errors отдельный тост для ошибки 400
+            errorHandler({ err: error.error, dispatch });
           }
         }
       },
@@ -185,16 +175,13 @@ export const helpEldersApi = createApi({
       query: (requestId) => ({
         url: `/user/favourites/${requestId}`,
         method: 'DELETE',
-        // body: { requestId },
-        body: '123',
+        body: { requestId },
         responseHandler: (response) => response.text(),
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
-          // console.log('deleteFromFavourites PENDING');
           await queryFulfilled;
-          // console.log('deleteFromFavourites FULFILLED');
-          notification('Удалено из избранного.', 'warning');
+          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
           dispatch(
             helpEldersApi.endpoints.getFavourites.initiate(undefined, {
               forceRefetch: true,

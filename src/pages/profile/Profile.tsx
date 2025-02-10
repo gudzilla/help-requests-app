@@ -2,7 +2,7 @@ import { useGetUserQuery } from '../../lib/api/api';
 
 export const Profile = () => {
   const { data } = useGetUserQuery();
-  // console.log('data = ', data);
+  console.log('userDate = ', data);
   return (
     <div>
       <h2>Страница Профиля</h2>

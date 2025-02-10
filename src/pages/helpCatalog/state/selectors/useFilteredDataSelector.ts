@@ -16,10 +16,9 @@ function isValidISOString(isoString: string) {
 }
 
 const isDate2LaterThanDate1 = (date1: string, date2: string): boolean => {
-  if (isValidISOString(date1) && isValidISOString(date2)) {
-    return isAfter(startOfDay(parseISO(date2)), startOfDay(parseISO(date1)));
-  }
-  return false;
+  return isValidISOString(date1) && isValidISOString(date2)
+    ? isAfter(startOfDay(parseISO(date2)), startOfDay(parseISO(date1)))
+    : false;
 };
 
 // ----------------- FILTER FUNCTIONS ----------------
@@ -48,21 +47,15 @@ const filterByPeopleNeeded =
 
 const filterByDate =
   (helpDate: HelpRequestFiltersType['helpDate']) => (data: HelpRequestData) => {
-    if (helpDate === null) {
-      return true;
-    }
-    return isDate2LaterThanDate1(helpDate, data.endingDate);
+    return helpDate === null ? true : isDate2LaterThanDate1(helpDate, data.endingDate);
   };
 
 const filteredBySearchQuery =
   (searchQuery: HelpRequestFiltersType['searchQuery']) => (data: HelpRequestData) => {
-    if (searchQuery === '') {
-      return true;
-    }
-    return (
-      data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      data.organization.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    return searchQuery === ''
+      ? true
+      : data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          data.organization.title.toLowerCase().includes(searchQuery.toLowerCase());
   };
 
 const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) => {
@@ -86,18 +79,7 @@ const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) 
 const filteredDataSelector = createSelector(
   [requestsDataSelector, filtersSelector],
   (data, filters) => {
-    if (!data) {
-      return null;
-    }
-    let filteredData = data;
-    filteredData = applyFilters(data, filters);
-
-    return filteredData;
+    return !data ? [] : applyFilters(data, filters);
   }
 );
 export const useFilteredDataSelector = () => useAppSelector(filteredDataSelector);
-
-// ----------------- OTHER WAY TO ACCESS DATA IN getRequests
-// state.helpEldersApi.queries['getRequests(undefined)']?.data;
-// state.helpEldersApi.queries['getRequests(undefined)']?.data ?? [];
-// state.helpEldersApi.queries['getRequests(undefined)']?.data || [];

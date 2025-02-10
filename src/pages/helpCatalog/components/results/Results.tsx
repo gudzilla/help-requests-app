@@ -1,5 +1,4 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import { DataForSingleCard } from './singleCard/types';
 import { useGetRequestsQuery } from '@/lib/api/api';
 import { transformDataForCardsView } from './singleCard/transformToSingleCardProps';
 import { HelpCards } from './HelpCards';
@@ -8,8 +7,6 @@ import { ResultsPagination } from './ResultsPagination';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
-
-const ITEMS_PER_PAGE = 3;
 
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -25,28 +22,19 @@ export const Results = () => {
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
 
   const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
-  let itemsReadyForRender: DataForSingleCard[] = [];
-  let totalPages = 0;
-  let resultsFound = 0;
+  const noErrorOrLoading = !(error || isLoading);
 
   // ФИЛЬТРОВАННЫЕ ДАННЫЕ
   const filteredData = useFilteredDataSelector();
+  const resultsFound = filteredData.length;
 
   const hasNoResultsOnFilter = filteredData?.length === 0;
   const dataNotEmpty = !hasNoResultsOnFilter;
   const showPagination = filteredData && dataNotEmpty && !error && !isLoading;
 
-  if (filteredData) {
-    resultsFound = filteredData.length;
-    // ---------------------- PAGINATION -----------------
-    const { currentItems, totalPages: total } = usePagination(
-      filteredData,
-      ITEMS_PER_PAGE,
-      currentPage
-    );
-    itemsReadyForRender = transformDataForCardsView(currentItems);
-    totalPages = total;
-  }
+  // ---------------------- PAGINATION -----------------
+  const { currentItems, totalPages } = usePagination(filteredData, 3, currentPage);
+  const itemsReadyForRender = transformDataForCardsView(currentItems);
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
@@ -73,12 +61,12 @@ export const Results = () => {
     <Paper>
       <Box>
         <Stack padding="12px 36px 40px 36px" gap="20px">
-          <Stack direction="row" justifyContent="space-between">
-            <Typography variant="h6">
-              Найдено: {error || isLoading ? '0' : resultsFound}
-            </Typography>
-            <ResultsViewModeSwitcher />
-          </Stack>
+          {noErrorOrLoading && (
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h6">Найдено: {resultsFound}</Typography>
+              <ResultsViewModeSwitcher />
+            </Stack>
+          )}
           <HelpCards
             cards={itemsReadyForRender}
             error={error}

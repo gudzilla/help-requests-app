@@ -7,13 +7,14 @@ import { ru } from 'date-fns/locale';
 import { FormControl, FormLabel, IconButton, InputAdornment } from '@mui/material';
 import { ClearIcon } from '@mui/x-date-pickers';
 import { useFiltersStateSelector } from '../../state/selectors';
+import { useFilterDateSelector } from '../../state/selectors/useFilterDateSelector';
 
 export const FilterDate = () => {
   const dispatch = useAppDispatch();
   const { helpDate } = useFiltersStateSelector();
   const dateIsNotNull = helpDate !== null;
 
-  const dateValue = dateIsNotNull ? new Date(helpDate) : null;
+  const dateValue = useFilterDateSelector();
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>

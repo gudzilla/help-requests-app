@@ -9,11 +9,9 @@ const mainContentStyle = {
 };
 
 export const HelpCatalogPage = () => {
-  // ---------------- GET FAVORITES LIST ---------------
-  const { data: favoritesList } = useGetFavouritesQuery();
-  if (favoritesList) {
-    // console.log('favoritesList = ', favoritesList);
-  }
+  // ---------------- GET FAVORITES API REQUEST ---------------
+  useGetFavouritesQuery();
+
   return (
     <Stack padding="30px 40px" direction="column" spacing={2}>
       <Typography component="h1" variant="h4">

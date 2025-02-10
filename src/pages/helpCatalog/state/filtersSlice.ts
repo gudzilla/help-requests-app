@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from './types';
 
-const initialState: HelpRequestFiltersType = {
+export const initialFiltersState: HelpRequestFiltersType = {
   helpType: null,
   requesterType: null,
   helperRequirements: {
@@ -16,7 +16,7 @@ const initialState: HelpRequestFiltersType = {
 
 const filtersSlice = createSlice({
   name: 'filters',
-  initialState,
+  initialState: initialFiltersState,
   reducers: {
     setHelpType(state, action: PayloadAction<HelpRequestFiltersType['helpType']>) {
       state.helpType = action.payload;
@@ -52,7 +52,7 @@ const filtersSlice = createSlice({
       state.searchQuery = action.payload;
     },
     removeAllFilters() {
-      return initialState;
+      return initialFiltersState;
     },
   },
 });

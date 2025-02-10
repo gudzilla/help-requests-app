@@ -1,31 +1,23 @@
 import { HelpRequestData } from '@/lib/api/types';
 import { DataForSingleCard } from './types';
 
-function transformToSingleCardProps(helpRequest: HelpRequestData): DataForSingleCard {
-  return {
-    id: helpRequest.id,
-    title: helpRequest.title,
-    organization: helpRequest.organization?.title,
-    goalDescription: helpRequest.goalDescription,
-    endingDate: helpRequest.endingDate,
-    locationDistrict: helpRequest.location?.district,
-    locationCity: helpRequest.location?.city,
-    isHelpOnline: helpRequest.helperRequirements?.isOnline,
-    requesterType: helpRequest.requesterType,
-    helpType: helpRequest.helpType,
-    contributorsCount: helpRequest.contributorsCount,
-    requestGoal: helpRequest.requestGoal,
-    requestGoalCurrentValue: helpRequest.requestGoalCurrentValue,
-  };
-}
-
 export function transformDataForCardsView(
   requestsArray: HelpRequestData[]
 ): DataForSingleCard[] {
-  const preparedArray = [];
-  for (let request of requestsArray) {
-    preparedArray.push(transformToSingleCardProps(request));
-  }
-
+  const preparedArray = requestsArray.map((item) => ({
+    id: item.id,
+    title: item.title,
+    organization: item.organization.title,
+    goalDescription: item.goalDescription,
+    endingDate: item.endingDate,
+    locationDistrict: item.location.district,
+    locationCity: item.location.city,
+    isHelpOnline: item.helperRequirements.isOnline,
+    requesterType: item.requesterType,
+    helpType: item.helpType,
+    contributorsCount: item.contributorsCount,
+    requestGoal: item.requestGoal,
+    requestGoalCurrentValue: item.requestGoalCurrentValue,
+  }));
   return preparedArray;
 }

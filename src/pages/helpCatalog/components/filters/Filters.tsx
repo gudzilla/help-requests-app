@@ -4,7 +4,9 @@ import { FilterHowWeHelp } from './FilterHowWeHelp';
 import { FiltersVolunteer } from './filtersVolunteer/FiltersVolunteer';
 import { FilterDate } from './FilterDate';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { removeAllFilters } from '../../state/filtersSlice';
+import { initialFiltersState, removeAllFilters } from '../../state/filtersSlice';
+import { useFiltersStateSelector } from '../../state/selectors';
+import { areObjectsDeepEqual } from '../../../../lib/areObjectsDeepEqual';
 
 const filtersSectionStyle = {
   width: '320px',
@@ -13,6 +15,8 @@ const filtersSectionStyle = {
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
+  const filtersState = useFiltersStateSelector();
+  const hasNoFilters = areObjectsDeepEqual(filtersState, initialFiltersState);
 
   const handleClearFiltersButton = () => {
     dispatch(removeAllFilters());
@@ -33,6 +37,7 @@ export const Filters = () => {
           color="primary"
           size="large"
           onClick={handleClearFiltersButton}
+          disabled={hasNoFilters}
         >
           СБРОСИТЬ
         </Button>
