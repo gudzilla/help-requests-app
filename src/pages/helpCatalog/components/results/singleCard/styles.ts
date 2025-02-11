@@ -22,7 +22,8 @@ export const styles = {
     height: '32px',
     width: '32px',
     p: 0,
-    border: '1px solid rgba(0, 0, 0, 0.12)',
+    border: 1,
+    borderColor: 'divider',
     marginLeft: 'auto',
   },
   favIcon: {

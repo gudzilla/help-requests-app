@@ -3,6 +3,7 @@ import { useGetRequestByIdQuery } from '@/lib/api/api';
 import { Button, CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import ErrorIcon from '@/assets/load-error.svg?react';
 import { RequestInfo } from './requestInfo/RequestInfo';
+import { SmallCard } from './smallCard/SmallCard';
 
 const styles = {
   loadingAndError: {
@@ -56,12 +57,12 @@ export const Request = () => {
     );
   }
 
-  return (
-    <Stack direction="row" spacing={'20px'}>
-      {data && <RequestInfo request={data} />}
-      <Paper sx={{ width: '320px', padding: '30px', textAlign: 'center' }}>
-        Маленькая карточка
-      </Paper>
-    </Stack>
-  );
+  if (data) {
+    return (
+      <Stack direction="row" spacing={'20px'}>
+        <RequestInfo request={data} />
+        <SmallCard data={data} />
+      </Stack>
+    );
+  }
 };

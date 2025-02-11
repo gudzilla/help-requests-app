@@ -40,8 +40,7 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
         notification('Токен истек. Перезайдите в ваш профиль.', 'error');
         dispatch(logOutFx());
       } else if (err.status === 500) {
-        toastOn500 &&
-          notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
+        toastOn500 && notification('Ошибка сервера. Попробуйте снова', 'error');
       } else {
         // todo: для других ошибок сервера нужны
         // конкретные ответы в зависимости от эндпойнта
@@ -57,7 +56,7 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
         case 'PARSING_ERROR':
           console.error('PARSING_ERROR: ', err);
           if (err.originalStatus === 500 && toastOn500) {
-            notification('Запланированная ошибка сервера. Попробуйте снова', 'error');
+            notification('Ошибка сервера. Попробуйте снова', 'error');
           }
           break;
         default:

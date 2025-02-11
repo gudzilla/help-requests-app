@@ -1,6 +1,6 @@
 import { Box, Typography, Stack, Link } from '@mui/material';
 import { HelpRequestData } from '@/lib/api/types';
-import { RequestInfoHeader } from '../RequestInfoHeader';
+import { InfoHeader } from '../InfoHeader';
 
 type ContactsInfoProps = {
   contacts: HelpRequestData['contacts'];
@@ -14,7 +14,7 @@ export const ContactsInfo = ({ contacts }: ContactsInfoProps) => {
   return (
     <Box>
       {/* <Typography component="h2" variant="h6" sx={style.header}> */}
-      <RequestInfoHeader text="Контакты" />
+      <InfoHeader text="Контакты" />
       <Stack direction="row" justifyContent="space-between">
         <Box>
           <Typography fontWeight="bold" marginBottom={'4px'}>

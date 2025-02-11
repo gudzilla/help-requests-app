@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { HelpRequestData } from '@/lib/api/types';
-import { RequestInfoHeader } from '../RequestInfoHeader';
+import { InfoHeader } from '../InfoHeader';
 type LocationInfoProps = {
   location: HelpRequestData['location'];
   isOnline: boolean;
@@ -9,7 +9,7 @@ export const LocationInfo = (props: LocationInfoProps) => {
   const { location, isOnline } = props;
   return (
     <Stack gap="4px">
-      <RequestInfoHeader text="Локация" />
+      <InfoHeader text="Локация" />
       {/* Conditional render for Online or with Location */}
       {isOnline ? (
         <Typography>Онлайн</Typography>
