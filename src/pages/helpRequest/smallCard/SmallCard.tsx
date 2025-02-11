@@ -1,9 +1,9 @@
-import { Card, CardActions, CardHeader, Stack, Typography } from '@mui/material';
+import { Card, CardHeader } from '@mui/material';
 import { HelpRequestData } from '@/lib/api/types';
-import { LoadingButton } from '@mui/lab';
 import { useContributionMutation } from '@/lib/api/api';
 import { debounce } from 'lodash';
 import { SmallCardContent } from './SmallCardContent';
+import { SmallCardActions } from './SmallCardActions';
 
 const styles = {
   card: {
@@ -56,23 +56,11 @@ export const SmallCard = ({ data }: SmallCardProps) => {
         requestGoalCurrentValue={requestGoalCurrentValue}
         requestGoal={requestGoal}
       />
-      <CardActions sx={{ display: 'block', padding: 0 }}>
-        <Stack gap="4px">
-          <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
-            {contributorsCount === 0
-              ? 'Вы будете первым'
-              : `Нас уже: ${contributorsCount}`}
-          </Typography>
-          <LoadingButton
-            variant="contained"
-            onClick={handleHelpButtonClick}
-            size="large"
-            loading={isLoading}
-          >
-            ПОМОЧЬ
-          </LoadingButton>
-        </Stack>
-      </CardActions>
+      <SmallCardActions
+        contributorsCount={contributorsCount}
+        onClick={handleHelpButtonClick}
+        isLoading={isLoading}
+      />
     </Card>
   );
 };
