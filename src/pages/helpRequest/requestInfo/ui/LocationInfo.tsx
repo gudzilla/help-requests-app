@@ -1,0 +1,28 @@
+import { Stack, Typography } from '@mui/material';
+import { HelpRequestData } from '@/lib/api/types';
+import { RequestInfoHeader } from '../RequestInfoHeader';
+type LocationInfoProps = {
+  location: HelpRequestData['location'];
+  isOnline: boolean;
+};
+export const LocationInfo = (props: LocationInfoProps) => {
+  const { location, isOnline } = props;
+  return (
+    <Stack gap="4px">
+      <RequestInfoHeader text="Локация" />
+      {/* Conditional render for Online or with Location */}
+      {isOnline ? (
+        <Typography>Онлайн</Typography>
+      ) : (
+        <>
+          <Typography>
+            <b>Область:</b> {location.district}
+          </Typography>
+          <Typography>
+            <b>Населенный пункт:</b> {location.city}
+          </Typography>
+        </>
+      )}
+    </Stack>
+  );
+};

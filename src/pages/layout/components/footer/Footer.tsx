@@ -1,14 +1,6 @@
-import {
-  Box,
-  Divider,
-  Container,
-  Stack,
-  Link,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Divider, Container, Stack, Link, Typography } from '@mui/material';
 import { LINKS_ARRAY } from '@/constants/links';
-import { footerMinHeight } from '@/styles/theme';
+import { footerMinHeight, theme } from '@/styles/theme';
 
 const linksStackStyles = {
   minHeight: `${footerMinHeight}px`,
@@ -17,8 +9,6 @@ const linksStackStyles = {
 };
 
 export const Footer = () => {
-  const theme = useTheme();
-
   return (
     <>
       <Divider />

@@ -1,10 +1,10 @@
-import { Box, Link, useTheme } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import MainLogo from '@/assets/main-logo.svg?react';
 import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ProfileMenu } from './components/profileMenu';
 import { ShowOnly } from '@/components/ShowOnly';
 import { LoginButton } from '@/components/LoginButton';
-import { headerMinHeight } from '@/styles/theme';
+import { headerMinHeight, theme } from '@/styles/theme';
 
 const toolbarStyles = {
   display: 'grid',
@@ -13,8 +13,6 @@ const toolbarStyles = {
 };
 
 export const Header = () => {
-  const theme = useTheme();
-
   return (
     <Box component="header">
       <AppBar position="relative" color="transparent">

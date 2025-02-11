@@ -98,6 +98,15 @@ export const helpEldersApi = createApi({
     getRequestById: builder.query<HelpRequestData, HelpRequestId>({
       // todo: тост на 500 ошибку НЕ нужен
       query: (requestId) => `/request/${requestId}`,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error: unknown) {
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch });
+          }
+        }
+      },
     }),
     getUser: builder.query<UserData, void>({
       // todo: ошибка 500 показать ТОСТ
@@ -133,12 +142,8 @@ export const helpEldersApi = createApi({
             console.log(error);
             if ((error.error as PARSING_ERROR).originalStatus === 500) {
               console.log('Повторный запрос избранного getFavourites');
+              // todo: убрал forceRefech. Если будут ошибки то проверить
               dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
-              // dispatch(
-              //   helpEldersApi.endpoints.getFavourites.initiate(undefined, {
-              //     forceRefetch: true,
-              //   })
-              // );
             }
             errorHandler({ err: error.error, dispatch });
           }

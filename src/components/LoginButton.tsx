@@ -1,10 +1,9 @@
-import { Button, useTheme } from '@mui/material';
+import { Button } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { notification } from '@/lib/notifications';
+import { theme } from '../styles/theme';
 
 export const LoginButton = () => {
-  const theme = useTheme();
-
   const buttonStyles = {
     'color': theme.palette.text.primary,
     'borderColor': theme.palette.text.primary,
