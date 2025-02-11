@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { InfoHeader } from '../InfoHeader';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { HelpRequestData } from '../../../../lib/api/types';
+import { HelpRequestData } from '@/lib/api/types';
 
 type OrganizationInfoProps = {
   organization: HelpRequestData['organization'];

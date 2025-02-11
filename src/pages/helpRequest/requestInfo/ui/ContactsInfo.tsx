@@ -13,7 +13,6 @@ const style = {
 export const ContactsInfo = ({ contacts }: ContactsInfoProps) => {
   return (
     <Box>
-      {/* <Typography component="h2" variant="h6" sx={style.header}> */}
       <InfoHeader text="Контакты" />
       <Stack direction="row" justifyContent="space-between">
         <Box>

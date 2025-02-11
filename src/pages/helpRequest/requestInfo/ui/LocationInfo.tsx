@@ -10,7 +10,6 @@ export const LocationInfo = (props: LocationInfoProps) => {
   return (
     <Stack gap="4px">
       <InfoHeader text="Локация" />
-      {/* Conditional render for Online or with Location */}
       {isOnline ? (
         <Typography>Онлайн</Typography>
       ) : (

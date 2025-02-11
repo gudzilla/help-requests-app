@@ -27,7 +27,7 @@ export const styles = {
     marginLeft: 'auto',
   },
   favIcon: {
-    color: 'rgba(0, 0, 0, 0.56)',
+    color: 'action.active',
   },
   title: {
     'p': 0,

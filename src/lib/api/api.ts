@@ -5,7 +5,7 @@ import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
 import { logInFx } from '@/store/authenticationReducer';
 
-type PARSING_ERROR = {
+export type PARSING_ERROR = {
   /**
    * * `"PARSING_ERROR"`:
    *   An error happened during parsing.
@@ -16,6 +16,11 @@ type PARSING_ERROR = {
   originalStatus: number;
   data: string;
   error: string;
+};
+
+export type ServerError = {
+  status: number;
+  data: unknown;
 };
 
 type AuthData = {
@@ -96,7 +101,6 @@ export const helpEldersApi = createApi({
       },
     }),
     getRequestById: builder.query<HelpRequestData, HelpRequestId>({
-      // todo: тост на 500 ошибку НЕ нужен
       query: (requestId) => `/request/${requestId}`,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -109,7 +113,7 @@ export const helpEldersApi = createApi({
       },
     }),
     getUser: builder.query<UserData, void>({
-      // todo: ошибка 500 показать ТОСТ
+      // todo: на 500 ошибку НЕ нужен тост
       query: () => `/user`,
     }),
     contribution: builder.mutation<string, string>({

@@ -15,14 +15,15 @@ type FavouriteButtonProps = {
 const style = {
   button: {
     alignSelf: 'flex-start',
-    border: '1px solid rgba(0, 0, 0, 0.12)',
+    border: 1,
+    borderColor: 'divider',
     padding: '4px 10px',
     display: 'flex',
     alignItems: 'center',
     textTransform: 'none',
   },
   icon: {
-    color: 'rgba(0, 0, 0, 0.56)',
+    color: 'action.active',
     marginRight: '8px',
   },
 };
