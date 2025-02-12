@@ -39,14 +39,13 @@ export const FavouritesTab = () => {
 
   const { data: favouritesIdsArray } = useGetFavouritesQuery();
 
-  const getFavouriteRequestsData = (
+  const getRequestsDataFromIds = (
     idsArray: FavoritesResponse | undefined,
     dataArray: HelpRequestData[] | undefined
   ) => {
     if (!idsArray || !dataArray) {
       return [];
     }
-
     const favIdsSet = new Set(idsArray);
     return dataArray.filter((request) => favIdsSet.has(request.id));
   };
@@ -79,7 +78,7 @@ export const FavouritesTab = () => {
     );
   }
 
-  const favouriteRequests = getFavouriteRequestsData(favouritesIdsArray, requestsArray);
+  const favouriteRequests = getRequestsDataFromIds(favouritesIdsArray, requestsArray);
   const noResults = favouriteRequests.length === 0;
   const showPagination = !isLoading && !getRequestsError && !noResults;
 
