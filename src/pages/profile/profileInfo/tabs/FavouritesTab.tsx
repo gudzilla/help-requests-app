@@ -80,7 +80,6 @@ export const FavouritesTab = () => {
   }
 
   const favouriteRequests = getFavouriteRequestsData(favouritesIdsArray, requestsArray);
-  console.log(favouriteRequests.length);
   const noResults = favouriteRequests.length === 0;
   const showPagination = !isLoading && !getRequestsError && !noResults;
 

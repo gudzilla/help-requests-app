@@ -149,11 +149,8 @@ export const helpEldersApi = createApi({
           await queryFulfilled;
         } catch (error: unknown) {
           console.error(error);
-          console.log('Не удалось загрузить избранное.');
           if (isOnQueryStartError(error)) {
-            console.log(error);
             if ((error.error as PARSING_ERROR).originalStatus === 500) {
-              console.log('Повторный запрос избранного getFavourites');
               // todo: handle errors Это оч грубо. Может ли быть постоянно это ошибка?
               // ТОгда будет бесконечный повтор запросов
               dispatch(

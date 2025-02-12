@@ -19,8 +19,6 @@ const styles = {
 export const ProfilePageContent = () => {
   const { data, error, isLoading, isFetching, refetch } = useGetUserQuery();
 
-  console.log('userDate = ', data);
-
   const handleRefetchUser = () => {
     refetch();
   };

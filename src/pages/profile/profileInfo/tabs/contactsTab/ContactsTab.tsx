@@ -16,7 +16,6 @@ type ContactsTabProps = {
 
 export const ContactsTab = ({ contacts }: ContactsTabProps) => {
   const { social } = contacts;
-  console.log(social);
   return (
     <TabPanel value="user-contacts" sx={{ padding: 0, paddingTop: '10px' }}>
       <Stack direction="column" gap={'30px'} sx={{ maxWidth: '550px' }}>
