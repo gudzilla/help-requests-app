@@ -113,7 +113,6 @@ export const helpEldersApi = createApi({
       },
     }),
     getUser: builder.query<UserData, void>({
-      // todo: на 500 ошибку НЕ нужен тост
       query: () => `/user`,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -155,7 +154,7 @@ export const helpEldersApi = createApi({
             console.log(error);
             if ((error.error as PARSING_ERROR).originalStatus === 500) {
               console.log('Повторный запрос избранного getFavourites');
-              // todo: Это оч грубо. Может ли быть постоянно это ошибка?
+              // todo: handle errors Это оч грубо. Может ли быть постоянно это ошибка?
               // ТОгда будет бесконечный повтор запросов
               dispatch(
                 helpEldersApi.endpoints.getFavourites.initiate(undefined, {
@@ -187,7 +186,7 @@ export const helpEldersApi = createApi({
         } catch (error: unknown) {
           notification('Ошибка добавления в избранное.', 'error');
           if (isOnQueryStartError(error)) {
-            // todo: errors отдельный тост для ошибки 400
+            // todo: handle errors отдельный тост для ошибки 400 ?
             errorHandler({ err: error.error, dispatch });
           }
         }
@@ -209,11 +208,10 @@ export const helpEldersApi = createApi({
             })
           );
         } catch (error: unknown) {
-          // console.log('deleteFromFavourites ERROR');
           notification('Ошибка удаления из избранного.', 'error');
           if (isOnQueryStartError(error)) {
-            // todo: тут есть в теории ошибка 400. Надо наверное ТОСТ тоже
-            // errorHandler({ err: error.error, dispatch, toastOn500: true });
+            // todo: handle errors отдельный тост для ошибки 400 ?
+            errorHandler({ err: error.error, dispatch });
           }
         }
       },

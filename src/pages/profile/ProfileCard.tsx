@@ -5,8 +5,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box } from '@mui/material';
-import { useAppDispatch } from '../../lib/redux/hooks';
-import { logOutFx } from '../../store/authenticationReducer';
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { logOutFx } from '@/store/authenticationReducer';
 
 const style = {
   card: {
@@ -42,8 +42,13 @@ export const ProfileCard = ({ name, lastName, status }: ProfileCardProps) => {
           <Typography variant="h6" marginBottom={'10px'}>
             {`${name} ${lastName}`}
           </Typography>
-          <Typography component="span" variant="subtitle1" fontWeight={500}>
-            Статус:{' '}
+          <Typography
+            component="span"
+            variant="subtitle1"
+            fontWeight={500}
+            marginRight="4px"
+          >
+            Статус:
           </Typography>
           <Typography variant="body1" component="span">
             {status}

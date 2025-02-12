@@ -12,16 +12,26 @@ export const NameInfo = ({ name, lastName }: NameInfoProps) => {
       <TextInfoHeader text="Профиль" />
       <Stack gap={'4px'}>
         <Box>
-          <Typography component="span" variant="subtitle1" fontWeight={500}>
-            Фамилия:{' '}
+          <Typography
+            component="span"
+            variant="subtitle1"
+            fontWeight={500}
+            marginRight="4px"
+          >
+            Фамилия:
           </Typography>
           <Typography variant="body1" component="span">
             {lastName}
           </Typography>
         </Box>
         <Box>
-          <Typography component="span" variant="subtitle1" fontWeight={500}>
-            Имя:{' '}
+          <Typography
+            component="span"
+            variant="subtitle1"
+            fontWeight={500}
+            marginRight="4px"
+          >
+            Имя:
           </Typography>
           <Typography variant="body1" component="span">
             {name}

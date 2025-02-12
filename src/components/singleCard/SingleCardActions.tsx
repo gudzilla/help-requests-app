@@ -9,7 +9,6 @@ type SingleCardActionsProps = {
   requestGoalCurrentValue: number;
   requestGoal: number;
   contributorsCount: number;
-  // handleHelpButtonClick: ReturnType<typeof debounce>;
   handleHelpButtonClick: DebouncedFunc<
     (event: MouseEvent<HTMLButtonElement>) => Promise<void>
   >;

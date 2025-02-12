@@ -2,7 +2,7 @@ import { LoadingButton } from '@mui/lab';
 import { CardActions, Stack, Typography } from '@mui/material';
 import { HelpRequestData } from '@/lib/api/types';
 import { DebouncedFunc } from 'lodash';
-import { MouseEvent } from 'react'; // Импортируем MouseEvent из React
+import { MouseEvent } from 'react';
 
 type SmallCardActionsType = {
   contributorsCount: HelpRequestData['contributorsCount'];

@@ -45,7 +45,7 @@ export const SingleCard = (props: SingleCardProps) => {
   const favouritesList = useFavouritesSelector();
   const isFavourite = favouritesList.includes(id);
 
-  // ----------------- FAVORITE LOGIC -------------------
+  // ----------------- FAVORITES: Add/Remove -------------------
   const handleAddToFavourite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     addToFavourite(id);
@@ -56,6 +56,7 @@ export const SingleCard = (props: SingleCardProps) => {
     e.stopPropagation();
     deleteFromFavourites(id);
   };
+  // -----------------------------------------------------
 
   const handleCardClick = () => {
     navigate(`/help-catalog/${id}`);

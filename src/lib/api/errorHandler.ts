@@ -42,7 +42,7 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
       } else if (err.status === 500) {
         toastOn500 && notification('Ошибка сервера. Попробуйте снова', 'error');
       } else {
-        // todo: для других ошибок сервера нужны
+        // todo: errors для других ошибок сервера нужны
         // конкретные ответы в зависимости от эндпойнта
         notification(
           `Ошибка Cервера ${err.status}: ${(err as ServerError).data.message || err.data}`,

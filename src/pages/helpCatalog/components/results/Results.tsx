@@ -24,7 +24,7 @@ export const Results = () => {
   const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
   const noErrorOrLoading = !(error || isLoading);
 
-  // ФИЛЬТРОВАННЫЕ ДАННЫЕ
+  // ОТФИЛЬТРОВАННЫЕ ДАННЫЕ
   const filteredData = useFilteredDataSelector();
   const resultsFound = filteredData.length;
 

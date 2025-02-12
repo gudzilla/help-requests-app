@@ -18,8 +18,6 @@ const testUsersBoxStyle = {
   display: 'grid',
   gap: '30px',
   maxWidth: '320px',
-  // Height to fit exactly 3 alerts
-  // if you have more you need to scroll
   maxHeight: '400px',
   overflowY: 'auto',
 };
