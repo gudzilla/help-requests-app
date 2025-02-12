@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Box, Typography } from '@mui/material';
 import { accounts } from './constants';
-import { CopyToClipboardButton } from '@/components/CopyToClipboardButton';
+import { CopyToClipboardButton } from '@/components';
 
 const textStyle = { display: 'inline-block', marginRight: '12px' };
 
@@ -18,8 +18,6 @@ const testUsersBoxStyle = {
   display: 'grid',
   gap: '30px',
   maxWidth: '320px',
-  // Height to fit exactly 3 alerts
-  // if you have more you need to scroll
   maxHeight: '400px',
   overflowY: 'auto',
 };

@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { InfoHeader } from '../InfoHeader';
+import { TextInfoHeader } from '@/components';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { HelpRequestData } from '@/lib/api/types';
 
@@ -10,7 +10,7 @@ type OrganizationInfoProps = {
 export const OrganizationInfo = ({ organization }: OrganizationInfoProps) => {
   return (
     <Box>
-      <InfoHeader text="Организация" />
+      <TextInfoHeader text="Организация" />
       <Typography mb={'4px'}>{organization.title}</Typography>
       {organization.isVerified && (
         <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>

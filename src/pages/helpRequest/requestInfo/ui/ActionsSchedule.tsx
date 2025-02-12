@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { theme } from '@/styles/theme';
 import { HelpRequestData } from '@/lib/api/types';
-import { InfoHeader } from '../InfoHeader';
+import { TextInfoHeader } from '@/components';
 
 const style = {
   icon: {
@@ -22,7 +22,7 @@ export const ActionsSchedule = (props: ActionsScheduleProps) => {
   const { actions } = props;
   return (
     <Box>
-      <InfoHeader text="План действий" />
+      <TextInfoHeader text="План действий" />
       <Stack gap="8px">
         {actions.map((step, index) => (
           <Box key={index} sx={{ display: 'inline-flex', alignItems: 'center' }}>

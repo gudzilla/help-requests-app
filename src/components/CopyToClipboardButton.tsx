@@ -4,9 +4,9 @@ import CopyIcon from '@/assets/copy-icon.svg?react';
 import { theme } from '../styles/theme';
 
 const copyButtonStyle = {
-  padding: '4px', // Customize padding as needed
-  minWidth: 'unset', // Remove the default minimum width
-  width: 'auto', // Let the button size to fit the icon
+  padding: '4px',
+  minWidth: 'unset',
+  width: 'auto',
 };
 
 type Props = { value: string };

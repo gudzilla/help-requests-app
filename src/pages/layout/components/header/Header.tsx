@@ -2,8 +2,8 @@ import { Box, Link } from '@mui/material';
 import MainLogo from '@/assets/main-logo.svg?react';
 import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ProfileMenu } from './components/profileMenu';
-import { ShowOnly } from '@/components/ShowOnly';
-import { LoginButton } from '@/components/LoginButton';
+import { ShowOnly } from '@/components';
+import { LoginButton } from '@/components';
 import { headerMinHeight, theme } from '@/styles/theme';
 
 const toolbarStyles = {

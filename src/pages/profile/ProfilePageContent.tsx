@@ -1,9 +1,8 @@
-import { useParams } from 'react-router-dom';
-import { PARSING_ERROR, ServerError, useGetRequestByIdQuery } from '@/lib/api/api';
-import { Button, CircularProgress, Paper, Stack, Typography } from '@mui/material';
+import { Stack, Paper, CircularProgress, Button, Typography } from '@mui/material';
+import { useGetUserQuery, PARSING_ERROR, ServerError } from '../../lib/api/api';
+import { ProfileCard } from './ProfileCard';
 import ErrorIcon from '@/assets/load-error.svg?react';
-import { RequestInfo } from './requestInfo/RequestInfo';
-import { SmallCard } from './smallCard/SmallCard';
+import { ProfileInfo } from './profileInfo/ProfileInfo';
 
 const styles = {
   loadingAndError: {
@@ -17,18 +16,11 @@ const styles = {
   },
 };
 
-export const Request = () => {
-  const { requestId } = useParams();
-  const {
-    data,
-    error,
-    isLoading,
-    isFetching,
-    refetch: refetchRequest,
-  } = useGetRequestByIdQuery(requestId ?? '');
+export const ProfilePageContent = () => {
+  const { data, error, isLoading, isFetching, refetch } = useGetUserQuery();
 
-  const handleRefetchRequest = () => {
-    refetchRequest();
+  const handleRefetchUser = () => {
+    refetch();
   };
 
   if (isLoading || isFetching) {
@@ -42,6 +34,7 @@ export const Request = () => {
   }
 
   if (error) {
+    console.error(error);
     const errorCode =
       (error as PARSING_ERROR).originalStatus || (error as ServerError).status || false;
     const error500 = errorCode === 500;
@@ -53,10 +46,10 @@ export const Request = () => {
           <Typography color="error" variant="h5" sx={{ whiteSpace: 'pre-line' }}>
             {error404
               ? `Ошибка 404. \n Запроса по этому адресу не существует`
-              : 'Ошибка! Не удалось загрузить информацию о запросе'}
+              : 'Ошибка! Не удалось загрузить информацию о профиле'}
           </Typography>
           {error500 && (
-            <Button variant="outlined" onClick={handleRefetchRequest}>
+            <Button variant="outlined" onClick={handleRefetchUser}>
               Повторить запрос
             </Button>
           )}
@@ -66,10 +59,11 @@ export const Request = () => {
   }
 
   if (data) {
+    const { name, lastName, status } = data;
     return (
       <Stack direction="row" spacing={'20px'}>
-        <RequestInfo request={data} />
-        <SmallCard data={data} />
+        <ProfileCard name={name} lastName={lastName} status={status} />
+        <ProfileInfo data={data} />
       </Stack>
     );
   }

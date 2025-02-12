@@ -1,13 +1,13 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/react';
 
-// --------------------------- ERROR TYPES
+// --------------------------- ERROR TYPES -----------------------
 
 export type RTKQueryRequestError = FetchBaseQueryError | SerializedError | undefined;
 
-//  -------------------------- HELP-ELDERS  API RESPONSE TYPES
+//  -------------------------- HELP-ELDERS  API RESPONSE TYPES -----------------------
 
-export interface UserData {
+export type UserData = {
   id: string;
   name: string;
   lastName: string;
@@ -36,7 +36,7 @@ export interface UserData {
     };
   };
   favouriteRequests: string[];
-}
+};
 
 export type HelpRequestData = {
   id: string;

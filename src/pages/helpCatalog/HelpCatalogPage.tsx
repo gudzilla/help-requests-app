@@ -9,7 +9,6 @@ const mainContentStyle = {
 };
 
 export const HelpCatalogPage = () => {
-  // ---------------- GET FAVORITES API REQUEST ---------------
   useGetFavouritesQuery();
 
   return (

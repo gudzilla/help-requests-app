@@ -3,13 +3,6 @@ import { NotFound } from './notFound/NotFound';
 import { HelpCatalogPage } from './helpCatalog/HelpCatalogPage';
 import { HelpRequestPage } from './helpRequest/HelpRequestPage';
 import { LoginPage } from './login/LoginPage';
-import { Profile } from './profile/Profile';
+import { ProfilePage } from './profile/ProfilePage';
 
-export {
-  Layout,
-  NotFound,
-  HelpCatalogPage as HelpCatalog,
-  HelpRequestPage as HelpRequest,
-  LoginPage as Login,
-  Profile,
-};
+export { Layout, NotFound, HelpCatalogPage, HelpRequestPage, LoginPage, ProfilePage };

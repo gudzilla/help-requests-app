@@ -26,8 +26,7 @@ export const Layout = () => {
           <Outlet />
           <ToastContainer
             position="top-right"
-            // autoClose={3500}
-            limit={5}
+            limit={4}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
