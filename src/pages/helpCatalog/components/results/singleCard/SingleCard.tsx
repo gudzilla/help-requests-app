@@ -37,8 +37,6 @@ export const SingleCard = (props: SingleCardProps) => {
       requestGoalCurrentValue,
       requesterType,
       helpType,
-      // addToFavourite,
-      // removeFromFavourites,
     },
   } = props;
 

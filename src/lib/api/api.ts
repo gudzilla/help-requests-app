@@ -5,7 +5,7 @@ import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
 import { logInFx } from '@/store/authenticationReducer';
 
-type PARSING_ERROR = {
+export type PARSING_ERROR = {
   /**
    * * `"PARSING_ERROR"`:
    *   An error happened during parsing.
@@ -16,6 +16,11 @@ type PARSING_ERROR = {
   originalStatus: number;
   data: string;
   error: string;
+};
+
+export type ServerError = {
+  status: number;
+  data: unknown;
 };
 
 type AuthData = {
@@ -96,11 +101,19 @@ export const helpEldersApi = createApi({
       },
     }),
     getRequestById: builder.query<HelpRequestData, HelpRequestId>({
-      // todo: тост на 500 ошибку НЕ нужен
       query: (requestId) => `/request/${requestId}`,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error: unknown) {
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch });
+          }
+        }
+      },
     }),
     getUser: builder.query<UserData, void>({
-      // todo: ошибка 500 показать ТОСТ
+      // todo: на 500 ошибку НЕ нужен тост
       query: () => `/user`,
     }),
     contribution: builder.mutation<string, string>({
@@ -133,12 +146,8 @@ export const helpEldersApi = createApi({
             console.log(error);
             if ((error.error as PARSING_ERROR).originalStatus === 500) {
               console.log('Повторный запрос избранного getFavourites');
+              // todo: убрал forceRefech. Если будут ошибки то проверить
               dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
-              // dispatch(
-              //   helpEldersApi.endpoints.getFavourites.initiate(undefined, {
-              //     forceRefetch: true,
-              //   })
-              // );
             }
             errorHandler({ err: error.error, dispatch });
           }
@@ -156,7 +165,6 @@ export const helpEldersApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
           dispatch(
             helpEldersApi.endpoints.getFavourites.initiate(undefined, {
               forceRefetch: true,
@@ -181,7 +189,6 @@ export const helpEldersApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          // dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
           dispatch(
             helpEldersApi.endpoints.getFavourites.initiate(undefined, {
               forceRefetch: true,

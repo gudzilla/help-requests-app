@@ -1,12 +1,13 @@
-import { useParams } from 'react-router-dom';
+import { Stack, Typography } from '@mui/material';
+import { Request } from './Request';
 
-// todo: figure out how to add a Route and where to make API call
 export const HelpRequestPage = () => {
-  const { requestId } = useParams();
   return (
-    <div>
-      <h2>Страница Запроса Помощи</h2>
-      <p>RequestId = {requestId}</p>
-    </div>
+    <Stack padding="30px 40px" spacing={2}>
+      <Typography component="h1" variant="h4">
+        Запрос о помощи
+      </Typography>
+      <Request />
+    </Stack>
   );
 };
