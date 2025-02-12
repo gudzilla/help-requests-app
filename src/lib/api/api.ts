@@ -115,6 +115,15 @@ export const helpEldersApi = createApi({
     getUser: builder.query<UserData, void>({
       // todo: на 500 ошибку НЕ нужен тост
       query: () => `/user`,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error: unknown) {
+          if (isOnQueryStartError(error)) {
+            errorHandler({ err: error.error, dispatch });
+          }
+        }
+      },
     }),
     contribution: builder.mutation<string, string>({
       query: (requestId) => ({

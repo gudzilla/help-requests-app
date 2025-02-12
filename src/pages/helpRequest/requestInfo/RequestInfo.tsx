@@ -1,10 +1,10 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import { HelpRequestData } from '../../../lib/api/types';
+import { HelpRequestData } from '@/lib/api/types';
+import { TextInfoHeader } from '@/components/TextInfoHeader';
 import { FavouriteButton } from './ui/FavouriteButton';
 import { ActionsSchedule } from './ui/ActionsSchedule';
 import { LocationInfo } from './ui/LocationInfo';
 import { ContactsInfo } from './ui/ContactsInfo';
-import { InfoHeader } from './InfoHeader';
 import { OrganizationInfo } from './ui/OrganizationInfo';
 
 const stylePaper = {
@@ -36,21 +36,21 @@ export const RequestInfo = ({ request }: RequestInfoProps) => {
     <Paper elevation={0} sx={stylePaper}>
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" gap={'30px'} sx={{ maxWidth: '550px' }}>
-          <Typography component="h1" variant="h5">
+          <Typography component="h2" variant="h5">
             {title}
           </Typography>
           <OrganizationInfo organization={organization} />
           <Box>
-            <InfoHeader text="Кому мы помогаем" />
+            <TextInfoHeader text="Кому мы помогаем" />
             <Typography>{description}</Typography>
           </Box>
           <Box>
-            <InfoHeader text="Цель сбора" />
+            <TextInfoHeader text="Цель сбора" />
             <Typography>{goalDescription}</Typography>
           </Box>
           <ActionsSchedule actions={actionsSchedule} />
           <Box>
-            <InfoHeader text="Завершение" />
+            <TextInfoHeader text="Завершение" />
             <Typography>{new Date(endingDate).toLocaleDateString('ru-RU')}</Typography>
           </Box>
           <LocationInfo location={location} isOnline={isOnline} />
