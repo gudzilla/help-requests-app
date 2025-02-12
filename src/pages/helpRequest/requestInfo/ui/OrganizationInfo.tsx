@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { HelpRequestData } from '@/lib/api/types';
 

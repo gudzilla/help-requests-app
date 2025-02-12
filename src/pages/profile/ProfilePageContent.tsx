@@ -48,7 +48,7 @@ export const ProfilePageContent = () => {
           <Typography color="error" variant="h5" sx={{ whiteSpace: 'pre-line' }}>
             {error404
               ? `Ошибка 404. \n Запроса по этому адресу не существует`
-              : 'Ошибка! Не удалось загрузить информацию'}
+              : 'Ошибка! Не удалось загрузить информацию о профиле'}
           </Typography>
           {error500 && (
             <Button variant="outlined" onClick={handleRefetchUser}>

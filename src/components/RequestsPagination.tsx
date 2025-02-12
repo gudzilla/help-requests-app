@@ -2,13 +2,13 @@ import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box } from '@mui/material';
 
-type ResultsPaginationProps = {
+type RequestsPaginationProps = {
   totalPages: number;
   currentPage: number;
   setPage: (v: number) => void;
 };
 
-export function ResultsPagination(props: ResultsPaginationProps) {
+export function RequestsPagination(props: RequestsPaginationProps) {
   const { totalPages, currentPage, setPage } = props;
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

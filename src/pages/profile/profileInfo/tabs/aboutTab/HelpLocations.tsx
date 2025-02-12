@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 import { UserData } from '@/lib/api/types';
 
 type HelpLocationsProps = {

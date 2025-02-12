@@ -1,6 +1,6 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { HelpRequestData } from '@/lib/api/types';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 import { FavouriteButton } from './ui/FavouriteButton';
 import { ActionsSchedule } from './ui/ActionsSchedule';
 import { LocationInfo } from './ui/LocationInfo';

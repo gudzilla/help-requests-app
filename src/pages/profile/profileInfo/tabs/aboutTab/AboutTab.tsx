@@ -1,6 +1,6 @@
 import { TabPanel } from '@mui/lab';
 import { Box, Stack, Typography } from '@mui/material';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 import { UserData } from '@/lib/api/types';
 import { EducationInfo } from './EducationInfo';
 import { NameInfo } from './NameInfo';
@@ -13,7 +13,7 @@ type AboutTabProps = {
 export const AboutTab = ({ data }: AboutTabProps) => {
   const { name, lastName, birthdate, educations, additionalInfo, baseLocations } = data;
   return (
-    <TabPanel value="about-user" sx={{ padding: 0 }}>
+    <TabPanel value="about-user" sx={{ padding: 0, paddingTop: '10px' }}>
       <Stack direction="column" gap={'30px'} sx={{ maxWidth: '550px' }}>
         <NameInfo name={name} lastName={lastName} />
         <Box>

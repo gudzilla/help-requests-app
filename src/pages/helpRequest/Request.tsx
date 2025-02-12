@@ -42,7 +42,6 @@ export const Request = () => {
   }
 
   if (error) {
-    console.error(error);
     const errorCode =
       (error as PARSING_ERROR).originalStatus || (error as ServerError).status || false;
     const error500 = errorCode === 500;
@@ -54,7 +53,7 @@ export const Request = () => {
           <Typography color="error" variant="h5" sx={{ whiteSpace: 'pre-line' }}>
             {error404
               ? `Ошибка 404. \n Запроса по этому адресу не существует`
-              : 'Ошибка! Не удалось загрузить информацию'}
+              : 'Ошибка! Не удалось загрузить информацию о запросе'}
           </Typography>
           {error500 && (
             <Button variant="outlined" onClick={handleRefetchRequest}>

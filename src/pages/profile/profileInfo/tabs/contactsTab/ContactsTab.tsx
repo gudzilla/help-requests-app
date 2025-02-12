@@ -1,7 +1,7 @@
 import { TabPanel } from '@mui/lab';
 import { Box, Link, Stack, Typography } from '@mui/material';
 import { UserData } from '@/lib/api/types';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 import VkIcon from '@/assets/vk-icon.svg?react';
 import TgIcon from '@/assets/telegram-icon.svg?react';
 import WhatsappIcon from '@/assets/whatsapp-icon.svg?react';
@@ -15,11 +15,10 @@ type ContactsTabProps = {
 };
 
 export const ContactsTab = ({ contacts }: ContactsTabProps) => {
-  // const hasSocialLinks = Object.keys(contacts.social).length > 0;
   const { social } = contacts;
   console.log(social);
   return (
-    <TabPanel value="user-contacts" sx={{ padding: 0 }}>
+    <TabPanel value="user-contacts" sx={{ padding: 0, paddingTop: '10px' }}>
       <Stack direction="column" gap={'30px'} sx={{ maxWidth: '550px' }}>
         <Box>
           <TextInfoHeader text="E-mail" />

@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { HelpRequestData } from '@/lib/api/types';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 type LocationInfoProps = {
   location: HelpRequestData['location'];
   isOnline: boolean;

@@ -155,8 +155,13 @@ export const helpEldersApi = createApi({
             console.log(error);
             if ((error.error as PARSING_ERROR).originalStatus === 500) {
               console.log('Повторный запрос избранного getFavourites');
-              // todo: убрал forceRefech. Если будут ошибки то проверить
-              dispatch(helpEldersApi.endpoints.getFavourites.initiate(undefined));
+              // todo: Это оч грубо. Может ли быть постоянно это ошибка?
+              // ТОгда будет бесконечный повтор запросов
+              dispatch(
+                helpEldersApi.endpoints.getFavourites.initiate(undefined, {
+                  forceRefetch: true,
+                })
+              );
             }
             errorHandler({ err: error.error, dispatch });
           }

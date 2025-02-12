@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { theme } from '@/styles/theme';
 import { HelpRequestData } from '@/lib/api/types';
-import { TextInfoHeader } from '@/components/TextInfoHeader';
+import { TextInfoHeader } from '@/components';
 
 const style = {
   icon: {

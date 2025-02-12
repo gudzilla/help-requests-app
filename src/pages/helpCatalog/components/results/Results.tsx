@@ -1,9 +1,9 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/api';
-import { transformDataForCardsView } from './singleCard/transformToSingleCardProps';
+import { transformDataForCardsView } from '@/components/singleCard';
 import { HelpCards } from './HelpCards';
-import { ResultsViewModeSwitcher } from './ResultsViewModeSwitcher';
-import { ResultsPagination } from './ResultsPagination';
+import { ToggleCardsView } from '@/components';
+import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
@@ -29,7 +29,7 @@ export const Results = () => {
   const resultsFound = filteredData.length;
 
   const hasNoResultsOnFilter = filteredData?.length === 0;
-  const dataNotEmpty = !hasNoResultsOnFilter;
+  const dataNotEmpty = filteredData?.length > 0;
   const showPagination = filteredData && dataNotEmpty && !error && !isLoading;
 
   // ---------------------- PAGINATION -----------------
@@ -48,7 +48,7 @@ export const Results = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFakeLoading(false);
-    }, 700);
+    }, 400);
     return () => clearTimeout(timer);
   }, []);
 
@@ -64,7 +64,7 @@ export const Results = () => {
           {noErrorOrLoading && (
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h6">Найдено: {resultsFound}</Typography>
-              <ResultsViewModeSwitcher />
+              <ToggleCardsView />
             </Stack>
           )}
           <HelpCards
@@ -75,7 +75,7 @@ export const Results = () => {
             refetchRequests={handleRefetchRequests}
           />
           {showPagination && (
-            <ResultsPagination
+            <RequestsPagination
               currentPage={currentPage}
               totalPages={totalPages}
               setPage={handlePageChange}

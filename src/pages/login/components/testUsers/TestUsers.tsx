@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Box, Typography } from '@mui/material';
 import { accounts } from './constants';
-import { CopyToClipboardButton } from '@/components/CopyToClipboardButton';
+import { CopyToClipboardButton } from '@/components';
 
 const textStyle = { display: 'inline-block', marginRight: '12px' };
 
