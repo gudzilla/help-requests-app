@@ -39,40 +39,38 @@
 
 <img alt='Страница логина' src='./src/assets/forReadme/1-Login.png'>
 
-
-Каталог запросов
+**Каталог запросов**
 <img alt='Запросы' src='./src/assets/forReadme/2-Requests-Catalog.png'>
 
-Добавить в избранное
+**Добавить в избранное**
 <img alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.png'>
 
-Меню в хедере
-
+**Меню в хедере**
 <img alt='Запросы' src='./src/assets/forReadme/3.3-Menu.png'>
 
-Страница Запроса
+**Страница Запроса**
 <img alt='Запросы' src='./src/assets/forReadme/3-Request-Page.png'>
 
-Страница Профиля (1-я вкладка)
+**Страница Профиля (1-я вкладка)**
 <img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-1.png'>
 
-Страница Профиля (2-я вкладка)
+**Страница Профиля (2-я вкладка)**
 <img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-2.png'>
 
-Страница Профиля (3-я вкладка)
+**Страница Профиля (3-я вкладка)**
 <img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-3.png'>
 
 ## Обработки
 
-Ошибки
+**Ошибки**
 <img alt='Запросы' src='./src/assets/forReadme/Catalog-Error.png'>
 
-Нет результатов
+**Нет результатов**
 <img alt='Запросы' src='./src/assets/forReadme/Catalog-no-results.png'>
 
-Тосты
-
+**Тосты**
 <img alt='Запросы' src='./src/assets/forReadme/toast-notifications.png'>
+
 
 ## Как запустить локально
 
