@@ -45,9 +45,7 @@
 **Добавить в избранное**
 <img alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.png'>
 
-
 **Меню в хедере**
-
 <img alt='Запросы' src='./src/assets/forReadme/3.3-Menu.png'>
 
 **Страница Конкретного Запроса**
