@@ -37,41 +37,42 @@
 
 **Логин**
 
-<img width='500' alt='Страница логина' src='./src/assets/forReadme/1-Login.png'>
+<img alt='Страница логина' src='./src/assets/forReadme/1-Login.png'>
 
 
 Каталог запросов
-<img width='500' alt='Запросы' src='./src/assets/forReadme/2-Requests-Catalog.png'>
+<img alt='Запросы' src='./src/assets/forReadme/2-Requests-Catalog.png'>
 
 Добавить в избранное
-<img width='500' alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.png'>
+<img alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.png'>
 
 Меню в хедере
-<img width='500' alt='Запросы' src='./src/assets/forReadme/3.3-Menu.png'>
+
+<img alt='Запросы' src='./src/assets/forReadme/3.3-Menu.png'>
 
 Страница Запроса
-<img width='500' alt='Запросы' src='./src/assets/forReadme/3-Request-Page.png'>
+<img alt='Запросы' src='./src/assets/forReadme/3-Request-Page.png'>
 
 Страница Профиля (1-я вкладка)
-<img width='500' alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-1.png'>
+<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-1.png'>
 
 Страница Профиля (2-я вкладка)
-<img width='500' alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-2.png'>
+<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-2.png'>
 
 Страница Профиля (3-я вкладка)
-<img width='500' alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-3.png'>
+<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-3.png'>
 
 ## Обработки
 
 Ошибки
-<img width='500' alt='Запросы' src='./src/assets/forReadme/Catalog-Error.png'>
+<img alt='Запросы' src='./src/assets/forReadme/Catalog-Error.png'>
 
 Нет результатов
-<img width='500' alt='Запросы' src='./src/assets/forReadme/Catalog-no-results.png'>
+<img alt='Запросы' src='./src/assets/forReadme/Catalog-no-results.png'>
 
 Тосты
 
-<img width='500' alt='Запросы' src='./src/assets/forReadme/toast-notifications.png'>
+<img alt='Запросы' src='./src/assets/forReadme/toast-notifications.png'>
 
 ## Как запустить локально
 
