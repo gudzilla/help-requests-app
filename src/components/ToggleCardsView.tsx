@@ -22,14 +22,18 @@ export function ToggleCardsView() {
       aria-label="cards view"
       size="small"
     >
-      <ToggleButton value="vertical" aria-label="Вертикальный вид">
-        <GridOnIcon />
+      <ToggleButton
+        value="vertical"
+        aria-label="Вертикальный вид"
+        sx={{ fontSize: '2rem' }}
+      >
+        <GridOnIcon sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
       </ToggleButton>
       <ToggleButton value="horizontal" aria-label="Горизонтальный вид" disabled>
-        <ListAltIcon />
+        <ListAltIcon sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
       </ToggleButton>
       <ToggleButton value="map" aria-label="Вид на карте" disabled>
-        <LocationOnIcon />
+        <LocationOnIcon sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
       </ToggleButton>
     </ToggleButtonGroup>
   );

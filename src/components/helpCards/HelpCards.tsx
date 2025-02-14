@@ -61,9 +61,7 @@ export const HelpCards = (props: HelpCardsProps) => {
     return (
       <Box sx={StyleToStrechContainer}>
         <NoResultsIcon style={{ marginBottom: '24px' }} />
-        <Typography variant="h5" paddingLeft={'62px'}>
-          {messageForNoResults}
-        </Typography>
+        <Typography variant="h5">{messageForNoResults}</Typography>
       </Box>
     );
   }
