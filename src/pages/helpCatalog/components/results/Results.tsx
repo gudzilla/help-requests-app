@@ -7,6 +7,7 @@ import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
+import { safeScrollToTop } from '@/lib/safeScrollToTop';
 
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -38,7 +39,7 @@ export const Results = () => {
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    safeScrollToTop();
   };
 
   const handleRefetchRequests = () => {

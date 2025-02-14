@@ -1,4 +1,4 @@
 import { SingleCard } from './SingleCard';
-import { transformDataForCardsView } from './transformToSingleCardProps';
+import { transformDataForCards } from './transformDataForCards';
 
-export { SingleCard, transformDataForCardsView };
+export { SingleCard, transformDataForCards as transformDataForCardsView };

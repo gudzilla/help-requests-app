@@ -1,7 +1,7 @@
 import { HelpRequestData } from '@/lib/api/types';
 import { DataForSingleCard } from './types';
 
-export function transformDataForCardsView(
+export function transformDataForCards(
   requestsArray: HelpRequestData[]
 ): DataForSingleCard[] {
   const preparedArray = requestsArray.map((item) => ({
