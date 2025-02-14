@@ -16,7 +16,7 @@ export const SmallCardActions = (props: SmallCardActionsType) => {
   return (
     <CardActions sx={{ display: 'block', padding: 0 }}>
       <Stack gap="4px">
-        <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+        <Typography variant="body2" color="text.secondary">
           {contributorsCount === 0 ? 'Вы будете первым' : `Нас уже: ${contributorsCount}`}
         </Typography>
         <LoadingButton

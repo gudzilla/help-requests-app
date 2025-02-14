@@ -3,8 +3,7 @@ import MainLogo from '@/assets/main-logo.svg?react';
 import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ProfileMenu } from './components/profileMenu';
 import { ShowOnly } from '@/components';
-import { LoginButton } from '@/components';
-import { headerMinHeight, theme } from '@/styles/theme';
+import { headerMinHeight } from '@/styles/theme';
 
 const toolbarStyles = {
   display: 'grid',
@@ -24,16 +23,12 @@ export const Header = () => {
               </Link>
             </Box>
             <Box sx={{ justifySelf: 'center' }}>
-              <Link
-                href="/help-catalog"
-                underline="hover"
-                color={theme.palette.text.primary}
-              >
+              <Link href="/help-catalog" underline="hover" color="text.primary">
                 <Typography>Запросы о помощи</Typography>
               </Link>
             </Box>
             <Box sx={{ justifySelf: 'end' }}>
-              <ShowOnly when="authorized" otherwise={<LoginButton />}>
+              <ShowOnly when="authorized" otherwise={null}>
                 <ProfileMenu />
               </ShowOnly>
             </Box>

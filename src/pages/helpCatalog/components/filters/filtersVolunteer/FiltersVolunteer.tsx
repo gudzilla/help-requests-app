@@ -27,7 +27,7 @@ const style = {
 export const FiltersVolunteer = () => {
   return (
     <Box>
-      <Accordion defaultExpanded elevation={0}>
+      <Accordion elevation={0}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={style.summary}>
           <Typography component="span">Волонтерство</Typography>
         </AccordionSummary>

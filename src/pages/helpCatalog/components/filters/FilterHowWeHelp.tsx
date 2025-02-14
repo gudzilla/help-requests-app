@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useFiltersStateSelector } from '../../state/selectors';
 import { setHelpType } from '../../state/filtersSlice';
-import { HelpRequestData } from '../../../../lib/api/types';
+import { HelpRequestData } from '@/lib/api/types';
 
 type HelpType = HelpRequestData['helpType'];
 type StrictHelpTypeMap = { [K in HelpType]: K };
@@ -29,7 +29,11 @@ export function FilterHowWeHelp() {
     }
   };
   return (
-    <FormControl component="fieldset" variant="standard">
+    <FormControl
+      component="fieldset"
+      variant="standard"
+      sx={{ flex: { xs: 1, md: 'unset' } }}
+    >
       <FormLabel component="legend">Чем мы помогаем</FormLabel>
       <FormGroup>
         <FormControlLabel

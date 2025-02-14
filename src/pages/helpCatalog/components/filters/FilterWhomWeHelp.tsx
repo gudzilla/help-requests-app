@@ -30,7 +30,11 @@ export function FilterWhomWeHelp() {
   };
 
   return (
-    <FormControl component="fieldset" variant="standard">
+    <FormControl
+      component="fieldset"
+      variant="standard"
+      sx={{ flex: { xs: 1, md: 'unset' } }}
+    >
       <FormLabel component="legend">Кому мы помогаем</FormLabel>
       <FormGroup>
         <FormControlLabel

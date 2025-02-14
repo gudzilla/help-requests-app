@@ -2,7 +2,8 @@ export const styles = {
   card: {
     display: 'flex',
     flexDirection: 'column',
-    width: 320,
+    minHeight: { lg: '818px' },
+    cursor: 'pointer',
   },
   cardBody: {
     padding: '10px 16px 20px 16px',
@@ -18,10 +19,9 @@ export const styles = {
     marginBottom: '20px',
   },
   favoriteButton: {
-    minWidth: '32px',
-    height: '32px',
-    width: '32px',
-    p: 0,
+    minWidth: '36px',
+    height: '36px',
+    padding: 0,
     border: 1,
     borderColor: 'divider',
     marginLeft: 'auto',

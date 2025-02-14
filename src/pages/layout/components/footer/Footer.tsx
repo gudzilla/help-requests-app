@@ -1,6 +1,6 @@
 import { Box, Divider, Container, Stack, Link, Typography } from '@mui/material';
 import { LINKS_ARRAY } from '@/constants/links';
-import { footerMinHeight, theme } from '@/styles/theme';
+import { footerMinHeight } from '@/styles/theme';
 
 const linksStackStyles = {
   minHeight: `${footerMinHeight}px`,
@@ -17,7 +17,7 @@ export const Footer = () => {
         sx={{
           position: 'relative',
           zIndex: 10,
-          background: theme.palette.background.paper,
+          background: 'background.paper',
         }}
       >
         <Container maxWidth="xl">
@@ -26,7 +26,7 @@ export const Footer = () => {
               <Link
                 key={index}
                 underline="hover"
-                color={theme.palette.text.primary}
+                color="text.primary"
                 href={link.url}
                 target="_blank"
               >

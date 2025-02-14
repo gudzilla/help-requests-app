@@ -6,7 +6,6 @@ import {
 } from '@/lib/api/api';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { theme } from '@/styles/theme';
 
 type FavouriteButtonProps = {
   id: string;
@@ -30,7 +29,7 @@ const style = {
 
 export const FavouriteButton = ({ id }: FavouriteButtonProps) => {
   const textStyle = {
-    color: theme.palette.text.primary,
+    color: 'text.primary',
     lineHeight: 1.5,
   };
   const favouritesList = useFavouritesSelector();

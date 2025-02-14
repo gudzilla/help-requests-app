@@ -1,4 +1,4 @@
-import { Divider, Box, Card } from '@mui/material';
+import { Divider, Box, Card, Grid2 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './styles';
 import {
@@ -71,37 +71,39 @@ export const SingleCard = (props: SingleCardProps) => {
   );
 
   return (
-    <Card elevation={3} sx={styles.card}>
-      <SingleCardHeader
-        helpType={helpType}
-        isFavourite={isFavourite}
-        requesterType={requesterType}
-        title={title}
-        addToFavourite={handleAddToFavourite}
-        removeFromFavourite={handleRemoveFromFavourite}
-        onCardClick={handleCardClick}
-      />
-      <Divider />
-      <Box sx={styles.cardBody}>
-        <SingleCardContent
-          isHelpOnline={isHelpOnline}
-          goalDescription={goalDescription}
-          organization={organization}
-          locationCity={locationCity}
-          locationDistrict={locationDistrict}
+    <Grid2 size={{ xs: 12, lg: 6, xl: 4 }}>
+      <Card elevation={3} sx={styles.card}>
+        <SingleCardHeader
+          helpType={helpType}
+          isFavourite={isFavourite}
+          requesterType={requesterType}
+          title={title}
+          addToFavourite={handleAddToFavourite}
+          removeFromFavourite={handleRemoveFromFavourite}
           onCardClick={handleCardClick}
         />
-        <SingleCardActions
-          requestGoal={requestGoal}
-          contributorsCount={contributorsCount}
-          endingDate={endingDate}
-          goalProgressInPercent={goalProgressInPercent}
-          requestGoalCurrentValue={requestGoalCurrentValue}
-          handleHelpButtonClick={handleHelpButtonClick}
-          isLoading={isLoadingContribution}
-          onCardClick={handleCardClick}
-        />
-      </Box>
-    </Card>
+        <Divider />
+        <Box sx={styles.cardBody}>
+          <SingleCardContent
+            isHelpOnline={isHelpOnline}
+            goalDescription={goalDescription}
+            organization={organization}
+            locationCity={locationCity}
+            locationDistrict={locationDistrict}
+            onCardClick={handleCardClick}
+          />
+          <SingleCardActions
+            requestGoal={requestGoal}
+            contributorsCount={contributorsCount}
+            endingDate={endingDate}
+            goalProgressInPercent={goalProgressInPercent}
+            requestGoalCurrentValue={requestGoalCurrentValue}
+            handleHelpButtonClick={handleHelpButtonClick}
+            isLoading={isLoadingContribution}
+            onCardClick={handleCardClick}
+          />
+        </Box>
+      </Card>
+    </Grid2>
   );
 };

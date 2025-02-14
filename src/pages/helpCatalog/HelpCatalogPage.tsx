@@ -16,7 +16,7 @@ export const HelpCatalogPage = () => {
       <Typography component="h1" variant="h4">
         Запросы о помощи
       </Typography>
-      <Stack direction="row" spacing={'20px'}>
+      <Stack direction={{ sx: 'column', md: 'row' }} gap={'20px'}>
         <Filters />
         <Stack direction="column" spacing={'20px'} sx={mainContentStyle}>
           <HelpCatalogSearch />

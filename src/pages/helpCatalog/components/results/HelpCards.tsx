@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
 import { SingleCard } from '@/components/singleCard';
 import { DataForSingleCard } from '@/components/singleCard/types';
 import { RTKQueryRequestError } from '@/lib/api/types';
@@ -10,19 +10,28 @@ const StyleToStrechContainer = {
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  height: '64vh',
+  padding: '30px',
+  height: { md: '40vh', lg: '64vh' },
 };
 
 type HelpCardsProps = {
   cards: DataForSingleCard[];
   error: RTKQueryRequestError;
   isLoading: boolean;
-  noResults: boolean | undefined;
+  hasNoResults: boolean | undefined;
+  messageForNoResults?: string;
   refetchRequests: () => void;
 };
 
 export const HelpCards = (props: HelpCardsProps) => {
-  const { cards, error, isLoading, noResults, refetchRequests } = props;
+  const {
+    cards,
+    error,
+    isLoading,
+    hasNoResults,
+    messageForNoResults = 'Запросы не найдены',
+    refetchRequests,
+  } = props;
 
   if (isLoading) {
     return (
@@ -48,22 +57,22 @@ export const HelpCards = (props: HelpCardsProps) => {
     );
   }
 
-  if (noResults) {
+  if (hasNoResults) {
     return (
       <Box sx={StyleToStrechContainer}>
         <NoResultsIcon style={{ marginBottom: '24px' }} />
         <Typography variant="h5" paddingLeft={'62px'}>
-          Запросы не найдены
+          {messageForNoResults}
         </Typography>
       </Box>
     );
   }
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '818px' }}>
+    <Grid2 container rowSpacing="16px" columnSpacing="24px">
       {cards.map((request: DataForSingleCard) => {
         return <SingleCard key={request.id} dataForRequestCard={request} />;
       })}
-    </Box>
+    </Grid2>
   );
 };

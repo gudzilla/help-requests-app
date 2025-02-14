@@ -6,10 +6,10 @@ import { FilterDate } from './FilterDate';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { initialFiltersState, removeAllFilters } from '../../state/filtersSlice';
 import { useFiltersStateSelector } from '../../state/selectors';
-import { areObjectsDeepEqual } from '../../../../lib/areObjectsDeepEqual';
+import { areObjectsDeepEqual } from '@/lib/areObjectsDeepEqual';
 
 const filtersSectionStyle = {
-  width: '320px',
+  width: { md: '320px' },
   padding: '20px',
 };
 
@@ -22,14 +22,16 @@ export const Filters = () => {
     dispatch(removeAllFilters());
   };
   return (
-    <Paper sx={{ alignSelf: 'flex-start' }}>
+    <Paper sx={{ alignSelf: { md: 'flex-start' } }}>
       <Stack spacing={'20px'} sx={filtersSectionStyle}>
         <Box>
           <Typography variant="h6">Фильтрация</Typography>
           <Divider />
         </Box>
-        <FilterWhomWeHelp />
-        <FilterHowWeHelp />
+        <Stack direction={{ xs: 'column', sm: 'row', md: 'column' }}>
+          <FilterWhomWeHelp />
+          <FilterHowWeHelp />
+        </Stack>
         <FiltersVolunteer />
         <FilterDate />
         <Button

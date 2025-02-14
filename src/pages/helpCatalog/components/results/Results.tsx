@@ -33,11 +33,12 @@ export const Results = () => {
   const showPagination = filteredData && dataNotEmpty && !error && !isLoading;
 
   // ---------------------- PAGINATION -----------------
-  const { currentItems, totalPages } = usePagination(filteredData, 3, currentPage);
+  const { currentItems, totalPages } = usePagination(filteredData, 6, currentPage);
   const itemsReadyForRender = transformDataForCardsView(currentItems);
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleRefetchRequests = () => {
@@ -71,7 +72,7 @@ export const Results = () => {
             cards={itemsReadyForRender}
             error={error}
             isLoading={isLoading}
-            noResults={hasNoResultsOnFilter}
+            hasNoResults={hasNoResultsOnFilter}
             refetchRequests={handleRefetchRequests}
           />
           {showPagination && (

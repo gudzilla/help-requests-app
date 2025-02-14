@@ -10,7 +10,7 @@ const styles = {
     alignSelf: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
-    width: 320,
+    width: '320px',
     padding: '20px',
     paddingBottom: '30px',
     border: 1,
