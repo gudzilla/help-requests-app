@@ -1,7 +1,7 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/api';
-import { transformDataForCardsView } from '@/components/singleCard';
-import { HelpCards } from './HelpCards';
+import { transformDataForCardsView } from '@/components/helpCards/singleCard';
+import { HelpCards } from '@/components';
 import { ToggleCardsView } from '@/components';
 import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';

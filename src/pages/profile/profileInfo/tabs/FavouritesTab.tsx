@@ -10,9 +10,9 @@ import ErrorIcon from '@/assets/load-error.svg?react';
 import NoResultsIcon from '@/assets/not-found-result.svg?react';
 import { usePagination } from '@/lib/usePagination';
 import { useState } from 'react';
-import { transformDataForCardsView } from '@/components/singleCard';
-import { DataForSingleCard } from '@/components/singleCard/types';
-import { SingleCard } from '@/components/singleCard/SingleCard';
+import { transformDataForCardsView } from '@/components/helpCards/singleCard';
+import { DataForSingleCard } from '@/components/helpCards/singleCard/types';
+import { SingleCard } from '@/components/helpCards/singleCard/SingleCard';
 import { RequestsPagination } from '@/components';
 
 const StyleToStrechContainer = {
@@ -50,6 +50,17 @@ export const FavouritesTab = () => {
     return dataArray.filter((request) => favIdsSet.has(request.id));
   };
 
+  const favouriteRequests = getRequestsDataFromIds(favouritesIdsArray, requestsArray);
+  const noResults = favouriteRequests.length === 0;
+  const showPagination = !isLoading && !getRequestsError && !noResults;
+
+  const { currentItems: requestsForPage, totalPages } = usePagination(
+    favouriteRequests,
+    3,
+    currentPage
+  );
+  const cardsData = transformDataForCardsView(requestsForPage);
+
   if (isLoading) {
     return (
       <TabPanel value="user-favourites" sx={{ padding: 0 }}>
@@ -77,17 +88,6 @@ export const FavouritesTab = () => {
       </TabPanel>
     );
   }
-
-  const favouriteRequests = getRequestsDataFromIds(favouritesIdsArray, requestsArray);
-  const noResults = favouriteRequests.length === 0;
-  const showPagination = !isLoading && !getRequestsError && !noResults;
-
-  const { currentItems: requestsForPage, totalPages } = usePagination(
-    favouriteRequests,
-    3,
-    currentPage
-  );
-  const cardsData = transformDataForCardsView(requestsForPage);
 
   if (noResults) {
     return (

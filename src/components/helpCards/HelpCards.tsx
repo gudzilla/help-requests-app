@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
-import { SingleCard } from '@/components/singleCard';
-import { DataForSingleCard } from '@/components/singleCard/types';
+import { SingleCard } from '@/components/helpCards/singleCard';
+import { DataForSingleCard } from '@/components/helpCards/singleCard/types';
 import { RTKQueryRequestError } from '@/lib/api/types';
 import ErrorIcon from '@/assets/load-error.svg?react';
 import NoResultsIcon from '@/assets/not-found-result.svg?react';

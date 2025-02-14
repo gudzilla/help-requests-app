@@ -3,6 +3,7 @@ import { RequestsPagination } from './RequestsPagination';
 import { ShowOnly } from './ShowOnly';
 import { TextInfoHeader } from './TextInfoHeader';
 import { ToggleCardsView } from './ToggleCardsView';
+import { HelpCards } from './helpCards';
 
 export {
   CopyToClipboardButton,
@@ -10,4 +11,5 @@ export {
   ShowOnly,
   TextInfoHeader,
   ToggleCardsView,
+  HelpCards,
 };
