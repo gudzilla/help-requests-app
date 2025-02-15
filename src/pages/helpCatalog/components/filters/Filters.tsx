@@ -9,7 +9,7 @@ import { useFiltersStateSelector } from '../../state/selectors';
 import { areObjectsDeepEqual } from '@/lib/areObjectsDeepEqual';
 
 const filtersSectionStyle = {
-  width: { md: '320px' },
+  width: { xl: '320px' },
   padding: '20px',
 };
 

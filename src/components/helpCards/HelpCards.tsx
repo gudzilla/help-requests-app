@@ -1,9 +1,19 @@
-import { Box, Button, CircularProgress, Grid2, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Grid2,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { SingleCard } from '@/components/helpCards/singleCard';
 import { DataForSingleCard } from '@/components/helpCards/singleCard/types';
 import { RTKQueryRequestError } from '@/lib/api/types';
-import ErrorIcon from '@/assets/load-error.svg?react';
+
 import NoResultsIcon from '@/assets/not-found-result.svg?react';
+import { ResponsiveErrorIcon } from './ResponsiveErrorIcon';
+import { theme } from '../../styles/theme';
 
 const StyleToStrechContainer = {
   display: 'flex',
@@ -33,6 +43,8 @@ export const HelpCards = (props: HelpCardsProps) => {
     refetchRequests,
   } = props;
 
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   if (isLoading) {
     return (
       <Box sx={StyleToStrechContainer}>
@@ -44,9 +56,9 @@ export const HelpCards = (props: HelpCardsProps) => {
   if (error) {
     return (
       <Box sx={StyleToStrechContainer}>
-        <Stack gap={'24px'}>
-          <ErrorIcon style={{ alignSelf: 'center' }} />
-          <Typography color="error" variant="h5">
+        <Stack gap={{ xs: '10px', md: '20px' }}>
+          <ResponsiveErrorIcon />
+          <Typography color="error" variant={isMediumScreen ? 'h6' : 'h5'}>
             Ошибка! Не удалось загрузить информацию
           </Typography>
           <Button variant="outlined" onClick={refetchRequests}>

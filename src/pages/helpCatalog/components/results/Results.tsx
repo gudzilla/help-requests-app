@@ -76,13 +76,13 @@ export const Results = () => {
             hasNoResults={hasNoResultsOnFilter}
             refetchRequests={handleRefetchRequests}
           />
-          {showPagination && (
+          {/* {showPagination && (
             <RequestsPagination
               currentPage={currentPage}
               totalPages={totalPages}
               setPage={handlePageChange}
             />
-          )}
+          )} */}
         </Stack>
       </Box>
     </Paper>

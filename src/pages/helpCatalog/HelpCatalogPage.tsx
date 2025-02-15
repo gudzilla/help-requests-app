@@ -12,7 +12,7 @@ export const HelpCatalogPage = () => {
   useGetFavouritesQuery();
 
   return (
-    <Stack padding="30px 40px" direction="column" spacing={2}>
+    <Stack padding={{ xs: '10px 12px', lg: '30px 40px' }} spacing={2}>
       <Typography component="h1" variant="h4">
         Запросы о помощи
       </Typography>
