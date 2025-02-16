@@ -6,6 +6,13 @@ import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useFiltersStateSelector } from './state/selectors';
 
+const stackStyle = {
+  paddingLeft: { xs: '16px', md: '36px' },
+  paddingRight: { xs: '16px', md: '36px' },
+  paddingBlock: { xs: '20px', md: '20px 40px' },
+  gap: { xs: '16px', md: '10px' },
+};
+
 export const HelpCatalogSearch = () => {
   const dispatch = useAppDispatch();
   const { searchQuery } = useFiltersStateSelector();
@@ -15,7 +22,7 @@ export const HelpCatalogSearch = () => {
     () =>
       debounce((inputValue: string) => {
         dispatch(setSearchQuery(inputValue));
-      }, 500),
+      }, 300),
     []
   );
 
@@ -31,7 +38,7 @@ export const HelpCatalogSearch = () => {
 
   return (
     <Paper>
-      <Stack direction="column" padding="20px 36px 40px 36px" spacing={'10px'}>
+      <Stack direction={{ xs: 'row', md: 'column' }} sx={stackStyle}>
         <Typography variant="h6">Поиск</Typography>
         <TextField
           value={searchInput}
@@ -40,6 +47,7 @@ export const HelpCatalogSearch = () => {
           variant="standard"
           placeholder="Введите название задачи или организации"
           onChange={handleInputChange}
+          sx={{ flex: { xs: 1, md: 'unset' } }}
           slotProps={{
             input: {
               startAdornment: (

@@ -13,8 +13,6 @@ const styles = {
     width: '320px',
     padding: '20px',
     paddingBottom: '30px',
-    border: 1,
-    borderColor: 'divider',
   },
 };
 
@@ -44,7 +42,7 @@ export const SmallCard = ({ data }: SmallCardProps) => {
   );
 
   return (
-    <Card elevation={0} sx={styles.card}>
+    <Card variant="outlined" sx={styles.card}>
       <CardHeader
         title={title}
         titleTypographyProps={{ variant: 'h6' }}

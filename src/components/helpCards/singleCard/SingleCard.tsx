@@ -1,4 +1,4 @@
-import { Divider, Box, Card, Grid2 } from '@mui/material';
+import { Divider, Box, Card, Grid2 as Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './styles';
 import {
@@ -71,7 +71,7 @@ export const SingleCard = (props: SingleCardProps) => {
   );
 
   return (
-    <Grid2 size={{ xs: 12, lg: 6, xl: 4 }}>
+    <Grid size={{ xs: 12, sm: 6, xl: 4 }}>
       <Card elevation={3} sx={styles.card}>
         <SingleCardHeader
           helpType={helpType}
@@ -104,6 +104,6 @@ export const SingleCard = (props: SingleCardProps) => {
           />
         </Box>
       </Card>
-    </Grid2>
+    </Grid>
   );
 };

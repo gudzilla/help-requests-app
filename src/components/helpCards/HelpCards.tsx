@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   CircularProgress,
-  Grid2,
+  Grid2 as Grid,
   Stack,
   Typography,
   useMediaQuery,
@@ -43,7 +43,7 @@ export const HelpCards = (props: HelpCardsProps) => {
     refetchRequests,
   } = props;
 
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   if (isLoading) {
     return (
@@ -58,7 +58,7 @@ export const HelpCards = (props: HelpCardsProps) => {
       <Box sx={StyleToStrechContainer}>
         <Stack gap={{ xs: '10px', md: '20px' }}>
           <ResponsiveErrorIcon />
-          <Typography color="error" variant={isMediumScreen ? 'h6' : 'h5'}>
+          <Typography color="error" variant={isSmallScreen ? 'h6' : 'h5'}>
             Ошибка! Не удалось загрузить информацию
           </Typography>
           <Button variant="outlined" onClick={refetchRequests}>
@@ -79,10 +79,15 @@ export const HelpCards = (props: HelpCardsProps) => {
   }
 
   return (
-    <Grid2 container rowSpacing="16px" columnSpacing="24px">
+    // <Grid container rowSpacing="16px" columnSpacing="24px">
+    <Grid
+      container
+      rowSpacing={isSmallScreen ? '16px' : '16px'}
+      columnSpacing={isSmallScreen ? '16px' : '24px'}
+    >
       {cards.map((request: DataForSingleCard) => {
         return <SingleCard key={request.id} dataForRequestCard={request} />;
       })}
-    </Grid2>
+    </Grid>
   );
 };

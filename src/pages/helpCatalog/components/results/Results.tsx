@@ -2,12 +2,18 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/api';
 import { transformDataForCardsView } from '@/components/helpCards/singleCard';
 import { HelpCards } from '@/components';
-import { ToggleCardsView } from '@/components';
 import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
+
+const stackStyle = {
+  paddingLeft: { xs: '16px', md: '36px' },
+  paddingRight: { xs: '16px', md: '36px' },
+  paddingBlock: '20px 40px',
+  gap: '20px',
+};
 
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -62,12 +68,9 @@ export const Results = () => {
   return (
     <Paper>
       <Box>
-        <Stack padding="12px 36px 40px 36px" gap="20px">
+        <Stack sx={stackStyle}>
           {noErrorOrLoading && (
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h6">Найдено: {resultsFound}</Typography>
-              <ToggleCardsView />
-            </Stack>
+            <Typography variant="h6">Найдено: {resultsFound}</Typography>
           )}
           <HelpCards
             cards={itemsReadyForRender}
@@ -76,13 +79,13 @@ export const Results = () => {
             hasNoResults={hasNoResultsOnFilter}
             refetchRequests={handleRefetchRequests}
           />
-          {/* {showPagination && (
+          {showPagination && (
             <RequestsPagination
               currentPage={currentPage}
               totalPages={totalPages}
               setPage={handlePageChange}
             />
-          )} */}
+          )}
         </Stack>
       </Box>
     </Paper>

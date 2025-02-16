@@ -3,6 +3,7 @@ import { Filters } from './components/filters/Filters';
 import { Results } from './components/results/Results';
 import { HelpCatalogSearch } from './HelpCatalogSearch';
 import { useGetFavouritesQuery } from '@/lib/api/api';
+import { MainContentStack } from '../../components/MainContentStack';
 
 const mainContentStyle = {
   flex: 1,
@@ -12,17 +13,21 @@ export const HelpCatalogPage = () => {
   useGetFavouritesQuery();
 
   return (
-    <Stack padding={{ xs: '10px 12px', lg: '30px 40px' }} spacing={2}>
-      <Typography component="h1" variant="h4">
+    <MainContentStack>
+      <Typography component="h1" variant="h4" paddingLeft={{ xs: '16px', md: 0 }}>
         Запросы о помощи
       </Typography>
-      <Stack direction={{ sx: 'column', md: 'row' }} gap={'20px'}>
+      <Stack direction={{ sx: 'column', lg: 'row' }} gap={{ xs: '10px', md: '20px' }}>
         <Filters />
-        <Stack direction="column" spacing={'20px'} sx={mainContentStyle}>
+        <Stack
+          direction={{ md: 'column' }}
+          gap={{ xs: '10px', md: '20px' }}
+          sx={mainContentStyle}
+        >
           <HelpCatalogSearch />
           <Results />
         </Stack>
       </Stack>
-    </Stack>
+    </MainContentStack>
   );
 };

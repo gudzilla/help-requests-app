@@ -12,8 +12,6 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'column',
     height: '80vh',
-    border: 1,
-    borderColor: 'divider',
   },
 };
 
@@ -33,7 +31,7 @@ export const Request = () => {
 
   if (isLoading || isFetching) {
     return (
-      <Paper elevation={0} sx={styles.loadingAndError}>
+      <Paper variant="outlined" sx={styles.loadingAndError}>
         <Stack gap={'24px'}>
           <CircularProgress size="5rem" />
         </Stack>
@@ -47,7 +45,7 @@ export const Request = () => {
     const error500 = errorCode === 500;
     const error404 = errorCode === 404;
     return (
-      <Paper elevation={0} sx={styles.loadingAndError}>
+      <Paper variant="outlined" sx={styles.loadingAndError}>
         <Stack gap={'24px'}>
           <ErrorIcon style={{ alignSelf: 'center' }} />
           <Typography color="error" variant="h5" sx={{ whiteSpace: 'pre-line' }}>

@@ -9,8 +9,8 @@ import { useFiltersStateSelector } from '../../state/selectors';
 import { areObjectsDeepEqual } from '@/lib/areObjectsDeepEqual';
 
 const filtersSectionStyle = {
-  width: { xl: '320px' },
-  padding: '20px',
+  maxWidth: { lg: '320px' },
+  padding: { xs: '20px 16px', md: '20px' },
 };
 
 export const Filters = () => {
