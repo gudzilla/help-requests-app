@@ -1,6 +1,6 @@
 # Проект сайта с запросами о помощи для пожилых людей (React/TS/MUI/Redux)
 
-Проект с логином в личный профиль. После входа попадаете на главную страницу - это каталог запросов о помощи с поиском и фильтрами. Есть возможность добавлять запросы в избранное. 
+Проект с логином в личный профиль. После входа попадаете на главную страницу - это каталог запросов о помощи с поиском и фильтрами. Есть возможность добавлять запросы в избранное.
 
 ## Cтак
 
@@ -35,40 +35,39 @@
 
 **Логин**
 
-<img alt='Страница логина' src='./src/assets/forReadme/1-Login.png'>
+<img alt='Страница логина' src='./src/assets/forReadme/1-Login.webp'>
 
 **Каталог запросов**
-<img alt='Запросы' src='./src/assets/forReadme/2-Requests-Catalog.png'>
+<img alt='Запросы' src='./src/assets/forReadme/2-Requests-Catalog.webp'>
 
 **Добавить в избранное**
-<img alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.png'>
+<img alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.webp'>
 
 **Меню в хедере**
-<img alt='Запросы' src='./src/assets/forReadme/3.3-Menu.png'>
+<img alt='Запросы' src='./src/assets/forReadme/3.3-Menu.webp'>
 
 **Страница Конкретного Запроса**
-<img alt='Запросы' src='./src/assets/forReadme/3-Request-Page.png'>
+<img alt='Запросы' src='./src/assets/forReadme/3-Request-Page.webp'>
 
 **Страница Профиля (1-я вкладка)**
-<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-1.png'>
+<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-1.webp'>
 
 **Страница Профиля (2-я вкладка)**
-<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-2.png'>
+<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-2.webp'>
 
 **Страница Профиля (3-я вкладка)**
-<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-3.png'>
+<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-3.webp'>
 
 ## Обработки
 
 **Ошибки**
-<img alt='Запросы' src='./src/assets/forReadme/Catalog-Error.png'>
+<img alt='Запросы' src='./src/assets/forReadme/Catalog-Error.webp'>
 
 **Нет результатов**
-<img alt='Запросы' src='./src/assets/forReadme/Catalog-no-results.png'>
+<img alt='Запросы' src='./src/assets/forReadme/Catalog-no-results.webp'>
 
 **Тосты**
-<img alt='Запросы' src='./src/assets/forReadme/toast-notifications.png'>
-
+<img alt='Запросы' src='./src/assets/forReadme/toast-notifications.webp'>
 
 ## Как запустить локально
 
