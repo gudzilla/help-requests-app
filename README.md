@@ -2,8 +2,6 @@
 
 Проект с логином в личный профиль. После входа попадаете на главную страницу - это каталог запросов о помощи с поиском и фильтрами. Есть возможность добавлять запросы в избранное. 
 
-[ССЫЛКА НА ДЕПЛОЙ](https://help-requests-catalog.vercel.app/)
-
 ## Cтак
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
