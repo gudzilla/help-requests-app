@@ -105,4 +105,4 @@ npm run dev
 yarn
 ```
 
-#### Design and idea taken from [‘Charity React event’ 2024](https://github.com/nat-davydova/charity_event_back_oct2024/tree/main?tab=readme-ov-file)
+#### Desktop design and idea based on hackathon task [‘Charity React event’ 2024](https://github.com/nat-davydova/charity_event_back_oct2024/tree/main?tab=readme-ov-file)
