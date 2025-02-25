@@ -2,7 +2,13 @@
 
 [LIVE DEMO LINK](https://help-requests-app.netlify.app/)
 
+> UI is in russian
+
 Users can access a catalog of help requests with search and filter options. They can contribute by clicking the "Contribute" button on a request card. Additionally, users can add requests to their favorites. The project includes login functionality via test profiles.
+
+### Updates
+
+- Responsive UI is in development 
 
 ## Stack
 
@@ -103,4 +109,4 @@ npm run dev
 yarn
 ```
 
-#### Design and idea taken from [‘Charity React event’ 2024](https://github.com/nat-davydova/charity_event_back_oct2024/tree/main?tab=readme-ov-file)
+#### Desktop design and idea based on hackathon task [‘Charity React event’ 2024](https://github.com/nat-davydova/charity_event_back_oct2024/tree/main?tab=readme-ov-file)
