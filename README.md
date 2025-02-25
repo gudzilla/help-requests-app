@@ -2,7 +2,7 @@
 
 [LIVE DEMO LINK](https://help-requests-app.netlify.app/)
 
-UI is in russian
+> UI is in russian
 
 Users can access a catalog of help requests with search and filter options. They can contribute by clicking the "Contribute" button on a request card. Additionally, users can add requests to their favorites. The project includes login functionality via test profiles.
 
