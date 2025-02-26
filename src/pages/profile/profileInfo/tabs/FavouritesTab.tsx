@@ -29,7 +29,7 @@ export const FavouritesTab = () => {
 
   const { data: favouritesIdsArray } = useGetFavouritesQuery();
 
-  const getRequestsDataFromIds = (
+  const getRequestsDataByIds = (
     idsArray: FavoritesResponse | undefined,
     dataArray: HelpRequestData[] | undefined
   ) => {
@@ -40,7 +40,7 @@ export const FavouritesTab = () => {
     return dataArray.filter((request) => favIdsSet.has(request.id));
   };
 
-  const favouriteRequests = getRequestsDataFromIds(favouritesIdsArray, requestsArray);
+  const favouriteRequests = getRequestsDataByIds(favouritesIdsArray, requestsArray);
   const hasNoResults = favouriteRequests.length === 0;
   const showPagination = !isLoading && !getRequestsError && !hasNoResults;
 

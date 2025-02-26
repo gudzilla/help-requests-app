@@ -3,7 +3,6 @@ import { AuthForm } from './components/authForm';
 import { TestUsers } from './components/testUsers';
 
 const mainLayout = {
-  flexGrow: 1,
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   height: '100%',
