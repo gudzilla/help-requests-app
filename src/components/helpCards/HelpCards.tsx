@@ -27,8 +27,8 @@ type HelpCardsProps = {
   cards: RequestCardData[];
   error: RTKQueryRequestError;
   isLoading: boolean;
-  hasNoResults: boolean | undefined;
-  noResultsMessage?: string;
+  isEmpty: boolean | undefined;
+  isEmptyMessage?: string;
   refetchRequests: () => void;
 };
 
@@ -37,8 +37,8 @@ export const HelpCards = (props: HelpCardsProps) => {
     cards,
     error,
     isLoading,
-    hasNoResults,
-    noResultsMessage = 'Запросы не найдены',
+    isEmpty,
+    isEmptyMessage = 'Запросы не найдены',
     refetchRequests,
   } = props;
 
@@ -68,11 +68,11 @@ export const HelpCards = (props: HelpCardsProps) => {
     );
   }
 
-  if (hasNoResults) {
+  if (isEmpty) {
     return (
       <Box sx={containerStyles}>
         <NoResultsIcon style={{ marginBottom: '24px' }} />
-        <Typography variant="h5">{noResultsMessage}</Typography>
+        <Typography variant="h5">{isEmptyMessage}</Typography>
       </Box>
     );
   }

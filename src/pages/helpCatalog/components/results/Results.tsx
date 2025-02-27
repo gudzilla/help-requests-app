@@ -1,13 +1,11 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/api';
-import { transformRequestsToCardProps } from '@/components/helpCards/singleCard';
 import { HelpCards } from '@/components';
 import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';
-import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
-import { useHelpCardsPagination } from '../../../../components/helpCards';
+import { useHelpCardsPagination } from '@/components/helpCards';
 
 const stackStyle = {
   paddingLeft: { xs: '16px', md: '36px' },
@@ -30,15 +28,15 @@ export const Results = () => {
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
 
   const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
-  const noErrorOrLoading = !(error || isLoading);
+  const isReady = !(error || isLoading);
 
   // ОТФИЛЬТРОВАННЫЙ СПИСОК ЗАПРОСОВ
   const filteredRequests = useFilteredDataSelector();
   const resultsFound = filteredRequests.length;
 
-  const hasNoResultsOnFilter = filteredRequests?.length === 0;
-  const dataNotEmpty = filteredRequests?.length > 0;
-  const showPagination = filteredRequests && dataNotEmpty && !error && !isLoading;
+  const noResults = filteredRequests?.length === 0;
+  // const dataNotEmpty = filteredRequests?.length > 0;
+  const showPagination = !noResults && !error && !isLoading;
 
   // ----------- PAGINATION ----------
   const { helpCardsData, totalPages } = useHelpCardsPagination(
@@ -60,7 +58,7 @@ export const Results = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFakeLoading(false);
-    }, 400);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -73,14 +71,12 @@ export const Results = () => {
     <Paper>
       <Box>
         <Stack sx={stackStyle}>
-          {noErrorOrLoading && (
-            <Typography variant="h6">Найдено: {resultsFound}</Typography>
-          )}
+          {isReady && <Typography variant="h6">Найдено: {resultsFound}</Typography>}
           <HelpCards
             cards={helpCardsData}
             error={error}
             isLoading={isLoading}
-            hasNoResults={hasNoResultsOnFilter}
+            isEmpty={noResults}
             refetchRequests={handleRefetchRequests}
           />
           {showPagination && (

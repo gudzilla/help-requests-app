@@ -6,9 +6,7 @@ import {
 } from '@/lib/api/api';
 import { HelpRequest } from '@/lib/api/types';
 import { Stack } from '@mui/material';
-import { usePagination } from '@/lib/usePagination';
 import { useState } from 'react';
-import { transformRequestsToCardProps } from '@/components/helpCards/singleCard';
 import { HelpCards, RequestsPagination } from '@/components';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
 import { useHelpCardsPagination } from '@/components/helpCards';
@@ -42,8 +40,8 @@ export const FavouritesTab = () => {
   };
 
   const favouriteRequests = getRequestsDataByIds(favouritesIdsArray, requestsArray);
-  const hasNoResults = favouriteRequests.length === 0;
-  const showPagination = !isLoading && !getRequestsError && !hasNoResults;
+  const isEmpty = favouriteRequests.length === 0;
+  const showPagination = !isLoading && !getRequestsError && !isEmpty;
 
   // ----------- PAGINATION ----------
   const { helpCardsData, totalPages } = useHelpCardsPagination(
@@ -59,9 +57,9 @@ export const FavouritesTab = () => {
           cards={helpCardsData}
           isLoading={isLoading}
           error={getRequestsError}
-          hasNoResults={hasNoResults}
+          isEmpty={isEmpty}
           refetchRequests={refetchRequests}
-          noResultsMessage="У вас нету запросов в избранном"
+          isEmptyMessage="У вас нету запросов в избранном"
         />
         {showPagination && (
           <RequestsPagination
