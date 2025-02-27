@@ -5,10 +5,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { setRequesterType } from '../../state/filtersSlice';
 
-type RequesterType = HelpRequestData['requesterType'];
+type RequesterType = HelpRequest['requesterType'];
 type StrictRequesterTypeMap = { [K in RequesterType]: K };
 
 const requesterTypeValues: StrictRequesterTypeMap = {

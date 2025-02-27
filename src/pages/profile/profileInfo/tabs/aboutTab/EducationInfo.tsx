@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { TextInfoHeader } from '@/components';
-import { UserData } from '@/lib/api/types';
+import { User } from '@/lib/api/types';
 
 type EducationInfoProps = {
-  educations: UserData['educations'];
+  educations: User['educations'];
 };
 export const EducationInfo = ({ educations }: EducationInfoProps) => {
   if (!educations) {

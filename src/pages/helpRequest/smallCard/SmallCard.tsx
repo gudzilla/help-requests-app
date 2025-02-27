@@ -1,5 +1,5 @@
 import { Card, CardHeader } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { useContributionMutation } from '@/lib/api/api';
 import { debounce } from 'lodash';
 import { SmallCardContent } from './SmallCardContent';
@@ -17,7 +17,7 @@ const styles = {
 };
 
 type SmallCardProps = {
-  data: HelpRequestData;
+  data: HelpRequest;
 };
 
 export const SmallCard = ({ data }: SmallCardProps) => {

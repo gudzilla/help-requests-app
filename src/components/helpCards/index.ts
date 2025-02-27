@@ -1,2 +1,3 @@
 import { HelpCards } from './HelpCards';
-export { HelpCards };
+import { useHelpCardsPagination } from './useHelpCardsPagination';
+export { HelpCards, useHelpCardsPagination };

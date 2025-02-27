@@ -1,11 +1,11 @@
 import { CardContent, Box, Typography, Stack, LinearProgress } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 
 type SmallCardContentProps = {
-  goalDescription: HelpRequestData['goalDescription'];
-  endingDate: HelpRequestData['endingDate'];
-  requestGoalCurrentValue: HelpRequestData['requestGoalCurrentValue'];
-  requestGoal: HelpRequestData['requestGoal'];
+  goalDescription: HelpRequest['goalDescription'];
+  endingDate: HelpRequest['endingDate'];
+  requestGoalCurrentValue: HelpRequest['requestGoalCurrentValue'];
+  requestGoal: HelpRequest['requestGoal'];
 };
 
 const styleCardContent = {

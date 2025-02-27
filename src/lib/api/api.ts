@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { HelpRequestData, UserData } from './types';
+import { HelpRequest, User } from './types';
 import { notification } from '../notifications';
 import { errorHandler } from './errorHandler';
 import { NavigateFunction } from 'react-router-dom';
@@ -36,7 +36,7 @@ type AuthResponse = {
   token: string;
 };
 
-export type FavoritesResponse = HelpRequestData['id'][];
+export type FavoritesResponse = HelpRequest['id'][];
 
 type OnQueryStartError = {
   error: unknown;
@@ -51,9 +51,9 @@ function isOnQueryStartError(error: unknown): error is OnQueryStartError {
   return typeof error === 'object' && error != null && 'error' in error;
 }
 
-type HelpRequestId = HelpRequestData['id'];
+type HelpRequestId = HelpRequest['id'];
 
-export type HelpCatalogResponse = HelpRequestData[];
+export type HelpCatalogResponse = HelpRequest[];
 
 export const helpEldersApi = createApi({
   reducerPath: 'helpEldersApi',
@@ -88,7 +88,7 @@ export const helpEldersApi = createApi({
         }
       },
     }),
-    getRequests: builder.query<HelpRequestData[], void>({
+    getRequests: builder.query<HelpRequest[], void>({
       query: () => '/request',
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -100,7 +100,7 @@ export const helpEldersApi = createApi({
         }
       },
     }),
-    getRequestById: builder.query<HelpRequestData, HelpRequestId>({
+    getRequestById: builder.query<HelpRequest, HelpRequestId>({
       query: (requestId) => `/request/${requestId}`,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
@@ -112,7 +112,7 @@ export const helpEldersApi = createApi({
         }
       },
     }),
-    getUser: builder.query<UserData, void>({
+    getUser: builder.query<User, void>({
       query: () => `/user`,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {

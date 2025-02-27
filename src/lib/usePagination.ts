@@ -1,6 +1,6 @@
 type UsePaginationReturnType<T> = {
   totalPages: number;
-  itemsForPage: T[];
+  pageItems: T[];
 };
 
 export const usePagination = <T>(
@@ -11,8 +11,8 @@ export const usePagination = <T>(
   const indexOfLastItem = pageNumber * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const itemsForPage = itemsArray.slice(indexOfFirstItem, indexOfLastItem);
+  const pageItems = itemsArray.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(itemsArray.length / itemsPerPage);
 
-  return { totalPages, itemsForPage };
+  return { totalPages, pageItems };
 };

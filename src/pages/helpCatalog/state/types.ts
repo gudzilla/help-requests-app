@@ -1,10 +1,10 @@
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 
-export type HelperRequirementsType = HelpRequestData['helperRequirements'];
+export type HelperRequirementsType = HelpRequest['helperRequirements'];
 
 export type HelpRequestFiltersType = {
-  helpType: HelpRequestData['helpType'] | null;
-  requesterType: HelpRequestData['requesterType'] | null;
+  helpType: HelpRequest['helpType'] | null;
+  requesterType: HelpRequest['requesterType'] | null;
   helperRequirements: {
     helperType: HelperRequirementsType['helperType'] | null;
     isOnline: HelperRequirementsType['isOnline'] | null;

@@ -1,6 +1,6 @@
 import { TabContext, TabList } from '@mui/lab';
 import { Paper, Box, Tab } from '@mui/material';
-import { UserData } from '@/lib/api/types';
+import { User } from '@/lib/api/types';
 import React from 'react';
 import { AboutTab } from './tabs/aboutTab/AboutTab';
 import { ContactsTab } from './tabs/contactsTab/ContactsTab';
@@ -14,7 +14,7 @@ const styles = {
 };
 
 type ProfileInfoProps = {
-  data: UserData;
+  data: User;
 };
 
 type TabValues = 'about-user' | 'user-contacts' | 'user-favourites';

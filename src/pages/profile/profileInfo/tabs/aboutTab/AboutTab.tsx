@@ -1,13 +1,13 @@
 import { TabPanel } from '@mui/lab';
 import { Box, Stack, Typography } from '@mui/material';
 import { TextInfoHeader } from '@/components';
-import { UserData } from '@/lib/api/types';
+import { User } from '@/lib/api/types';
 import { EducationInfo } from './EducationInfo';
 import { NameInfo } from './NameInfo';
 import { HelpLocations } from './HelpLocations';
 
 type AboutTabProps = {
-  data: UserData;
+  data: User;
 };
 
 export const AboutTab = ({ data }: AboutTabProps) => {

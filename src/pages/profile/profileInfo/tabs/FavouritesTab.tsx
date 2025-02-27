@@ -4,14 +4,14 @@ import {
   useGetFavouritesQuery,
   useGetRequestsQuery,
 } from '@/lib/api/api';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { Stack } from '@mui/material';
 import { usePagination } from '@/lib/usePagination';
 import { useState } from 'react';
 import { transformRequestsToCardProps } from '@/components/helpCards/singleCard';
 import { HelpCards, RequestsPagination } from '@/components';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
-import { CARDS_PER_PAGE } from '@/constants/pagination';
+import { useHelpCardsPagination } from '@/components/helpCards';
 
 export const FavouritesTab = () => {
   const [currentPage, setCurrentNumber] = useState(1);
@@ -32,7 +32,7 @@ export const FavouritesTab = () => {
 
   const getRequestsDataByIds = (
     idsArray: FavoritesResponse | undefined,
-    dataArray: HelpRequestData[] | undefined
+    dataArray: HelpRequest[] | undefined
   ) => {
     if (!idsArray || !dataArray) {
       return [];
@@ -45,13 +45,12 @@ export const FavouritesTab = () => {
   const hasNoResults = favouriteRequests.length === 0;
   const showPagination = !isLoading && !getRequestsError && !hasNoResults;
 
-  // --------------------- PAGINATION -----------------
-  const { itemsForPage, totalPages } = usePagination(
+  // ----------- PAGINATION ----------
+  const { helpCardsData, totalPages } = useHelpCardsPagination(
     favouriteRequests,
-    CARDS_PER_PAGE,
+    6,
     currentPage
   );
-  const helpCardsData = transformRequestsToCardProps(itemsForPage);
 
   return (
     <TabPanel value="user-favourites" sx={{ padding: 0 }}>

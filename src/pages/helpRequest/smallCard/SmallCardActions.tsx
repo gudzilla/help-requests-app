@@ -1,11 +1,11 @@
 import { LoadingButton } from '@mui/lab';
 import { CardActions, Stack, Typography } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { DebouncedFunc } from 'lodash';
 import { MouseEvent } from 'react';
 
 type SmallCardActionsType = {
-  contributorsCount: HelpRequestData['contributorsCount'];
+  contributorsCount: HelpRequest['contributorsCount'];
   onClick: DebouncedFunc<(event: MouseEvent<HTMLButtonElement>) => Promise<void>>;
   isLoading: boolean;
 };

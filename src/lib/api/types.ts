@@ -7,7 +7,7 @@ export type RTKQueryRequestError = FetchBaseQueryError | SerializedError | undef
 
 //  -------------------------- HELP-ELDERS  API RESPONSE TYPES -----------------------
 
-export type UserData = {
+export type User = {
   id: string;
   name: string;
   lastName: string;
@@ -38,7 +38,7 @@ export type UserData = {
   favouriteRequests: string[];
 };
 
-export type HelpRequestData = {
+export type HelpRequest = {
   id: string;
   title: string;
   organization: {

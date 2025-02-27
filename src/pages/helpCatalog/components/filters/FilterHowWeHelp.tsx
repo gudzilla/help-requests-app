@@ -6,9 +6,9 @@ import Checkbox from '@mui/material/Checkbox';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useFiltersStateSelector } from '../../state/selectors';
 import { setHelpType } from '../../state/filtersSlice';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 
-type HelpType = HelpRequestData['helpType'];
+type HelpType = HelpRequest['helpType'];
 type StrictHelpTypeMap = { [K in HelpType]: K };
 
 const helpTypeValues: StrictHelpTypeMap = {

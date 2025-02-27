@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
-import { CARDS_PER_PAGE } from '@/constants/pagination';
+import { useHelpCardsPagination } from '../../../../components/helpCards';
 
 const stackStyle = {
   paddingLeft: { xs: '16px', md: '36px' },
@@ -40,13 +40,12 @@ export const Results = () => {
   const dataNotEmpty = filteredRequests?.length > 0;
   const showPagination = filteredRequests && dataNotEmpty && !error && !isLoading;
 
-  // ---------------------- PAGINATION -----------------
-  const { itemsForPage, totalPages } = usePagination(
+  // ----------- PAGINATION ----------
+  const { helpCardsData, totalPages } = useHelpCardsPagination(
     filteredRequests,
-    CARDS_PER_PAGE,
+    6,
     currentPage
   );
-  const helpCardsData = transformRequestsToCardProps(itemsForPage);
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);

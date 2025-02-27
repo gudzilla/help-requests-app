@@ -1,8 +1,8 @@
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { RequestCardData } from './types';
 
 export function transformRequestsToCardProps(
-  requestsArray: HelpRequestData[]
+  requestsArray: HelpRequest[]
 ): RequestCardData[] {
   return requestsArray.map((item) => ({
     id: item.id,

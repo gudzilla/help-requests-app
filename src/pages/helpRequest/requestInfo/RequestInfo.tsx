@@ -1,5 +1,5 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 import { FavouriteButton } from './ui/FavouriteButton';
 import { ActionsSchedule } from './ui/ActionsSchedule';
@@ -13,7 +13,7 @@ const stylePaper = {
 };
 
 type RequestInfoProps = {
-  request: HelpRequestData;
+  request: HelpRequest;
 };
 
 export const RequestInfo = ({ request }: RequestInfoProps) => {

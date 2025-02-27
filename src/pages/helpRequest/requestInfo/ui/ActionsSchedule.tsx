@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 
 const style = {
@@ -14,7 +14,7 @@ const style = {
 };
 
 type ActionsScheduleProps = {
-  actions: HelpRequestData['actionsSchedule'];
+  actions: HelpRequest['actionsSchedule'];
 };
 
 export const ActionsSchedule = (props: ActionsScheduleProps) => {

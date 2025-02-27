@@ -1,6 +1,6 @@
 import { TabPanel } from '@mui/lab';
 import { Box, Link, Stack, Typography } from '@mui/material';
-import { UserData } from '@/lib/api/types';
+import { User } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 import VkIcon from '@/assets/vk-icon.svg?react';
 import TgIcon from '@/assets/telegram-icon.svg?react';
@@ -11,7 +11,7 @@ const style = {
 };
 
 type ContactsTabProps = {
-  contacts: UserData['contacts'];
+  contacts: User['contacts'];
 };
 
 export const ContactsTab = ({ contacts }: ContactsTabProps) => {

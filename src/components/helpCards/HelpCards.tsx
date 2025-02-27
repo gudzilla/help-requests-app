@@ -11,7 +11,7 @@ import { SingleCard } from '@/components/helpCards/singleCard';
 import { RequestCardData } from '@/components/helpCards/singleCard/types';
 import { RTKQueryRequestError } from '@/lib/api/types';
 import NoResultsIcon from '@/assets/not-found-result.svg?react';
-import { ResponsiveErrorIcon } from './ResponsiveErrorIcon';
+import { ResponsiveErrorIcon } from '../ResponsiveErrorIcon';
 import { theme } from '../../styles/theme';
 
 const containerStyles = {
