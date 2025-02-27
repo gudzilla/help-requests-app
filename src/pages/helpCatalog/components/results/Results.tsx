@@ -1,12 +1,13 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/api';
-import { transformDataForCardsView } from '@/components/helpCards/singleCard';
+import { transformRequestsToCardProps } from '@/components/helpCards/singleCard';
 import { HelpCards } from '@/components';
 import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';
 import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
+import { CARDS_PER_PAGE } from '@/constants/pagination';
 
 const stackStyle = {
   paddingLeft: { xs: '16px', md: '36px' },
@@ -31,17 +32,21 @@ export const Results = () => {
   const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
   const noErrorOrLoading = !(error || isLoading);
 
-  // ОТФИЛЬТРОВАННЫЕ ДАННЫЕ
-  const filteredData = useFilteredDataSelector();
-  const resultsFound = filteredData.length;
+  // ОТФИЛЬТРОВАННЫЙ СПИСОК ЗАПРОСОВ
+  const filteredRequests = useFilteredDataSelector();
+  const resultsFound = filteredRequests.length;
 
-  const hasNoResultsOnFilter = filteredData?.length === 0;
-  const dataNotEmpty = filteredData?.length > 0;
-  const showPagination = filteredData && dataNotEmpty && !error && !isLoading;
+  const hasNoResultsOnFilter = filteredRequests?.length === 0;
+  const dataNotEmpty = filteredRequests?.length > 0;
+  const showPagination = filteredRequests && dataNotEmpty && !error && !isLoading;
 
   // ---------------------- PAGINATION -----------------
-  const { currentItems, totalPages } = usePagination(filteredData, 6, currentPage);
-  const itemsReadyForRender = transformDataForCardsView(currentItems);
+  const { itemsForPage, totalPages } = usePagination(
+    filteredRequests,
+    CARDS_PER_PAGE,
+    currentPage
+  );
+  const helpCardsData = transformRequestsToCardProps(itemsForPage);
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
@@ -73,7 +78,7 @@ export const Results = () => {
             <Typography variant="h6">Найдено: {resultsFound}</Typography>
           )}
           <HelpCards
-            cards={itemsReadyForRender}
+            cards={helpCardsData}
             error={error}
             isLoading={isLoading}
             hasNoResults={hasNoResultsOnFilter}

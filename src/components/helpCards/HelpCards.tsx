@@ -8,14 +8,13 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { SingleCard } from '@/components/helpCards/singleCard';
-import { DataForSingleCard } from '@/components/helpCards/singleCard/types';
+import { RequestCardData } from '@/components/helpCards/singleCard/types';
 import { RTKQueryRequestError } from '@/lib/api/types';
-
 import NoResultsIcon from '@/assets/not-found-result.svg?react';
 import { ResponsiveErrorIcon } from './ResponsiveErrorIcon';
 import { theme } from '../../styles/theme';
 
-const StyleToStrechContainer = {
+const containerStyles = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -25,11 +24,11 @@ const StyleToStrechContainer = {
 };
 
 type HelpCardsProps = {
-  cards: DataForSingleCard[];
+  cards: RequestCardData[];
   error: RTKQueryRequestError;
   isLoading: boolean;
   hasNoResults: boolean | undefined;
-  messageForNoResults?: string;
+  noResultsMessage?: string;
   refetchRequests: () => void;
 };
 
@@ -39,7 +38,7 @@ export const HelpCards = (props: HelpCardsProps) => {
     error,
     isLoading,
     hasNoResults,
-    messageForNoResults = 'Запросы не найдены',
+    noResultsMessage = 'Запросы не найдены',
     refetchRequests,
   } = props;
 
@@ -47,7 +46,7 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (isLoading) {
     return (
-      <Box sx={StyleToStrechContainer}>
+      <Box sx={containerStyles}>
         <CircularProgress size="5rem" />
       </Box>
     );
@@ -55,7 +54,7 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (error) {
     return (
-      <Box sx={StyleToStrechContainer}>
+      <Box sx={containerStyles}>
         <Stack gap={{ xs: '10px', md: '20px' }}>
           <ResponsiveErrorIcon />
           <Typography color="error" variant={isSmallScreen ? 'h6' : 'h5'}>
@@ -71,22 +70,21 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (hasNoResults) {
     return (
-      <Box sx={StyleToStrechContainer}>
+      <Box sx={containerStyles}>
         <NoResultsIcon style={{ marginBottom: '24px' }} />
-        <Typography variant="h5">{messageForNoResults}</Typography>
+        <Typography variant="h5">{noResultsMessage}</Typography>
       </Box>
     );
   }
 
   return (
-    // <Grid container rowSpacing="16px" columnSpacing="24px">
     <Grid
       container
       rowSpacing={isSmallScreen ? '16px' : '16px'}
       columnSpacing={isSmallScreen ? '16px' : '24px'}
     >
-      {cards.map((request: DataForSingleCard) => {
-        return <SingleCard key={request.id} dataForRequestCard={request} />;
+      {cards.map((request: RequestCardData) => {
+        return <SingleCard key={request.id} requestCardData={request} />;
       })}
     </Grid>
   );

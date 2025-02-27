@@ -159,7 +159,8 @@ export const helpEldersApi = createApi({
                 })
               );
             }
-            errorHandler({ err: error.error, dispatch });
+            // todo: delete
+            // errorHandler({ err: error.error, dispatch });
           }
         }
       },

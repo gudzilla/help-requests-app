@@ -1,4 +1,4 @@
-export type DataForSingleCard = {
+export type RequestCardData = {
   id: string;
   title: string;
   organization: string;
@@ -14,5 +14,5 @@ export type DataForSingleCard = {
   requestGoalCurrentValue: number;
 };
 
-export type CardRequesterType = DataForSingleCard['requesterType'];
-export type CardHelpType = DataForSingleCard['helpType'];
+export type CardRequesterType = RequestCardData['requesterType'];
+export type CardHelpType = RequestCardData['helpType'];

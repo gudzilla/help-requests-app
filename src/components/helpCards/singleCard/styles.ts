@@ -30,6 +30,7 @@ export const styles = {
     color: 'action.active',
   },
   title: {
+    'fontSize': '1.5rem',
     'p': 0,
     'display': '-webkit-box',
     'overflow': 'hidden',
@@ -39,9 +40,7 @@ export const styles = {
     '& .MuiCardHeader-title': {
       lineHeight: 1.3,
     },
-    // Ignore нужен чтобы height НЕ менялся в 'height' (со скорбками)
-    // prettier-ignore
-    height: '5.85rem',
+    'height': `calc(1.3em * 3)`,
   },
   oneLineText: {
     overflow: 'hidden',

@@ -30,7 +30,6 @@ export const SingleCardContent = (props: SingleCardContentProps) => {
       </Stack>
       <Stack gap="4px">
         <Typography variant="subtitle2">Локация</Typography>
-        {/* Conditional render for Online or with Location */}
         {isHelpOnline ? (
           <Typography variant="body2">Онлайн</Typography>
         ) : (

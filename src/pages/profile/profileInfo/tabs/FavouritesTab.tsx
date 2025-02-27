@@ -8,9 +8,10 @@ import { HelpRequestData } from '@/lib/api/types';
 import { Stack } from '@mui/material';
 import { usePagination } from '@/lib/usePagination';
 import { useState } from 'react';
-import { transformDataForCardsView } from '@/components/helpCards/singleCard';
+import { transformRequestsToCardProps } from '@/components/helpCards/singleCard';
 import { HelpCards, RequestsPagination } from '@/components';
 import { safeScrollToTop } from '@/lib/safeScrollToTop';
+import { CARDS_PER_PAGE } from '@/constants/pagination';
 
 export const FavouritesTab = () => {
   const [currentPage, setCurrentNumber] = useState(1);
@@ -44,23 +45,24 @@ export const FavouritesTab = () => {
   const hasNoResults = favouriteRequests.length === 0;
   const showPagination = !isLoading && !getRequestsError && !hasNoResults;
 
-  const { currentItems: requestsForPage, totalPages } = usePagination(
+  // --------------------- PAGINATION -----------------
+  const { itemsForPage, totalPages } = usePagination(
     favouriteRequests,
-    6,
+    CARDS_PER_PAGE,
     currentPage
   );
-  const cardsData = transformDataForCardsView(requestsForPage);
+  const helpCardsData = transformRequestsToCardProps(itemsForPage);
 
   return (
     <TabPanel value="user-favourites" sx={{ padding: 0 }}>
       <Stack gap={'20px'}>
         <HelpCards
-          cards={cardsData}
+          cards={helpCardsData}
           isLoading={isLoading}
           error={getRequestsError}
           hasNoResults={hasNoResults}
           refetchRequests={refetchRequests}
-          messageForNoResults="У вас нету запросов в избранном"
+          noResultsMessage="У вас нету запросов в избранном"
         />
         {showPagination && (
           <RequestsPagination

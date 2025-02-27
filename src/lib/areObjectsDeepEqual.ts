@@ -1,5 +1,8 @@
 type Obj = Record<string, unknown>;
 
+/**
+ * Checks if two objects are deeply equal
+ */
 export const areObjectsDeepEqual = (obj1: Obj, obj2: Obj): boolean => {
   if (obj1 === obj2) return true;
   if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || !obj1 || !obj2)

@@ -6,7 +6,7 @@ import {
   useContributionMutation,
   useDeleteFromFavouritesMutation,
 } from '@/lib/api/api';
-import { DataForSingleCard } from './types';
+import { RequestCardData } from './types';
 import { SingleCardHeader } from './SingleCardHeader';
 import { SingleCardContent } from './SingleCardContent';
 import { SingleCardActions } from './SingleCardActions';
@@ -14,13 +14,13 @@ import { useFavouritesSelector } from '@/store/selectors';
 import { debounce } from 'lodash';
 
 type SingleCardProps = {
-  dataForRequestCard: DataForSingleCard;
+  requestCardData: RequestCardData;
   isFavourite?: boolean;
 };
 
 export const SingleCard = (props: SingleCardProps) => {
   const {
-    dataForRequestCard: {
+    requestCardData: {
       id,
       title,
       organization,
@@ -39,8 +39,8 @@ export const SingleCard = (props: SingleCardProps) => {
 
   const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
   const navigate = useNavigate();
-  const [contribution, { isLoading: isLoadingContribution }] = useContributionMutation();
-  const [addToFavourite] = useAddToFavouritesMutation();
+  const [contribution, { isLoading: isContributionLoading }] = useContributionMutation();
+  const [addToFavourites] = useAddToFavouritesMutation();
   const [deleteFromFavourites] = useDeleteFromFavouritesMutation();
   const favouritesList = useFavouritesSelector();
   const isFavourite = favouritesList.includes(id);
@@ -48,7 +48,7 @@ export const SingleCard = (props: SingleCardProps) => {
   // ----------------- FAVORITES: Add/Remove -------------------
   const handleAddToFavourite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    addToFavourite(id);
+    addToFavourites(id);
   };
   const handleRemoveFromFavourite = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -99,7 +99,7 @@ export const SingleCard = (props: SingleCardProps) => {
             goalProgressInPercent={goalProgressInPercent}
             requestGoalCurrentValue={requestGoalCurrentValue}
             handleHelpButtonClick={handleHelpButtonClick}
-            isLoading={isLoadingContribution}
+            isLoading={isContributionLoading}
             onCardClick={handleCardClick}
           />
         </Box>
