@@ -1,18 +1,9 @@
-import { Stack, Paper, CircularProgress, Button, Typography } from '@mui/material';
-import { useGetUserQuery, PARSING_ERROR, ServerError } from '../../lib/api/api';
+import { Stack, CircularProgress, Button, Typography } from '@mui/material';
+import { useGetUserQuery, PARSING_ERROR, ServerError } from '@/lib/api/api';
 import { ProfileCard } from './ProfileCard';
 import ErrorIcon from '@/assets/load-error.svg?react';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
-
-const styles = {
-  loadingAndError: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    height: '80vh',
-  },
-};
+import { StatusPaper } from '@/components/StatusPaper';
 
 export const ProfilePageContent = () => {
   const { data, error, isLoading, isFetching, refetch } = useGetUserQuery();
@@ -21,24 +12,24 @@ export const ProfilePageContent = () => {
     refetch();
   };
 
+  // if (true) {
   if (isLoading || isFetching) {
     return (
-      <Paper variant="outlined" sx={styles.loadingAndError}>
+      <StatusPaper>
         <Stack gap={'24px'}>
           <CircularProgress size="5rem" />
         </Stack>
-      </Paper>
+      </StatusPaper>
     );
   }
 
   if (error) {
-    console.error(error);
     const errorCode =
       (error as PARSING_ERROR).originalStatus || (error as ServerError).status || false;
     const error500 = errorCode === 500;
     const error404 = errorCode === 404;
     return (
-      <Paper variant="outlined" sx={styles.loadingAndError}>
+      <StatusPaper>
         <Stack gap={'24px'}>
           <ErrorIcon style={{ alignSelf: 'center' }} />
           <Typography color="error" variant="h5" sx={{ whiteSpace: 'pre-line' }}>
@@ -52,7 +43,7 @@ export const ProfilePageContent = () => {
             </Button>
           )}
         </Stack>
-      </Paper>
+      </StatusPaper>
     );
   }
 

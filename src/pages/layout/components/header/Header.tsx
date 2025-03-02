@@ -3,14 +3,12 @@ import MainLogo from '@/assets/main-logo.svg?react';
 import { AppBar, Toolbar, Container } from '@mui/material';
 import { ProfileMenu } from './components/profileMenu';
 import { ShowOnly } from '@/components';
-import { headerMinHeight } from '@/styles/theme';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
 
 const styles = {
   toolbar: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
-    minHeight: `${headerMinHeight}px`,
   },
   link: {
     active: { fontSize: '1.25rem', color: 'text.primary' },

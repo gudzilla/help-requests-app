@@ -8,8 +8,7 @@ import { safeScrollToTop } from '@/lib/safeScrollToTop';
 import { useHelpCardsPagination } from '@/components/helpCards';
 
 const stackStyle = {
-  paddingLeft: { xs: '16px', md: '36px' },
-  paddingRight: { xs: '16px', md: '36px' },
+  paddingInline: { xs: '16px', md: '32px' },
   paddingBlock: '20px 40px',
   gap: '20px',
 };

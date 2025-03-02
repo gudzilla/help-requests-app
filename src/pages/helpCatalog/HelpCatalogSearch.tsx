@@ -1,4 +1,11 @@
-import { InputAdornment, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  InputAdornment,
+  InputLabel,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { setSearchQuery } from './state/filtersSlice';
@@ -7,8 +14,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useFiltersStateSelector } from './state/selectors';
 
 const stackStyle = {
-  paddingLeft: { xs: '16px', md: '36px' },
-  paddingRight: { xs: '16px', md: '36px' },
+  paddingInline: { xs: '16px', md: '32px' },
   paddingBlock: { xs: '20px', md: '20px 40px' },
   gap: { xs: '16px', md: '10px' },
 };
@@ -39,10 +45,14 @@ export const HelpCatalogSearch = () => {
   return (
     <Paper>
       <Stack direction={{ xs: 'row', md: 'column' }} sx={stackStyle}>
-        <Typography variant="h6">Поиск</Typography>
+        <InputLabel htmlFor="input-search">
+          <Typography variant="h6" color="textPrimary">
+            Поиск
+          </Typography>
+        </InputLabel>
         <TextField
           value={searchInput}
-          id="standard-search"
+          id="input-search"
           type="search"
           variant="standard"
           placeholder="Введите название задачи или организации"

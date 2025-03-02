@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   CircularProgress,
   Grid2 as Grid,
@@ -13,15 +12,9 @@ import { RTKQueryRequestError } from '@/lib/api/types';
 import NoResultsIcon from '@/assets/not-found-result.svg?react';
 import { ResponsiveErrorIcon } from '../ResponsiveErrorIcon';
 import { theme } from '../../styles/theme';
+import { StatusPaper } from '../StatusPaper';
 
-const containerStyles = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column',
-  padding: '30px',
-  height: { md: '40vh', lg: '64vh' },
-};
+const statusStyle = { border: 0 };
 
 type HelpCardsProps = {
   cards: RequestCardData[];
@@ -46,15 +39,15 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (isLoading) {
     return (
-      <Box sx={containerStyles}>
+      <StatusPaper sx={statusStyle}>
         <CircularProgress size="5rem" />
-      </Box>
+      </StatusPaper>
     );
   }
 
   if (error) {
     return (
-      <Box sx={containerStyles}>
+      <StatusPaper sx={statusStyle}>
         <Stack gap={{ xs: '10px', md: '20px' }}>
           <ResponsiveErrorIcon />
           <Typography color="error" variant={isSmallScreen ? 'h6' : 'h5'}>
@@ -64,16 +57,16 @@ export const HelpCards = (props: HelpCardsProps) => {
             Повторить запрос
           </Button>
         </Stack>
-      </Box>
+      </StatusPaper>
     );
   }
 
   if (isEmpty) {
     return (
-      <Box sx={containerStyles}>
+      <StatusPaper sx={statusStyle}>
         <NoResultsIcon style={{ marginBottom: '24px' }} />
         <Typography variant="h5">{isEmptyMessage}</Typography>
-      </Box>
+      </StatusPaper>
     );
   }
 
