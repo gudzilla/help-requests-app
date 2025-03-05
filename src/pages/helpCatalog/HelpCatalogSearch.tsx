@@ -1,10 +1,12 @@
 import {
+  Button,
   InputAdornment,
   InputLabel,
   Paper,
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch } from '@/lib/redux/hooks';
@@ -12,17 +14,22 @@ import { setSearchQuery } from './state/filtersSlice';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useFiltersStateSelector } from './state/selectors';
+import SortIcon from '@mui/icons-material/Sort';
+import { theme } from '@/styles/theme';
 
-const stackStyle = {
-  paddingInline: { xs: '16px', md: '32px' },
-  paddingBlock: { xs: '20px', md: '20px 40px' },
-  gap: { xs: '16px', md: '10px' },
+const styles = {
+  search: {
+    gap: { xs: '8px', lg: '12px' },
+    flex: 1,
+  },
 };
 
 export const HelpCatalogSearch = () => {
   const dispatch = useAppDispatch();
   const { searchQuery } = useFiltersStateSelector();
   const [searchInput, setSearchInput] = useState(searchQuery);
+
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('lg'));
 
   const debouncedChangeHandler = useMemo(
     () =>
@@ -43,31 +50,38 @@ export const HelpCatalogSearch = () => {
   }, [searchQuery]);
 
   return (
-    <Paper>
-      <Stack direction={{ xs: 'row', md: 'column' }} sx={stackStyle}>
-        <InputLabel htmlFor="input-search">
-          <Typography variant="h6" color="textPrimary">
-            Поиск
-          </Typography>
-        </InputLabel>
-        <TextField
-          value={searchInput}
-          id="input-search"
-          type="search"
-          variant="standard"
-          placeholder="Введите название задачи или организации"
-          onChange={handleInputChange}
-          sx={{ flex: { xs: 1, md: 'unset' } }}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+    <Paper sx={{ flex: 1 }}>
+      <Stack direction="row" gap="14px" padding={{ xs: '10px 16px', lg: '16px 32px' }}>
+        {isMediumScreen && (
+          <Button color="primary" variant="outlined" sx={{ padding: '10px' }}>
+            <SortIcon color="primary" />
+          </Button>
+        )}
+        <Stack direction="row" sx={styles.search} alignItems="center">
+          <InputLabel htmlFor="input-search">
+            <Typography variant="h6" color="textPrimary">
+              Поиск
+            </Typography>
+          </InputLabel>
+          <TextField
+            value={searchInput}
+            id="input-search"
+            type="search"
+            variant="standard"
+            placeholder="Введите название задачи или организации"
+            onChange={handleInputChange}
+            sx={{ flex: 1 }}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </Stack>
       </Stack>
     </Paper>
   );

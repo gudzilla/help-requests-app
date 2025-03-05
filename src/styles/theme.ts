@@ -16,6 +16,13 @@ const customTheme: ThemeOptions = {
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: 'auto',
+        },
+      },
+    },
     MuiFormHelperText: {
       styleOverrides: {
         root: {
