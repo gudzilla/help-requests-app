@@ -4,7 +4,7 @@ export type HelperRequirementsType = HelpRequest['helperRequirements'];
 
 export type HelpRequestFiltersType = {
   helpType: HelpRequest['helpType'] | null;
-  requesterType: HelpRequest['requesterType'] | null;
+  requesterType: HelpRequest['requesterType'][];
   helperRequirements: {
     helperType: HelperRequirementsType['helperType'] | null;
     isOnline: HelperRequirementsType['isOnline'] | null;

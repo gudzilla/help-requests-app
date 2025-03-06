@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { HelpRequest } from '@/lib/api/types';
-import { setRequesterType } from '../../state/filtersSlice';
+import { addRequesterType, removeRequesterType } from '../../state/filtersSlice';
 
 type RequesterType = HelpRequest['requesterType'];
 type StrictRequesterTypeMap = { [K in RequesterType]: K };
@@ -23,9 +23,9 @@ export function FilterWhomWeHelp() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     if (checked) {
-      dispatch(setRequesterType(name as RequesterType));
+      dispatch(addRequesterType(name as RequesterType));
     } else {
-      dispatch(setRequesterType(null));
+      dispatch(removeRequesterType(name as RequesterType));
     }
   };
 
@@ -40,7 +40,7 @@ export function FilterWhomWeHelp() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={requesterType === requesterTypeValues.person}
+              checked={requesterType.includes(requesterTypeValues.person)}
               onChange={handleChange}
               name={requesterTypeValues.person}
             />
@@ -50,7 +50,7 @@ export function FilterWhomWeHelp() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={requesterType === requesterTypeValues.organization}
+              checked={requesterType.includes(requesterTypeValues.organization)}
               onChange={handleChange}
               name={requesterTypeValues.organization}
             />

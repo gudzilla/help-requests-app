@@ -1,5 +1,4 @@
 import {
-  Button,
   InputAdornment,
   InputLabel,
   Paper,
@@ -14,7 +13,6 @@ import { setSearchQuery } from './state/filtersSlice';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useFiltersStateSelector } from './state/selectors';
-import SortIcon from '@mui/icons-material/Sort';
 import { theme } from '@/styles/theme';
 import { ModalFilters } from './components/filters/ModalFilters';
 
@@ -53,12 +51,7 @@ export const HelpCatalogSearch = () => {
   return (
     <Paper sx={{ flex: 1 }}>
       <Stack direction="row" gap="14px" padding={{ xs: '10px 16px', lg: '16px 32px' }}>
-        {isMediumScreen && (
-          <ModalFilters />
-          // <Button color="primary" variant="outlined" sx={{ padding: '10px' }}>
-          //   <SortIcon color="primary" />
-          // </Button>
-        )}
+        {isMediumScreen && <ModalFilters />}
         <Stack direction="row" sx={styles.search} alignItems="center">
           <InputLabel htmlFor="input-search">
             <Typography variant="h6" color="textPrimary">

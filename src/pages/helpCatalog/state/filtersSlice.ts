@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from './types';
+import { HelpRequest } from '@/lib/api/types';
 
 export const initialFiltersState: HelpRequestFiltersType = {
   helpType: null,
-  requesterType: null,
+  requesterType: [],
   helperRequirements: {
     helperType: null,
     isOnline: null,
@@ -21,11 +22,11 @@ const filtersSlice = createSlice({
     setHelpType(state, action: PayloadAction<HelpRequestFiltersType['helpType']>) {
       state.helpType = action.payload;
     },
-    setRequesterType(
-      state,
-      action: PayloadAction<HelpRequestFiltersType['requesterType']>
-    ) {
-      state.requesterType = action.payload;
+    addRequesterType(state, action: PayloadAction<HelpRequest['requesterType']>) {
+      state.requesterType.push(action.payload);
+    },
+    removeRequesterType(state, action: PayloadAction<HelpRequest['requesterType']>) {
+      state.requesterType = state.requesterType.filter((type) => type !== action.payload);
     },
     setVolunteerQualification(
       state,
@@ -59,7 +60,8 @@ const filtersSlice = createSlice({
 
 export const {
   setHelpType,
-  setRequesterType,
+  addRequesterType,
+  removeRequesterType,
   setVolunteerQualification,
   setVolunteerFormat,
   setVolunteersNeeded,

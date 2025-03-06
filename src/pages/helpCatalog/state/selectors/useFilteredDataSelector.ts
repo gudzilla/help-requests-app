@@ -25,9 +25,12 @@ const filterByType =
   (helpType: HelpRequestFiltersType['helpType']) => (data: HelpRequest) =>
     helpType === null ? true : data.helpType === helpType;
 
+// -----------------  ПЕРВЫЙ ПРИМЕР С МАССИВОМ ЗНАЧЕНИЙ
 const filterByRequester =
   (requesterType: HelpRequestFiltersType['requesterType']) => (data: HelpRequest) =>
-    requesterType === null ? true : requesterType === data.requesterType;
+    requesterType.length === 0
+      ? true
+      : requesterType.some((type) => type === data.requesterType);
 
 const filterByQualification =
   (qualification: HelperRequirementsFilterType['qualification']) =>
