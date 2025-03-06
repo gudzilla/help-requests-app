@@ -16,6 +16,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useFiltersStateSelector } from './state/selectors';
 import SortIcon from '@mui/icons-material/Sort';
 import { theme } from '@/styles/theme';
+import { ModalFilters } from './components/filters/ModalFilters';
 
 const styles = {
   search: {
@@ -53,9 +54,10 @@ export const HelpCatalogSearch = () => {
     <Paper sx={{ flex: 1 }}>
       <Stack direction="row" gap="14px" padding={{ xs: '10px 16px', lg: '16px 32px' }}>
         {isMediumScreen && (
-          <Button color="primary" variant="outlined" sx={{ padding: '10px' }}>
-            <SortIcon color="primary" />
-          </Button>
+          <ModalFilters />
+          // <Button color="primary" variant="outlined" sx={{ padding: '10px' }}>
+          //   <SortIcon color="primary" />
+          // </Button>
         )}
         <Stack direction="row" sx={styles.search} alignItems="center">
           <InputLabel htmlFor="input-search">
