@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { HelperRequirementsFilterType, HelpRequestFiltersType } from './types';
+import {
+  HelperRequirementsFilterType,
+  HelperRequirementsType,
+  HelpRequestFiltersType,
+} from './types';
 import { HelpRequest } from '@/lib/api/types';
 
 export const initialFiltersState: HelpRequestFiltersType = {
-  helpType: null,
+  helpType: [],
   requesterType: [],
   helperRequirements: {
-    helperType: null,
+    helperType: [],
     isOnline: null,
-    qualification: null,
+    qualification: [],
   },
   helpDate: null,
   searchQuery: '',
@@ -19,8 +23,11 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState: initialFiltersState,
   reducers: {
-    setHelpType(state, action: PayloadAction<HelpRequestFiltersType['helpType']>) {
-      state.helpType = action.payload;
+    addHelpType(state, action: PayloadAction<HelpRequest['helpType']>) {
+      state.helpType.push(action.payload);
+    },
+    removeHelpType(state, action: PayloadAction<HelpRequest['helpType']>) {
+      state.helpType = state.helpType.filter((type) => type !== action.payload);
     },
     addRequesterType(state, action: PayloadAction<HelpRequest['requesterType']>) {
       state.requesterType.push(action.payload);
@@ -28,11 +35,18 @@ const filtersSlice = createSlice({
     removeRequesterType(state, action: PayloadAction<HelpRequest['requesterType']>) {
       state.requesterType = state.requesterType.filter((type) => type !== action.payload);
     },
-    setVolunteerQualification(
+    addVolunteerQualification(
       state,
-      action: PayloadAction<HelperRequirementsFilterType['qualification']>
+      action: PayloadAction<HelperRequirementsType['qualification']>
     ) {
-      state.helperRequirements.qualification = action.payload;
+      state.helperRequirements.qualification.push(action.payload);
+    },
+    removeVolunteerQualification(
+      state,
+      action: PayloadAction<HelperRequirementsType['qualification']>
+    ) {
+      state.helperRequirements.qualification =
+        state.helperRequirements.qualification.filter((type) => type !== action.payload);
     },
     setVolunteerFormat(
       state,
@@ -40,11 +54,20 @@ const filtersSlice = createSlice({
     ) {
       state.helperRequirements.isOnline = action.payload;
     },
-    setVolunteersNeeded(
+    addVolunteersNeeded(
       state,
-      action: PayloadAction<HelperRequirementsFilterType['helperType']>
+      action: PayloadAction<HelperRequirementsType['helperType']>
     ) {
-      state.helperRequirements.helperType = action.payload;
+      state.helperRequirements.helperType.push(action.payload);
+    },
+    removeVolunteersNeeded(
+      state,
+      action: PayloadAction<HelperRequirementsType['helperType']>
+    ) {
+      state.helperRequirements.helperType.push(action.payload);
+      state.helperRequirements.helperType = state.helperRequirements.helperType.filter(
+        (type) => type !== action.payload
+      );
     },
     setFilterDate(state, action: PayloadAction<HelpRequestFiltersType['helpDate']>) {
       state.helpDate = action.payload;
@@ -59,12 +82,15 @@ const filtersSlice = createSlice({
 });
 
 export const {
-  setHelpType,
+  addHelpType,
+  removeHelpType,
   addRequesterType,
   removeRequesterType,
-  setVolunteerQualification,
+  addVolunteerQualification,
+  removeVolunteerQualification,
   setVolunteerFormat,
-  setVolunteersNeeded,
+  addVolunteersNeeded,
+  removeVolunteersNeeded,
   setFilterDate,
   setSearchQuery,
   removeAllFilters,

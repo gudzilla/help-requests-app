@@ -22,30 +22,35 @@ const isDate2LaterThanDate1 = (date1: string, date2: string): boolean => {
 
 // ----------------- FILTER FUNCTIONS ----------------
 const filterByType =
-  (helpType: HelpRequestFiltersType['helpType']) => (data: HelpRequest) =>
-    helpType === null ? true : data.helpType === helpType;
+  (requesterType: HelpRequestFiltersType['helpType']) => (data: HelpRequest) =>
+    requesterType.length === 0
+      ? true
+      : requesterType.some((type) => type === data.helpType);
 
-// -----------------  ПЕРВЫЙ ПРИМЕР С МАССИВОМ ЗНАЧЕНИЙ
 const filterByRequester =
   (requesterType: HelpRequestFiltersType['requesterType']) => (data: HelpRequest) =>
     requesterType.length === 0
       ? true
       : requesterType.some((type) => type === data.requesterType);
 
+const filterByPeopleNeeded =
+  (helperType: HelperRequirementsFilterType['helperType']) => (data: HelpRequest) =>
+    helperType.length === 0
+      ? true
+      : helperType.some((type) => type === data.helperRequirements.helperType);
+
 const filterByQualification =
   (qualification: HelperRequirementsFilterType['qualification']) =>
   (data: HelpRequest) =>
-    qualification === null
+    qualification.length === 0
       ? true
-      : qualification === data.helperRequirements.qualification;
+      : qualification.some((type) => type === data.helperRequirements.qualification);
+
+// --------- ^^^ DONE ^^^ -----------
 
 const filterByFormat =
   (isOnline: HelperRequirementsFilterType['isOnline']) => (data: HelpRequest) =>
     isOnline === null ? true : isOnline === data.helperRequirements.isOnline;
-
-const filterByPeopleNeeded =
-  (helperType: HelperRequirementsFilterType['helperType']) => (data: HelpRequest) =>
-    helperType === null ? true : helperType === data.helperRequirements.helperType;
 
 const filterByDate =
   (helpDate: HelpRequestFiltersType['helpDate']) => (data: HelpRequest) => {
