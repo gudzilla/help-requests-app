@@ -46,11 +46,11 @@ const filterByQualification =
       ? true
       : qualification.some((type) => type === data.helperRequirements.qualification);
 
-// --------- ^^^ DONE ^^^ -----------
-
 const filterByFormat =
-  (isOnline: HelperRequirementsFilterType['isOnline']) => (data: HelpRequest) =>
-    isOnline === null ? true : isOnline === data.helperRequirements.isOnline;
+  (isOnlineArr: HelperRequirementsFilterType['isOnlineArr']) => (data: HelpRequest) =>
+    isOnlineArr.length === 0
+      ? true
+      : isOnlineArr.some((type) => type === data.helperRequirements.isOnline);
 
 const filterByDate =
   (helpDate: HelpRequestFiltersType['helpDate']) => (data: HelpRequest) => {
@@ -70,7 +70,7 @@ const applyFilters = (data: HelpRequest[], filters: HelpRequestFiltersType) => {
     filterByType(filters.helpType),
     filterByRequester(filters.requesterType),
     filterByQualification(filters.helperRequirements.qualification),
-    filterByFormat(filters.helperRequirements.isOnline),
+    filterByFormat(filters.helperRequirements.isOnlineArr),
     filterByPeopleNeeded(filters.helperRequirements.helperType),
     filterByDate(filters.helpDate),
     filteredBySearchQuery(filters.searchQuery),

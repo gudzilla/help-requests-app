@@ -8,7 +8,7 @@ export type HelpRequestFiltersType = {
   helperRequirements: {
     qualification: HelperRequirementsType['qualification'][];
     helperType: HelperRequirementsType['helperType'][];
-    isOnline: HelperRequirementsType['isOnline'] | null;
+    isOnlineArr: HelperRequirementsType['isOnline'][];
   };
   helpDate: string | null;
   searchQuery: string;

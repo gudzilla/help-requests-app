@@ -6,7 +6,7 @@ import {
   FormLabel,
 } from '@mui/material';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { setVolunteerFormat } from '../../../state/filtersSlice';
+import { addVolunteerFormat, removeVolunteerFormat } from '../../../state/filtersSlice';
 import { useFiltersStateSelector } from '../../../state/selectors';
 
 const isOnlineValues = {
@@ -16,18 +16,18 @@ const isOnlineValues = {
 
 export const VolunteerFormat = () => {
   const {
-    helperRequirements: { isOnline },
+    helperRequirements: { isOnlineArr },
   } = useFiltersStateSelector();
   const dispatch = useAppDispatch();
 
   const handleFormatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
+    const value = name === isOnlineValues.true ? true : false;
 
     if (checked) {
-      const value = name === 'true';
-      dispatch(setVolunteerFormat(value));
+      dispatch(addVolunteerFormat(value));
     } else {
-      dispatch(setVolunteerFormat(null));
+      dispatch(removeVolunteerFormat(value));
     }
   };
 
@@ -38,7 +38,7 @@ export const VolunteerFormat = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={isOnline === true}
+              checked={isOnlineArr.includes(true)}
               onChange={handleFormatChange}
               name={isOnlineValues.true}
             />
@@ -48,7 +48,7 @@ export const VolunteerFormat = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={isOnline === false}
+              checked={isOnlineArr.includes(false)}
               onChange={handleFormatChange}
               name={isOnlineValues.false}
             />

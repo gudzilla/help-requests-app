@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import {
-  HelperRequirementsFilterType,
-  HelperRequirementsType,
-  HelpRequestFiltersType,
-} from './types';
+import { HelperRequirementsType, HelpRequestFiltersType } from './types';
 import { HelpRequest } from '@/lib/api/types';
 
 export const initialFiltersState: HelpRequestFiltersType = {
@@ -12,7 +8,7 @@ export const initialFiltersState: HelpRequestFiltersType = {
   requesterType: [],
   helperRequirements: {
     helperType: [],
-    isOnline: null,
+    isOnlineArr: [],
     qualification: [],
   },
   helpDate: null,
@@ -46,13 +42,20 @@ const filtersSlice = createSlice({
       action: PayloadAction<HelperRequirementsType['qualification']>
     ) {
       state.helperRequirements.qualification =
-        state.helperRequirements.qualification.filter((type) => type !== action.payload);
+        state.helperRequirements.qualification.filter(
+          (qualification) => qualification !== action.payload
+        );
     },
-    setVolunteerFormat(
+    addVolunteerFormat(state, action: PayloadAction<HelperRequirementsType['isOnline']>) {
+      state.helperRequirements.isOnlineArr.push(action.payload);
+    },
+    removeVolunteerFormat(
       state,
-      action: PayloadAction<HelperRequirementsFilterType['isOnline']>
+      action: PayloadAction<HelperRequirementsType['isOnline']>
     ) {
-      state.helperRequirements.isOnline = action.payload;
+      state.helperRequirements.isOnlineArr = state.helperRequirements.isOnlineArr.filter(
+        (booleanItem) => booleanItem !== action.payload
+      );
     },
     addVolunteersNeeded(
       state,
@@ -88,7 +91,8 @@ export const {
   removeRequesterType,
   addVolunteerQualification,
   removeVolunteerQualification,
-  setVolunteerFormat,
+  addVolunteerFormat,
+  removeVolunteerFormat,
   addVolunteersNeeded,
   removeVolunteersNeeded,
   setFilterDate,
