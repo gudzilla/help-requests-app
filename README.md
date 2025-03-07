@@ -6,6 +6,10 @@
 
 Users can access a catalog of help requests with search and filter options. They can contribute by clicking the "Contribute" button on a request card. Additionally, users can add requests to their favorites. The project includes login functionality via test profiles.
 
+### Updates
+
+- Responsive UI is in development 
+
 ## Stack
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
