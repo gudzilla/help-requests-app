@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Container } from '@mui/material';
 import { ProfileMenu } from './components/profileMenu';
 import { ShowOnly } from '@/components';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
+import { ResponsiveAppBar } from './ResAppBar';
 
 const styles = {
   toolbar: {
@@ -48,6 +49,7 @@ export const Header = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <ResponsiveAppBar />
     </Box>
   );
 };
