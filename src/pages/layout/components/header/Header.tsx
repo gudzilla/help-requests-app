@@ -22,7 +22,7 @@ export const Header = () => {
 
   return (
     <Box component="header">
-      <AppBar position="relative" color="transparent">
+      {/* <AppBar position="relative" color="transparent">
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={styles.toolbar}>
             <Box sx={{ justifySelf: 'start' }}>
@@ -48,7 +48,7 @@ export const Header = () => {
             </Box>
           </Toolbar>
         </Container>
-      </AppBar>
+      </AppBar> */}
       <ResponsiveAppBar />
     </Box>
   );

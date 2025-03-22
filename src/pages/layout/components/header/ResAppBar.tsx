@@ -24,6 +24,7 @@ import { theme } from '@/styles/theme';
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+// todo: проверить все ли стили используюься и удалить лишние
 const styles = {
   toolbar: {
     display: 'grid',
@@ -34,7 +35,8 @@ const styles = {
     disabled: {
       fontSize: '1.25rem',
       color: 'text.secondary',
-      cursor: 'not-allowed',
+      // todo: delete
+      // cursor: 'not-allowed',
       pointerEvents: 'none',
     },
   },
@@ -54,7 +56,7 @@ export const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="relative" color="transparent">
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={styles.toolbar}>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
