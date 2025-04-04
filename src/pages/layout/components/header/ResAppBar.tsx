@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -20,9 +20,7 @@ import MainLogoOnlyText from '@/assets/main-logo-only-text.svg?react';
 import { ShowOnly } from '@/components';
 import { ProfileMenu } from './components/profileMenu';
 import { theme } from '@/styles/theme';
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { MenuDrawer } from './MenuDrawer';
 
 // todo: проверить все ли стили используюься и удалить лишние
 const styles = {
@@ -43,7 +41,8 @@ const styles = {
 };
 
 export const ResponsiveAppBar = () => {
-  const isHelpCatalogPage = useLocation().pathname === '/help-catalog';
+  const currentPath = useLocation().pathname;
+  const isHelpCatalogPage = currentPath === '/help-catalog';
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -65,17 +64,18 @@ export const ResponsiveAppBar = () => {
             </Link>
           </Box>
           <Box sx={{ display: { xs: 'inline-block', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+            <MenuDrawer currentPath={currentPath} />
+            {/* <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
             >
               <MenuIcon fontSize="large" />
-            </IconButton>
-            <Menu
+            </IconButton> */}
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -102,7 +102,7 @@ export const ResponsiveAppBar = () => {
                   Запросы о помощи
                 </Link>
               </MenuItem>
-            </Menu>
+            </Menu> */}
           </Box>
           <Box
             sx={{ justifySelf: 'center', display: { xs: 'inline-block', md: 'none' } }}
