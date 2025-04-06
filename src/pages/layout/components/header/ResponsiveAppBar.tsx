@@ -1,28 +1,16 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
 import { Link, useMediaQuery } from '@mui/material';
 import MainLogo from '@/assets/main-logo.svg?react';
-import MainLogoNoText from '@/assets/main-logo-no-text.svg?react';
 import MainLogoOnlyText from '@/assets/main-logo-only-text.svg?react';
 import { ShowOnly } from '@/components';
 import { ProfileMenu } from './components/profileMenu';
 import { theme } from '@/styles/theme';
 import { MenuDrawer } from './MenuDrawer';
 
-// todo: проверить все ли стили используюься и удалить лишние
 const styles = {
   toolbar: {
     display: 'grid',
@@ -33,8 +21,6 @@ const styles = {
     disabled: {
       fontSize: '1.25rem',
       color: 'text.secondary',
-      // todo: delete
-      // cursor: 'not-allowed',
       pointerEvents: 'none',
     },
   },
@@ -44,16 +30,6 @@ export const ResponsiveAppBar = () => {
   const currentPath = useLocation().pathname;
   const isHelpCatalogPage = currentPath === '/help-catalog';
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   return (
     <AppBar position="relative" color="transparent">
       <Container maxWidth="xl">
@@ -65,44 +41,6 @@ export const ResponsiveAppBar = () => {
           </Box>
           <Box sx={{ display: { xs: 'inline-block', md: 'none' } }}>
             <MenuDrawer currentPath={currentPath} />
-            {/* <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
-            >
-              <MenuIcon fontSize="large" />
-            </IconButton> */}
-            {/* <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link
-                  component={RouterLink}
-                  to="/help-catalog"
-                  underline="hover"
-                  sx={isHelpCatalogPage ? styles.link.disabled : styles.link.active}
-                  tabIndex={isHelpCatalogPage ? -1 : 0}
-                >
-                  Запросы о помощи
-                </Link>
-              </MenuItem>
-            </Menu> */}
           </Box>
           <Box
             sx={{ justifySelf: 'center', display: { xs: 'inline-block', md: 'none' } }}
