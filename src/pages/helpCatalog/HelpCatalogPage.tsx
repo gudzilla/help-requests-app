@@ -1,25 +1,16 @@
-import {
-  Button,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { Stack, Typography, useMediaQuery } from '@mui/material';
 import { Filters } from './components/filters/Filters';
 import { Results } from './components/results/Results';
 import { HelpCatalogSearch } from './HelpCatalogSearch';
 import { useGetFavouritesQuery } from '@/lib/api/api';
 import { MainContentStack } from '@/components/MainContentStack';
 import { theme } from '@/styles/theme';
-import SortIcon from '@mui/icons-material/Sort';
 
 const mainContentStyle = {
   flex: 1,
 };
 
 export const HelpCatalogPage = () => {
-  // todo: что надо с этим сделать?
   useGetFavouritesQuery();
 
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));

@@ -37,7 +37,7 @@ export const SingleCard = (props: SingleCardProps) => {
     },
   } = props;
 
-  const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
+  const goalProgressInPercent = Math.floor((requestGoal / requestGoalCurrentValue) * 100);
   const navigate = useNavigate();
   const [contribution, { isLoading: isContributionLoading }] = useContributionMutation();
   const [addToFavourites] = useAddToFavouritesMutation();
@@ -93,11 +93,11 @@ export const SingleCard = (props: SingleCardProps) => {
             onCardClick={handleCardClick}
           />
           <SingleCardActions
-            requestGoal={requestGoal}
+            requestGoal={requestGoalCurrentValue}
             contributorsCount={contributorsCount}
             endingDate={endingDate}
             goalProgressInPercent={goalProgressInPercent}
-            requestGoalCurrentValue={requestGoalCurrentValue}
+            requestGoalCurrentValue={requestGoal}
             handleHelpButtonClick={handleHelpButtonClick}
             isLoading={isContributionLoading}
             onCardClick={handleCardClick}
