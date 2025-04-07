@@ -10,17 +10,22 @@ const styles = {
     borderColor: 'divider',
     paddingBlock: '40px',
   },
-  links: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+  links: {},
 };
 
 export const Footer = () => {
   return (
     <Box component="footer" sx={styles.footer}>
-      <Container maxWidth="xl">
-        <Stack direction="row" sx={styles.links}>
+      <Container maxWidth="xl" sx={{ textAlign: 'center' }}>
+        <Stack
+          sx={{
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: { xs: '12px', sm: 0 },
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '24px',
+          }}
+        >
           {LINKS_ARRAY.map((link, index) => (
             <Link
               key={index}
@@ -32,6 +37,11 @@ export const Footer = () => {
               <Typography>{link.name}</Typography>
             </Link>
           ))}
+        </Stack>
+        <Stack>
+          <Typography variant="subtitle2" color="textSecondary">
+            © 2025 All right reserved.
+          </Typography>
         </Stack>
       </Container>
     </Box>
