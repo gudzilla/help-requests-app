@@ -1,10 +1,16 @@
-# Проект сайта с запросами о помощи для пожилых людей (React/TS/MUI/Redux)
+# Website with Help Requests for Elderly People (React/TS/MUI/Redux)
 
-Проект с логином в личный профиль. После входа попадаете на главную страницу - это каталог запросов о помощи с поиском и фильтрами. Есть возможность добавлять запросы в избранное. 
+[LIVE DEMO LINK](https://help-requests-app.netlify.app/)
 
-[ССЫЛКА НА ДЕПЛОЙ](https://help-requests-catalog.vercel.app/)
+> UI is in russian
 
-## Cтак
+Users can access a catalog of help requests with search and filter options. They can contribute by clicking the "Contribute" button on a request card. Additionally, users can add requests to their favorites. The project includes login functionality via test profiles.
+
+### Updates
+
+- Responsive UI is in development 
+
+## Stack
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -14,84 +20,93 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-## Функционал
+## Features
 
-- **Логин** с помощью тестовых профилей
-- **Каталог запросов** с поиском, фильтрами и пагинацией.
-- На **карточках запроса** есть конопка "добавить в избранное" в виде звездочки
-- Клик по карточке откроет страницу этого запроса
-- **Меню профиля** открывается в строке навигации
-- **Страница профиля** имеет вкладку с избанными запросами
-- **Кнопка ВОЙТИ** отправляет запрос к API `api/contribution`
+- **Login** with test profiles
+- **Request a catalog** with search, filters, and pagination
+- Each **request card** includes "Contribute" and "Add to Favourites" buttons
+- Clicking on a card opens the request details page
+- **Profile menu** is available in the navigation bar
+- **The profile page** has a tab for favorite requests
 
-В проекте обрабатываются ошибки и пустые результаты с помощью UI компонент и тост-нотификаций
+### What features work via API calls
 
-### Список экранов:
+- authentication
+- getting help requests
+- getting a single help request by id
+- get user information for the profile page
+- get a list of favourite requsts
+- add/remove request to favourites
 
-- логин
-- каталог запросов о помощи
-- страница одного запроса
-- страница профиля юзера
+The project handles errors and empty search results using UI components and toast notifications.
 
-## Скриншоты проекта
+### List of Pages
 
-**Логин**
+- Login
+- Help request catalog
+- Single request page
+- User profile page
 
-<img alt='Страница логина' src='./src/assets/forReadme/1-Login.png'>
+## Project UI
 
-**Каталог запросов**
-<img alt='Запросы' src='./src/assets/forReadme/2-Requests-Catalog.png'>
+**Login Page**
+<img alt='Login Page' src='./src/assets/forReadme/1-Login.webp'>
 
-**Добавить в избранное**
-<img alt='Запросы' src='./src/assets/forReadme/2.2-Add-Favourote.png'>
+**Request Catalog**
+<img alt='Request Catalog' src='./src/assets/forReadme/2-Requests-Catalog.webp'>
 
-**Меню в хедере**
-<img alt='Запросы' src='./src/assets/forReadme/3.3-Menu.png'>
+**Add to Favorites**
 
-**Страница Конкретного Запроса**
-<img alt='Запросы' src='./src/assets/forReadme/3-Request-Page.png'>
+<img alt='Add to Favorites' width='300' src='./src/assets/forReadme/2.2-Add-Favourote.webp'>
 
-**Страница Профиля (1-я вкладка)**
-<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-1.png'>
+**Header Menu**
 
-**Страница Профиля (2-я вкладка)**
-<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-2.png'>
+<img alt='Header Menu' width='300' src='./src/assets/forReadme/3.3-Menu.webp'>
 
-**Страница Профиля (3-я вкладка)**
-<img alt='Запросы' src='./src/assets/forReadme/4-Profile-tab-3.png'>
+**Single Request Page**
+<img alt='Single Request Page' src='./src/assets/forReadme/3-Request-Page.webp'>
 
-## Обработки
+**Profile Page (Tab 1)**
+<img alt='Profile Page (Tab 1)' src='./src/assets/forReadme/4-Profile-tab-1.webp'>
 
-**Ошибки**
-<img alt='Запросы' src='./src/assets/forReadme/Catalog-Error.png'>
+**Profile Page (Tab 2)**
+<img alt='Profile Page (Tab 2)' src='./src/assets/forReadme/4-Profile-tab-2.webp'>
 
-**Нет результатов**
-<img alt='Запросы' src='./src/assets/forReadme/Catalog-no-results.png'>
+**Profile Page (Tab 3)**
+<img alt='Profile Page (Tab 3)' src='./src/assets/forReadme/4-Profile-tab-3.webp'>
 
-**Тосты**
-<img alt='Запросы' src='./src/assets/forReadme/toast-notifications.png'>
+### Error Handling
 
+**Errors**
+<img alt='Errors' src='./src/assets/forReadme/Catalog-Error.webp'>
 
-## Как запустить локально
+**No Results Found**
+<img alt='No Results Found' src='./src/assets/forReadme/Catalog-no-results.webp'>
 
-### Установка зависимостей
+**Toast Notifications**
+
+<img alt='Toast Notifications' width='300' src='./src/assets/forReadme/toast-notifications.webp'>
+
+## How to Run Locally
+
+### Install Dependencies
 
 ```js
 npm install
 
-// или
+// or
 
- yarn
+yarn
 ```
 
-### запуск локального сервера через Vite
+### Start Local Server with Vite
 
 ```js
 npm run dev
 
-// или
+// or
 
- yarn
+yarn
 ```
 
-### Задание взято с ["Благотворительного React-ивента" 2024](https://github.com/nat-davydova/charity_event_back_oct2024/tree/main?tab=readme-ov-file)
+#### Desktop design and idea based on hackathon task [‘Charity React event’ 2024](https://github.com/nat-davydova/charity_event_back_oct2024/tree/main?tab=readme-ov-file)
