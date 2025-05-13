@@ -1,23 +1,20 @@
-import { useMediaQuery } from '@mui/material';
-import { theme } from '@/styles/theme';
 import ErrorIcon from '@/assets/load-error.svg?react';
+import { useScreenSize } from '@/lib/useScreenSize';
 
 export const ResponsiveErrorIcon = () => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const isLargeScreen = useMediaQuery(theme.breakpoints.between('md', 'lg'));
+  const { isScreenXs, isScreenSm, isScreenMd } = useScreenSize();
 
-  if (isSmallScreen) {
+  if (isScreenXs) {
     return (
       <ErrorIcon style={{ alignSelf: 'center', maxWidth: '200px', height: 'auto' }} />
     );
   }
-  if (isMediumScreen) {
+  if (isScreenSm) {
     return (
       <ErrorIcon style={{ alignSelf: 'center', maxWidth: '240px', height: 'auto' }} />
     );
   }
-  if (isLargeScreen) {
+  if (isScreenMd) {
     return (
       <ErrorIcon style={{ alignSelf: 'center', maxWidth: '320px', height: 'auto' }} />
     );

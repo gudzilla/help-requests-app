@@ -4,17 +4,14 @@ import {
   Grid2 as Grid,
   Stack,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 import { SingleCard } from '@/components/helpCards/singleCard';
 import { RequestCardData } from '@/components/helpCards/singleCard/types';
 import { RTKQueryRequestError } from '@/lib/api/types';
 import NoResultsIcon from '@/assets/not-found-result.svg?react';
 import { ResponsiveErrorIcon } from '../ResponsiveErrorIcon';
-import { theme } from '../../styles/theme';
 import { StatusPaper } from '../StatusPaper';
-
-const statusStyle = { border: 0 };
+import { useScreenSize } from '@/lib/useScreenSize';
 
 type HelpCardsProps = {
   cards: RequestCardData[];
@@ -35,11 +32,11 @@ export const HelpCards = (props: HelpCardsProps) => {
     refetchRequests,
   } = props;
 
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const { isScreenMdDown } = useScreenSize();
 
   if (isLoading) {
     return (
-      <StatusPaper sx={statusStyle}>
+      <StatusPaper>
         <CircularProgress size="5rem" />
       </StatusPaper>
     );
@@ -47,10 +44,10 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (error) {
     return (
-      <StatusPaper sx={statusStyle}>
+      <StatusPaper>
         <Stack gap={{ xs: '10px', md: '20px' }}>
           <ResponsiveErrorIcon />
-          <Typography color="error" variant={isSmallScreen ? 'h6' : 'h5'}>
+          <Typography color="error" variant={isScreenMdDown ? 'h6' : 'h5'}>
             Ошибка! Не удалось загрузить информацию
           </Typography>
           <Button variant="outlined" onClick={refetchRequests}>
@@ -63,7 +60,7 @@ export const HelpCards = (props: HelpCardsProps) => {
 
   if (isEmpty) {
     return (
-      <StatusPaper sx={statusStyle}>
+      <StatusPaper>
         <NoResultsIcon style={{ marginBottom: '24px' }} />
         <Typography variant="h5">{isEmptyMessage}</Typography>
       </StatusPaper>
@@ -73,8 +70,8 @@ export const HelpCards = (props: HelpCardsProps) => {
   return (
     <Grid
       container
-      rowSpacing={isSmallScreen ? '16px' : '16px'}
-      columnSpacing={isSmallScreen ? '16px' : '24px'}
+      rowSpacing={isScreenMdDown ? '16px' : '16px'}
+      columnSpacing={isScreenMdDown ? '16px' : '24px'}
     >
       {cards.map((request: RequestCardData) => {
         return <SingleCard key={request.id} requestCardData={request} />;

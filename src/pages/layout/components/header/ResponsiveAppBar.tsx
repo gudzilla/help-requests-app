@@ -3,13 +3,13 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
-import { Link, useMediaQuery } from '@mui/material';
+import { Link } from '@mui/material';
 import MainLogo from '@/assets/main-logo.svg?react';
 import MainLogoOnlyText from '@/assets/main-logo-only-text.svg?react';
 import { ShowOnly } from '@/components';
 import { ProfileMenu } from './components/profileMenu';
-import { theme } from '@/styles/theme';
 import { MenuDrawer } from './MenuDrawer';
+import { useScreenSize } from '@/lib/useScreenSize';
 
 const styles = {
   toolbar: {
@@ -29,7 +29,8 @@ const styles = {
 export const ResponsiveAppBar = () => {
   const currentPath = useLocation().pathname;
   const isHelpCatalogPage = currentPath === '/help-catalog';
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isScreenXs } = useScreenSize();
+
   return (
     <AppBar position="relative" color="transparent">
       <Container maxWidth="xl">
@@ -50,7 +51,7 @@ export const ResponsiveAppBar = () => {
               to="/help-catalog"
               sx={{ display: 'flex', paddingTop: '4px' }}
             >
-              {isSmallScreen ? <MainLogoOnlyText /> : <MainLogo />}
+              {isScreenXs ? <MainLogoOnlyText /> : <MainLogo />}
             </Link>
           </Box>
           <Box

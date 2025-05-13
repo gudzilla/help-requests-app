@@ -5,7 +5,6 @@ import {
   Stack,
   TextField,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch } from '@/lib/redux/hooks';
@@ -13,8 +12,8 @@ import { setSearchQuery } from './state/filtersSlice';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useFiltersStateSelector } from './state/selectors';
-import { theme } from '@/styles/theme';
 import { ModalFilters } from './components/filters/ModalFilters';
+import { useScreenSize } from '@/lib/useScreenSize';
 
 const styles = {
   search: {
@@ -28,7 +27,7 @@ export const HelpCatalogSearch = () => {
   const { searchQuery } = useFiltersStateSelector();
   const [searchInput, setSearchInput] = useState(searchQuery);
 
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down('lg'));
+  const { isScreenLgDown } = useScreenSize();
 
   const debouncedChangeHandler = useMemo(
     () =>
@@ -51,7 +50,7 @@ export const HelpCatalogSearch = () => {
   return (
     <Paper sx={{ flex: 1 }}>
       <Stack direction="row" gap="14px" padding={{ xs: '10px 16px', lg: '16px 32px' }}>
-        {isMediumScreen && <ModalFilters />}
+        {isScreenLgDown && <ModalFilters />}
         <Stack direction="row" sx={styles.search} alignItems="center">
           <InputLabel htmlFor="input-search">
             <Typography variant="h6" color="textPrimary">

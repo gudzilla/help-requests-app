@@ -11,6 +11,7 @@ export const StatusPaper = (props: PaperProps) => (
       flexDirection: 'column',
       padding: '20px',
       height: { xs: '40vh', md: '50vh' },
+      border: 0,
       ...props.sx,
     }}
   />

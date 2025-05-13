@@ -13,6 +13,8 @@ const stackStyle = {
   gap: '20px',
 };
 
+const ITEMS_PER_PAGE = 6;
+
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const {
@@ -34,15 +36,16 @@ export const Results = () => {
   const resultsFound = filteredRequests.length;
 
   const noResults = filteredRequests?.length === 0;
-  // const dataNotEmpty = filteredRequests?.length > 0;
-  const showPagination = !noResults && !error && !isLoading;
+  const hasResults = filteredRequests?.length > 0;
+  const showPagination = hasResults && !error && !isLoading;
 
   // ----------- PAGINATION ----------
-  const { helpCardsData, totalPages } = useHelpCardsPagination(
-    filteredRequests,
-    6,
-    currentPage
-  );
+  const ITEMS_PER_PAGE = 6;
+  const { helpCardsData, totalPages } = useHelpCardsPagination({
+    requestsArr: filteredRequests,
+    itemsPerPage: ITEMS_PER_PAGE,
+    currentPage: currentPage,
+  });
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);

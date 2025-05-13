@@ -1,10 +1,10 @@
-import { Stack, Typography, useMediaQuery } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Filters } from './components/filters/Filters';
 import { Results } from './components/results/Results';
 import { HelpCatalogSearch } from './HelpCatalogSearch';
 import { useGetFavouritesQuery } from '@/lib/api/api';
 import { MainContentStack } from '@/components/MainContentStack';
-import { theme } from '@/styles/theme';
+import { useScreenSize } from '@/lib/useScreenSize';
 
 const mainContentStyle = {
   flex: 1,
@@ -13,7 +13,7 @@ const mainContentStyle = {
 export const HelpCatalogPage = () => {
   useGetFavouritesQuery();
 
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const { isScreenLgUp } = useScreenSize();
 
   return (
     <MainContentStack>
@@ -21,7 +21,7 @@ export const HelpCatalogPage = () => {
         Запросы о помощи
       </Typography>
       <Stack direction={{ sx: 'column', lg: 'row' }} gap={{ xs: '10px', md: '20px' }}>
-        {isLargeScreen && <Filters />}
+        {isScreenLgUp && <Filters />}
         <Stack
           direction={{ md: 'column' }}
           gap={{ xs: '10px', md: '20px' }}

@@ -12,7 +12,6 @@ export const ProfilePageContent = () => {
     refetch();
   };
 
-  // if (true) {
   if (isLoading || isFetching) {
     return (
       <StatusPaper>

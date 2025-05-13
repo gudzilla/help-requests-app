@@ -8,28 +8,28 @@ import { initialFiltersState, removeAllFilters } from '../../state/filtersSlice'
 import { useFiltersStateSelector } from '../../state/selectors';
 import { areObjectsDeepEqual } from '@/lib/areObjectsDeepEqual';
 
-type FiltersProps = { isModal?: boolean };
+const styles = {
+  paper: {
+    regular: { alignSelf: { lg: 'flex-start' } },
+    modal: { boxShadow: 'none' },
+  },
+  stack: {
+    padding: { xs: '20px 16px', md: '20px' },
+  },
+};
 
-export const Filters = ({ isModal = false }: FiltersProps) => {
+type FiltersProps = { viewType?: 'regular' | 'modal' };
+
+export const Filters = ({ viewType = 'regular' }: FiltersProps) => {
   const dispatch = useAppDispatch();
   const filtersState = useFiltersStateSelector();
   const hasNoFilters = areObjectsDeepEqual(filtersState, initialFiltersState);
-
-  const styles = {
-    paper: {
-      regular: { alignSelf: { lg: 'flex-start' } },
-      isModal: { boxShadow: 'none' },
-    },
-    stack: {
-      padding: { xs: '20px 16px', md: '20px' },
-    },
-  };
 
   const handleClearFiltersButton = () => {
     dispatch(removeAllFilters());
   };
   return (
-    <Paper sx={styles.paper[isModal ? 'isModal' : 'regular']}>
+    <Paper sx={styles.paper[viewType]}>
       <Stack spacing={'20px'} sx={styles.stack}>
         <Box>
           <Typography variant="h6">Фильтрация</Typography>

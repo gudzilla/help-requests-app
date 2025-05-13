@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
-import { Box, useMediaQuery } from '@mui/material';
-import { theme } from '../styles/theme';
+import { Box } from '@mui/material';
+import { useScreenSize } from '@/lib/useScreenSize';
 
 type RequestsPaginationProps = {
   totalPages: number;
@@ -11,7 +11,7 @@ type RequestsPaginationProps = {
 
 export function RequestsPagination(props: RequestsPaginationProps) {
   const { totalPages, currentPage, setPage } = props;
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isScreenXs } = useScreenSize();
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -22,7 +22,7 @@ export function RequestsPagination(props: RequestsPaginationProps) {
       <Pagination
         count={totalPages}
         page={currentPage}
-        siblingCount={isSmallScreen ? 0 : 1}
+        siblingCount={isScreenXs ? 0 : 1}
         onChange={handleChange}
         color="primary"
       />

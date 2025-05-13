@@ -41,14 +41,16 @@ export const FavouritesTab = () => {
 
   const favouriteRequests = getRequestsDataByIds(favouritesIdsArray, requestsArray);
   const isEmpty = favouriteRequests.length === 0;
-  const showPagination = !isLoading && !getRequestsError && !isEmpty;
+  const notEmpty = favouriteRequests.length > 0;
+  const showPagination = !isLoading && !getRequestsError && notEmpty;
 
   // ----------- PAGINATION ----------
-  const { helpCardsData, totalPages } = useHelpCardsPagination(
-    favouriteRequests,
-    6,
-    currentPage
-  );
+  const ITEMS_PER_PAGE = 6;
+  const { helpCardsData, totalPages } = useHelpCardsPagination({
+    requestsArr: favouriteRequests,
+    itemsPerPage: ITEMS_PER_PAGE,
+    currentPage: currentPage,
+  });
 
   return (
     <TabPanel value="user-favourites" sx={{ padding: 0 }}>
