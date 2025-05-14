@@ -13,8 +13,6 @@ const stackStyle = {
   gap: '20px',
 };
 
-const ITEMS_PER_PAGE = 6;
-
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const {
