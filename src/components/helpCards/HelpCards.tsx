@@ -47,7 +47,7 @@ export const HelpCards = (props: HelpCardsProps) => {
       <StatusPaper>
         <Stack gap={{ xs: '10px', md: '20px' }}>
           <ResponsiveErrorIcon />
-          <Typography color="error" variant={isScreenMdDown ? 'h6' : 'h5'}>
+          <Typography color="error" component="h2" variant={isScreenMdDown ? 'h6' : 'h5'}>
             Ошибка! Не удалось загрузить информацию
           </Typography>
           <Button variant="outlined" onClick={refetchRequests}>

@@ -53,7 +53,7 @@ export const HelpCatalogSearch = () => {
         {isScreenLgDown && <ModalFilters />}
         <Stack direction="row" sx={styles.search} alignItems="center">
           <InputLabel htmlFor="input-search">
-            <Typography variant="h6" color="textPrimary">
+            <Typography component="label" variant="h6" color="textPrimary">
               Поиск
             </Typography>
           </InputLabel>

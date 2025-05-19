@@ -31,7 +31,11 @@ export const SingleCardHeader = (props: SingleCardHeaderProps) => {
         <HelpRequestImage helpType={helpType} requesterType={requesterType} />
       </CardMedia>
       <Box sx={{ p: '16px', display: 'flex', gap: '8px' }}>
-        <CardHeader title={title} sx={styles.title} />
+        <CardHeader
+          title={title}
+          titleTypographyProps={{ component: 'h3' }}
+          sx={styles.title}
+        />
         <Tooltip title={isFavourite ? 'Удалить из избранного' : 'Добавить в избранное'}>
           <Button
             onClick={isFavourite ? removeFromFavourite : addToFavourite}

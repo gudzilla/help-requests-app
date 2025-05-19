@@ -1,5 +1,5 @@
 import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/react';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 // --------------------------- ERROR TYPES -----------------------
 

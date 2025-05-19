@@ -35,7 +35,7 @@ export function ModalFilters() {
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
         <Box sx={style}>
-          <Filters viewType="modal" />
+          <Filters sx={{ boxShadow: 'none' }} />
           <Box padding={'20px'}>
             <Button onClick={handleClose} variant="contained" size="large" fullWidth>
               ЗАКРЫТЬ

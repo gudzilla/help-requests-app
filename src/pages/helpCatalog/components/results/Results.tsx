@@ -20,6 +20,7 @@ export const Results = () => {
     error,
     isFetching: isFetchingRequests,
     refetch: refetchRequests,
+    isSuccess,
   } = useGetRequestsQuery();
   const filters = useFiltersStateSelector();
 
@@ -27,11 +28,9 @@ export const Results = () => {
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
 
   const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
-  const isReady = !(error || isLoading);
 
   // ОТФИЛЬТРОВАННЫЙ СПИСОК ЗАПРОСОВ
   const filteredRequests = useFilteredDataSelector();
-  const resultsFound = filteredRequests.length;
 
   const noResults = filteredRequests?.length === 0;
   const hasResults = filteredRequests?.length > 0;
@@ -71,7 +70,11 @@ export const Results = () => {
     <Paper>
       <Box>
         <Stack sx={stackStyle}>
-          {isReady && <Typography variant="h6">Найдено: {resultsFound}</Typography>}
+          {isSuccess && (
+            <Typography component="h2" variant="h6">
+              Найдено: {filteredRequests.length}
+            </Typography>
+          )}
           <HelpCards
             cards={helpCardsData}
             error={error}

@@ -41,8 +41,7 @@ export const FavouritesTab = () => {
 
   const favouriteRequests = getRequestsDataByIds(favouritesIdsArray, requestsArray);
   const isEmpty = favouriteRequests.length === 0;
-  const notEmpty = favouriteRequests.length > 0;
-  const showPagination = !isLoading && !getRequestsError && notEmpty;
+  const showPagination = !isLoading && !getRequestsError && !isEmpty;
 
   // ----------- PAGINATION ----------
   const ITEMS_PER_PAGE = 6;

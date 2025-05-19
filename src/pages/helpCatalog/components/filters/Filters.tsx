@@ -1,4 +1,13 @@
-import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Divider,
+  Paper,
+  Stack,
+  SxProps,
+  Theme,
+  Typography,
+} from '@mui/material';
 import { FilterWhomWeHelp } from './FilterWhomWeHelp';
 import { FilterHowWeHelp } from './FilterHowWeHelp';
 import { FiltersVolunteer } from './filtersVolunteer/FiltersVolunteer';
@@ -10,17 +19,16 @@ import { areObjectsDeepEqual } from '@/lib/areObjectsDeepEqual';
 
 const styles = {
   paper: {
-    regular: { alignSelf: { lg: 'flex-start' } },
-    modal: { boxShadow: 'none' },
+    alignSelf: { lg: 'flex-start' },
   },
   stack: {
     padding: { xs: '20px 16px', md: '20px' },
   },
 };
 
-type FiltersProps = { viewType?: 'regular' | 'modal' };
+type FiltersProps = { sx?: SxProps<Theme> };
 
-export const Filters = ({ viewType = 'regular' }: FiltersProps) => {
+export const Filters = ({ sx }: FiltersProps) => {
   const dispatch = useAppDispatch();
   const filtersState = useFiltersStateSelector();
   const hasNoFilters = areObjectsDeepEqual(filtersState, initialFiltersState);
@@ -29,7 +37,7 @@ export const Filters = ({ viewType = 'regular' }: FiltersProps) => {
     dispatch(removeAllFilters());
   };
   return (
-    <Paper sx={styles.paper[viewType]}>
+    <Paper sx={{ ...styles.paper, ...sx }}>
       <Stack spacing={'20px'} sx={styles.stack}>
         <Box>
           <Typography variant="h6">Фильтрация</Typography>
