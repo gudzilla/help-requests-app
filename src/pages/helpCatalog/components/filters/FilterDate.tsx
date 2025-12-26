@@ -31,13 +31,16 @@ export const FilterDate = () => {
           slotProps={{
             textField: ({ inputProps, ...params }) => ({
               ...params,
-              placeholder: 'Выберите дату',
               fullWidth: true,
               sx: {
                 '& .MuiOutlinedInput-input': {
                   padding: '12px',
                   paddingRight: 0,
                 },
+              },
+              inputProps: {
+                ...inputProps,
+                placeholder: 'Выберите дату',
               },
               InputProps: {
                 ...params.InputProps,

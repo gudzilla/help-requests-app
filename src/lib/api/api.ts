@@ -42,8 +42,8 @@ type OnQueryStartError = {
   error: unknown;
   isUnhandledError?: boolean;
   meta?: {
-    request?: Record<string, any>;
-    response?: Record<string, any>;
+    request?: Record<string, unknown>;
+    response?: Record<string, unknown>;
   };
 };
 

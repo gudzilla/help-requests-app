@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { PasswordInput } from './components/PasswordInput';
@@ -36,10 +36,11 @@ export const AuthForm = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const debouncedOnSubmit = useCallback(
-    debounce(async (loginFormData: FormInputs) => {
-      await authenticate({ loginFormData, navigate });
-    }, 300),
+  const debouncedOnSubmit = useMemo(
+    () =>
+      debounce(async (loginFormData: FormInputs) => {
+        await authenticate({ loginFormData, navigate });
+      }, 300),
     [authenticate, navigate]
   );
 

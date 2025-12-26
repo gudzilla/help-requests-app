@@ -70,7 +70,7 @@ export const HelpCards = (props: HelpCardsProps) => {
   return (
     <Grid
       container
-      rowSpacing={isScreenMdDown ? '16px' : '16px'}
+      rowSpacing={'16px'}
       columnSpacing={isScreenMdDown ? '16px' : '24px'}
     >
       {cards.map((request: RequestCardData) => {

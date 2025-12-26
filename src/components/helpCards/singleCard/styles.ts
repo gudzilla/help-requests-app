@@ -2,7 +2,8 @@ export const styles = {
   card: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: { sm: '818px' },
+    // minHeight: { sm: '818px' },
+    height: '100%',
     cursor: 'pointer',
   },
   cardBody: {

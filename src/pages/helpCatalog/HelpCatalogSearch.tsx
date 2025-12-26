@@ -34,7 +34,7 @@ export const HelpCatalogSearch = () => {
       debounce((inputValue: string) => {
         dispatch(setSearchQuery(inputValue));
       }, 300),
-    []
+    [dispatch]
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

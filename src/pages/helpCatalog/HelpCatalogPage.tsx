@@ -20,7 +20,7 @@ export const HelpCatalogPage = () => {
       <Typography component="h1" variant="h4" paddingLeft={{ xs: '16px', md: 0 }}>
         Запросы о помощи
       </Typography>
-      <Stack direction={{ sx: 'column', lg: 'row' }} gap={{ xs: '10px', md: '20px' }}>
+      <Stack direction={{ xs: 'column', lg: 'row' }} gap={{ xs: '10px', md: '20px' }}>
         {isScreenLgUp && <Filters />}
         <Stack
           direction={{ md: 'column' }}
