@@ -7,7 +7,10 @@ import {
 } from '@mui/material';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { setVolunteerQualification } from '../../../state/filtersSlice';
+import {
+  addVolunteerQualification,
+  removeVolunteerQualification,
+} from '../../../state/filtersSlice';
 import { HelperRequirementsType } from '../../../state/types';
 
 type Qualification = HelperRequirementsType['qualification'];
@@ -28,9 +31,9 @@ export const Qualification = () => {
     const { name, checked } = e.target;
 
     if (checked) {
-      dispatch(setVolunteerQualification(name as Qualification));
+      dispatch(addVolunteerQualification(name as Qualification));
     } else {
-      dispatch(setVolunteerQualification(null));
+      dispatch(removeVolunteerQualification(name as Qualification));
     }
   };
 
@@ -41,7 +44,7 @@ export const Qualification = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={qualification === qualificationValues.professional}
+              checked={qualification.includes(qualificationValues.professional)}
               onChange={handleQualificationChange}
               name={qualificationValues.professional}
             />
@@ -51,7 +54,7 @@ export const Qualification = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={qualification === qualificationValues.common}
+              checked={qualification.includes(qualificationValues.common)}
               onChange={handleQualificationChange}
               name={qualificationValues.common}
             />

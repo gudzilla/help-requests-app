@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { TextInfoHeader } from '@/components';
-import { UserData } from '@/lib/api/types';
+import { User } from '@/lib/api/types';
 
 type HelpLocationsProps = {
-  locations: UserData['baseLocations'];
+  locations: User['baseLocations'];
 };
 export const HelpLocations = ({ locations }: HelpLocationsProps) => {
   if (!locations) {

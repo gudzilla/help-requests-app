@@ -1,5 +1,5 @@
 import { Card, CardHeader } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { useContributionMutation } from '@/lib/api/api';
 import { debounce } from 'lodash';
 import { SmallCardContent } from './SmallCardContent';
@@ -10,16 +10,14 @@ const styles = {
     alignSelf: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
-    width: 320,
+    width: '320px',
     padding: '20px',
     paddingBottom: '30px',
-    border: 1,
-    borderColor: 'divider',
   },
 };
 
 type SmallCardProps = {
-  data: HelpRequestData;
+  data: HelpRequest;
 };
 
 export const SmallCard = ({ data }: SmallCardProps) => {
@@ -44,7 +42,7 @@ export const SmallCard = ({ data }: SmallCardProps) => {
   );
 
   return (
-    <Card elevation={0} sx={styles.card}>
+    <Card variant="outlined" sx={styles.card}>
       <CardHeader
         title={title}
         titleTypographyProps={{ variant: 'h6' }}

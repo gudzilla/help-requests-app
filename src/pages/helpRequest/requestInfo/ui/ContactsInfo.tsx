@@ -1,9 +1,9 @@
 import { Box, Typography, Stack, Link } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 
 type ContactsInfoProps = {
-  contacts: HelpRequestData['contacts'];
+  contacts: HelpRequest['contacts'];
 };
 
 const style = {

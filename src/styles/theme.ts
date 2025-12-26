@@ -2,9 +2,6 @@ import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
-export const headerMinHeight = 84;
-export const footerMinHeight = 152;
-
 const customTheme: ThemeOptions = {
   palette: {
     mode: 'light',
@@ -19,10 +16,10 @@ const customTheme: ThemeOptions = {
     },
   },
   components: {
-    MuiToolbar: {
+    MuiButton: {
       styleOverrides: {
         root: {
-          minHeight: headerMinHeight,
+          minWidth: 'auto',
         },
       },
     },

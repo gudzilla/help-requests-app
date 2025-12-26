@@ -22,9 +22,7 @@
     "module": "ESNext",
     "useDefineForClassFields": true,
 
-    // Trying to create types with swagger. 'node' - is new
-    "moduleResolution": "node",
-    // "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",

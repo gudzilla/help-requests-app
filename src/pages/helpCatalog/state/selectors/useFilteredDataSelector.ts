@@ -1,12 +1,11 @@
 import { useAppSelector } from '@/lib/redux/hooks';
 import { createSelector } from '@reduxjs/toolkit';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { isAfter, isValid, parseISO, startOfDay } from 'date-fns';
 import { HelperRequirementsFilterType, HelpRequestFiltersType } from '../types';
 
 const requestsDataSelector = (state: RootState) =>
-  (state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequestData[]) ??
-  [];
+  (state.helpEldersApi.queries['getRequests(undefined)']?.data as HelpRequest[]) ?? [];
 const filtersSelector = (state: RootState) => state.filters;
 
 // ----------------- Compare two dates with Date-Fns ----------------
@@ -23,47 +22,55 @@ const isDate2LaterThanDate1 = (date1: string, date2: string): boolean => {
 
 // ----------------- FILTER FUNCTIONS ----------------
 const filterByType =
-  (helpType: HelpRequestFiltersType['helpType']) => (data: HelpRequestData) =>
-    helpType === null ? true : data.helpType === helpType;
+  (requesterType: HelpRequestFiltersType['helpType']) => (data: HelpRequest) =>
+    requesterType.length === 0
+      ? true
+      : requesterType.some((type) => type === data.helpType);
 
 const filterByRequester =
-  (requesterType: HelpRequestFiltersType['requesterType']) => (data: HelpRequestData) =>
-    requesterType === null ? true : requesterType === data.requesterType;
+  (requesterType: HelpRequestFiltersType['requesterType']) => (data: HelpRequest) =>
+    requesterType.length === 0
+      ? true
+      : requesterType.some((type) => type === data.requesterType);
+
+const filterByPeopleNeeded =
+  (helperType: HelperRequirementsFilterType['helperType']) => (data: HelpRequest) =>
+    helperType.length === 0
+      ? true
+      : helperType.some((type) => type === data.helperRequirements.helperType);
 
 const filterByQualification =
   (qualification: HelperRequirementsFilterType['qualification']) =>
-  (data: HelpRequestData) =>
-    qualification === null
+  (data: HelpRequest) =>
+    qualification.length === 0
       ? true
-      : qualification === data.helperRequirements.qualification;
+      : qualification.some((type) => type === data.helperRequirements.qualification);
 
 const filterByFormat =
-  (isOnline: HelperRequirementsFilterType['isOnline']) => (data: HelpRequestData) =>
-    isOnline === null ? true : isOnline === data.helperRequirements.isOnline;
-
-const filterByPeopleNeeded =
-  (helperType: HelperRequirementsFilterType['helperType']) => (data: HelpRequestData) =>
-    helperType === null ? true : helperType === data.helperRequirements.helperType;
+  (isOnlineArr: HelperRequirementsFilterType['isOnlineArr']) => (data: HelpRequest) =>
+    isOnlineArr.length === 0
+      ? true
+      : isOnlineArr.some((type) => type === data.helperRequirements.isOnline);
 
 const filterByDate =
-  (helpDate: HelpRequestFiltersType['helpDate']) => (data: HelpRequestData) => {
+  (helpDate: HelpRequestFiltersType['helpDate']) => (data: HelpRequest) => {
     return helpDate === null ? true : isDate2LaterThanDate1(helpDate, data.endingDate);
   };
 
 const filteredBySearchQuery =
-  (searchQuery: HelpRequestFiltersType['searchQuery']) => (data: HelpRequestData) => {
+  (searchQuery: HelpRequestFiltersType['searchQuery']) => (data: HelpRequest) => {
     return searchQuery === ''
       ? true
       : data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           data.organization.title.toLowerCase().includes(searchQuery.toLowerCase());
   };
 
-const applyFilters = (data: HelpRequestData[], filters: HelpRequestFiltersType) => {
+const applyFilters = (data: HelpRequest[], filters: HelpRequestFiltersType) => {
   const filterFunctions = [
     filterByType(filters.helpType),
     filterByRequester(filters.requesterType),
     filterByQualification(filters.helperRequirements.qualification),
-    filterByFormat(filters.helperRequirements.isOnline),
+    filterByFormat(filters.helperRequirements.isOnlineArr),
     filterByPeopleNeeded(filters.helperRequirements.helperType),
     filterByDate(filters.helpDate),
     filteredBySearchQuery(filters.searchQuery),

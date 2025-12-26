@@ -1,14 +1,14 @@
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 
-export type HelperRequirementsType = HelpRequestData['helperRequirements'];
+export type HelperRequirementsType = HelpRequest['helperRequirements'];
 
 export type HelpRequestFiltersType = {
-  helpType: HelpRequestData['helpType'] | null;
-  requesterType: HelpRequestData['requesterType'] | null;
+  helpType: HelpRequest['helpType'][];
+  requesterType: HelpRequest['requesterType'][];
   helperRequirements: {
-    helperType: HelperRequirementsType['helperType'] | null;
-    isOnline: HelperRequirementsType['isOnline'] | null;
-    qualification: HelperRequirementsType['qualification'] | null;
+    qualification: HelperRequirementsType['qualification'][];
+    helperType: HelperRequirementsType['helperType'][];
+    isOnlineArr: HelperRequirementsType['isOnline'][];
   };
   helpDate: string | null;
   searchQuery: string;

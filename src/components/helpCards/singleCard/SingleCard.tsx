@@ -1,4 +1,4 @@
-import { Divider, Box, Card } from '@mui/material';
+import { Divider, Box, Card, Grid2 as Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { styles } from './styles';
 import {
@@ -6,7 +6,7 @@ import {
   useContributionMutation,
   useDeleteFromFavouritesMutation,
 } from '@/lib/api/api';
-import { DataForSingleCard } from './types';
+import { RequestCardData } from './types';
 import { SingleCardHeader } from './SingleCardHeader';
 import { SingleCardContent } from './SingleCardContent';
 import { SingleCardActions } from './SingleCardActions';
@@ -14,13 +14,13 @@ import { useFavouritesSelector } from '@/store/selectors';
 import { debounce } from 'lodash';
 
 type SingleCardProps = {
-  dataForRequestCard: DataForSingleCard;
+  requestCardData: RequestCardData;
   isFavourite?: boolean;
 };
 
 export const SingleCard = (props: SingleCardProps) => {
   const {
-    dataForRequestCard: {
+    requestCardData: {
       id,
       title,
       organization,
@@ -37,10 +37,10 @@ export const SingleCard = (props: SingleCardProps) => {
     },
   } = props;
 
-  const goalProgressInPercent = Math.floor((requestGoalCurrentValue / requestGoal) * 100);
+  const goalProgressInPercent = Math.floor((requestGoal / requestGoalCurrentValue) * 100);
   const navigate = useNavigate();
-  const [contribution, { isLoading: isLoadingContribution }] = useContributionMutation();
-  const [addToFavourite] = useAddToFavouritesMutation();
+  const [contribution, { isLoading: isContributionLoading }] = useContributionMutation();
+  const [addToFavourites] = useAddToFavouritesMutation();
   const [deleteFromFavourites] = useDeleteFromFavouritesMutation();
   const favouritesList = useFavouritesSelector();
   const isFavourite = favouritesList.includes(id);
@@ -48,7 +48,7 @@ export const SingleCard = (props: SingleCardProps) => {
   // ----------------- FAVORITES: Add/Remove -------------------
   const handleAddToFavourite = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    addToFavourite(id);
+    addToFavourites(id);
   };
   const handleRemoveFromFavourite = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -71,37 +71,39 @@ export const SingleCard = (props: SingleCardProps) => {
   );
 
   return (
-    <Card elevation={3} sx={styles.card}>
-      <SingleCardHeader
-        helpType={helpType}
-        isFavourite={isFavourite}
-        requesterType={requesterType}
-        title={title}
-        addToFavourite={handleAddToFavourite}
-        removeFromFavourite={handleRemoveFromFavourite}
-        onCardClick={handleCardClick}
-      />
-      <Divider />
-      <Box sx={styles.cardBody}>
-        <SingleCardContent
-          isHelpOnline={isHelpOnline}
-          goalDescription={goalDescription}
-          organization={organization}
-          locationCity={locationCity}
-          locationDistrict={locationDistrict}
+    <Grid size={{ xs: 12, sm: 6, xl: 4 }}>
+      <Card elevation={3} sx={styles.card}>
+        <SingleCardHeader
+          helpType={helpType}
+          isFavourite={isFavourite}
+          requesterType={requesterType}
+          title={title}
+          addToFavourite={handleAddToFavourite}
+          removeFromFavourite={handleRemoveFromFavourite}
           onCardClick={handleCardClick}
         />
-        <SingleCardActions
-          requestGoal={requestGoal}
-          contributorsCount={contributorsCount}
-          endingDate={endingDate}
-          goalProgressInPercent={goalProgressInPercent}
-          requestGoalCurrentValue={requestGoalCurrentValue}
-          handleHelpButtonClick={handleHelpButtonClick}
-          isLoading={isLoadingContribution}
-          onCardClick={handleCardClick}
-        />
-      </Box>
-    </Card>
+        <Divider />
+        <Box sx={styles.cardBody}>
+          <SingleCardContent
+            isHelpOnline={isHelpOnline}
+            goalDescription={goalDescription}
+            organization={organization}
+            locationCity={locationCity}
+            locationDistrict={locationDistrict}
+            onCardClick={handleCardClick}
+          />
+          <SingleCardActions
+            requestGoal={requestGoalCurrentValue}
+            contributorsCount={contributorsCount}
+            endingDate={endingDate}
+            goalProgressInPercent={goalProgressInPercent}
+            requestGoalCurrentValue={requestGoal}
+            handleHelpButtonClick={handleHelpButtonClick}
+            isLoading={isContributionLoading}
+            onCardClick={handleCardClick}
+          />
+        </Box>
+      </Card>
+    </Grid>
   );
 };

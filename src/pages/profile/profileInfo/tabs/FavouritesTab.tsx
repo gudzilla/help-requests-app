@@ -4,29 +4,18 @@ import {
   useGetFavouritesQuery,
   useGetRequestsQuery,
 } from '@/lib/api/api';
-import { HelpRequestData } from '@/lib/api/types';
-import { Box, CircularProgress, Stack, Typography, Button } from '@mui/material';
-import ErrorIcon from '@/assets/load-error.svg?react';
-import NoResultsIcon from '@/assets/not-found-result.svg?react';
-import { usePagination } from '@/lib/usePagination';
+import { HelpRequest } from '@/lib/api/types';
+import { Stack } from '@mui/material';
 import { useState } from 'react';
-import { transformDataForCardsView } from '@/components/singleCard';
-import { DataForSingleCard } from '@/components/singleCard/types';
-import { SingleCard } from '@/components/singleCard/SingleCard';
-import { RequestsPagination } from '@/components';
-
-const StyleToStrechContainer = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column',
-  height: '64vh',
-};
+import { HelpCards, RequestsPagination } from '@/components';
+import { safeScrollToTop } from '@/lib/safeScrollToTop';
+import { useHelpCardsPagination } from '@/components/helpCards';
 
 export const FavouritesTab = () => {
   const [currentPage, setCurrentNumber] = useState(1);
   const handlePageChange = (value: number) => {
     setCurrentNumber(value);
+    safeScrollToTop();
   };
   const {
     data: requestsArray,
@@ -39,9 +28,9 @@ export const FavouritesTab = () => {
 
   const { data: favouritesIdsArray } = useGetFavouritesQuery();
 
-  const getRequestsDataFromIds = (
+  const getRequestsDataByIds = (
     idsArray: FavoritesResponse | undefined,
-    dataArray: HelpRequestData[] | undefined
+    dataArray: HelpRequest[] | undefined
   ) => {
     if (!idsArray || !dataArray) {
       return [];
@@ -50,66 +39,29 @@ export const FavouritesTab = () => {
     return dataArray.filter((request) => favIdsSet.has(request.id));
   };
 
-  if (isLoading) {
-    return (
-      <TabPanel value="user-favourites" sx={{ padding: 0 }}>
-        <Box sx={StyleToStrechContainer}>
-          <CircularProgress size="5rem" />
-        </Box>
-      </TabPanel>
-    );
-  }
+  const favouriteRequests = getRequestsDataByIds(favouritesIdsArray, requestsArray);
+  const isEmpty = favouriteRequests.length === 0;
+  const showPagination = !isLoading && !getRequestsError && !isEmpty;
 
-  if (getRequestsError) {
-    return (
-      <TabPanel value="user-favourites" sx={{ padding: 0 }}>
-        <Box sx={StyleToStrechContainer}>
-          <Stack gap={'24px'}>
-            <ErrorIcon style={{ alignSelf: 'center' }} />
-            <Typography color="error" variant="h5">
-              Ошибка! Не удалось загрузить избранное
-            </Typography>
-            <Button variant="outlined" onClick={refetchRequests}>
-              Повторить запрос
-            </Button>
-          </Stack>
-        </Box>
-      </TabPanel>
-    );
-  }
-
-  const favouriteRequests = getRequestsDataFromIds(favouritesIdsArray, requestsArray);
-  const noResults = favouriteRequests.length === 0;
-  const showPagination = !isLoading && !getRequestsError && !noResults;
-
-  const { currentItems: requestsForPage, totalPages } = usePagination(
-    favouriteRequests,
-    3,
-    currentPage
-  );
-  const cardsData = transformDataForCardsView(requestsForPage);
-
-  if (noResults) {
-    return (
-      <TabPanel value="user-favourites" sx={{ padding: 0 }}>
-        <Box sx={StyleToStrechContainer}>
-          <NoResultsIcon style={{ marginBottom: '24px' }} />
-          <Typography variant="h5" paddingLeft={'62px'}>
-            В избранном нет запросов
-          </Typography>
-        </Box>
-      </TabPanel>
-    );
-  }
+  // ----------- PAGINATION ----------
+  const ITEMS_PER_PAGE = 6;
+  const { helpCardsData, totalPages } = useHelpCardsPagination({
+    requestsArr: favouriteRequests,
+    itemsPerPage: ITEMS_PER_PAGE,
+    currentPage: currentPage,
+  });
 
   return (
     <TabPanel value="user-favourites" sx={{ padding: 0 }}>
       <Stack gap={'20px'}>
-        <Box sx={{ display: 'flex', gap: '24px', minHeight: '818px' }}>
-          {cardsData.map((request: DataForSingleCard) => {
-            return <SingleCard key={request.id} dataForRequestCard={request} />;
-          })}
-        </Box>
+        <HelpCards
+          cards={helpCardsData}
+          isLoading={isLoading}
+          error={getRequestsError}
+          isEmpty={isEmpty}
+          refetchRequests={refetchRequests}
+          isEmptyMessage="У вас нету запросов в избранном"
+        />
         {showPagination && (
           <RequestsPagination
             currentPage={currentPage}

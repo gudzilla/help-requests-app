@@ -1,12 +1,17 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { useGetRequestsQuery } from '@/lib/api/api';
-import { transformDataForCardsView } from '@/components/singleCard';
-import { HelpCards } from './HelpCards';
-import { ToggleCardsView } from '@/components';
+import { HelpCards } from '@/components';
 import { RequestsPagination } from '@/components';
 import React, { useEffect } from 'react';
-import { usePagination } from '@/lib/usePagination';
 import { useFilteredDataSelector, useFiltersStateSelector } from '../../state/selectors';
+import { safeScrollToTop } from '@/lib/safeScrollToTop';
+import { useHelpCardsPagination } from '@/components/helpCards';
+
+const stackStyle = {
+  paddingInline: { xs: '16px', md: '32px' },
+  paddingBlock: '20px 40px',
+  gap: '20px',
+};
 
 export const Results = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -15,6 +20,7 @@ export const Results = () => {
     error,
     isFetching: isFetchingRequests,
     refetch: refetchRequests,
+    isSuccess,
   } = useGetRequestsQuery();
   const filters = useFiltersStateSelector();
 
@@ -22,22 +28,25 @@ export const Results = () => {
   const [isFakeLoading, setIsFakeLoading] = React.useState(true);
 
   const isLoading = isLoadingRequests || isFakeLoading || isFetchingRequests;
-  const noErrorOrLoading = !(error || isLoading);
 
-  // ОТФИЛЬТРОВАННЫЕ ДАННЫЕ
-  const filteredData = useFilteredDataSelector();
-  const resultsFound = filteredData.length;
+  // ОТФИЛЬТРОВАННЫЙ СПИСОК ЗАПРОСОВ
+  const filteredRequests = useFilteredDataSelector();
 
-  const hasNoResultsOnFilter = filteredData?.length === 0;
-  const dataNotEmpty = filteredData?.length > 0;
-  const showPagination = filteredData && dataNotEmpty && !error && !isLoading;
+  const noResults = filteredRequests?.length === 0;
+  const hasResults = filteredRequests?.length > 0;
+  const showPagination = hasResults && !error && !isLoading;
 
-  // ---------------------- PAGINATION -----------------
-  const { currentItems, totalPages } = usePagination(filteredData, 3, currentPage);
-  const itemsReadyForRender = transformDataForCardsView(currentItems);
+  // ----------- PAGINATION ----------
+  const ITEMS_PER_PAGE = 6;
+  const { helpCardsData, totalPages } = useHelpCardsPagination({
+    requestsArr: filteredRequests,
+    itemsPerPage: ITEMS_PER_PAGE,
+    currentPage: currentPage,
+  });
 
   const handlePageChange = (value: number) => {
     setCurrentPage(value);
+    safeScrollToTop();
   };
 
   const handleRefetchRequests = () => {
@@ -48,7 +57,7 @@ export const Results = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsFakeLoading(false);
-    }, 400);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -60,18 +69,17 @@ export const Results = () => {
   return (
     <Paper>
       <Box>
-        <Stack padding="12px 36px 40px 36px" gap="20px">
-          {noErrorOrLoading && (
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h6">Найдено: {resultsFound}</Typography>
-              <ToggleCardsView />
-            </Stack>
+        <Stack sx={stackStyle}>
+          {isSuccess && (
+            <Typography component="h2" variant="h6">
+              Найдено: {filteredRequests.length}
+            </Typography>
           )}
           <HelpCards
-            cards={itemsReadyForRender}
+            cards={helpCardsData}
             error={error}
             isLoading={isLoading}
-            noResults={hasNoResultsOnFilter}
+            isEmpty={noResults}
             refetchRequests={handleRefetchRequests}
           />
           {showPagination && (

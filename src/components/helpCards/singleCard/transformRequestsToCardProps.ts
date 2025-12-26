@@ -1,10 +1,10 @@
-import { HelpRequestData } from '@/lib/api/types';
-import { DataForSingleCard } from './types';
+import { HelpRequest } from '@/lib/api/types';
+import { RequestCardData } from './types';
 
-export function transformDataForCardsView(
-  requestsArray: HelpRequestData[]
-): DataForSingleCard[] {
-  const preparedArray = requestsArray.map((item) => ({
+export function transformRequestsToCardProps(
+  requestsArray: HelpRequest[]
+): RequestCardData[] {
+  return requestsArray.map((item) => ({
     id: item.id,
     title: item.title,
     organization: item.organization.title,
@@ -19,5 +19,4 @@ export function transformDataForCardsView(
     requestGoal: item.requestGoal,
     requestGoalCurrentValue: item.requestGoalCurrentValue,
   }));
-  return preparedArray;
 }

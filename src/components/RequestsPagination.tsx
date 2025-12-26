@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box } from '@mui/material';
+import { useScreenSize } from '@/lib/useScreenSize';
 
 type RequestsPaginationProps = {
   totalPages: number;
@@ -10,6 +11,8 @@ type RequestsPaginationProps = {
 
 export function RequestsPagination(props: RequestsPaginationProps) {
   const { totalPages, currentPage, setPage } = props;
+  const { isScreenXs } = useScreenSize();
+
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
@@ -19,6 +22,7 @@ export function RequestsPagination(props: RequestsPaginationProps) {
       <Pagination
         count={totalPages}
         page={currentPage}
+        siblingCount={isScreenXs ? 0 : 1}
         onChange={handleChange}
         color="primary"
       />

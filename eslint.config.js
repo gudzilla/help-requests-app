@@ -26,7 +26,12 @@ export default tseslint.config(
       // NAMING RULES
       'check-file/filename-naming-convention': [
         'error',
-        { 'src/**/*.{ts,tsx}': ['CAMEL_CASE', 'PASCAL_CASE'] },
+        {
+          'src/**/!({index,main,router}).{jsx,tsx}': 'PASCAL_CASE',
+          'src/**/{index,main,router}.{jsx,tsx}': 'CAMEL_CASE',
+          // 'src/**/!({vite-env}).{js,ts}': 'CAMEL_CASE', // <-- УДАЛИТЬ ЭТУ СТРОКУ
+          'src/**/{vite-env}.{d.ts}': 'KEBAB_CASE',
+        },
         { ignoreMiddleExtensions: true },
       ],
       'check-file/folder-naming-convention': [

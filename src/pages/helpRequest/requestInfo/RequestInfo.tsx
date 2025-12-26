@@ -1,5 +1,5 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 import { FavouriteButton } from './ui/FavouriteButton';
 import { ActionsSchedule } from './ui/ActionsSchedule';
@@ -10,12 +10,10 @@ import { OrganizationInfo } from './ui/OrganizationInfo';
 const stylePaper = {
   padding: '40px 36px 64px 36px',
   flex: 1,
-  border: 1,
-  borderColor: 'divider',
 };
 
 type RequestInfoProps = {
-  request: HelpRequestData;
+  request: HelpRequest;
 };
 
 export const RequestInfo = ({ request }: RequestInfoProps) => {
@@ -33,7 +31,7 @@ export const RequestInfo = ({ request }: RequestInfoProps) => {
   } = request;
 
   return (
-    <Paper elevation={0} sx={stylePaper}>
+    <Paper sx={stylePaper} variant="outlined">
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" gap={'30px'} sx={{ maxWidth: '550px' }}>
           <Typography component="h2" variant="h5">

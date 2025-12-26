@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import { TextInfoHeader } from '@/components';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 
 type OrganizationInfoProps = {
-  organization: HelpRequestData['organization'];
+  organization: HelpRequest['organization'];
 };
 
 export const OrganizationInfo = ({ organization }: OrganizationInfoProps) => {

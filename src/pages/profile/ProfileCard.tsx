@@ -11,8 +11,6 @@ import { logOutFx } from '@/store/authenticationReducer';
 const style = {
   card: {
     alignSelf: 'flex-start',
-    border: 1,
-    borderColor: 'divider',
     width: '320px',
   },
 };
@@ -31,7 +29,7 @@ export const ProfileCard = ({ name, lastName, status }: ProfileCardProps) => {
   };
 
   return (
-    <Card sx={style.card} elevation={0}>
+    <Card sx={style.card} variant="outlined">
       <CardMedia sx={{ height: 240 }} title="profile picture">
         <PersonIcon
           sx={{ width: '100%', height: '100%', color: 'action.disabledBackground' }}

@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useFiltersStateSelector } from '@/pages/helpCatalog/state/selectors';
 import { useAppDispatch } from '@/lib/redux/hooks';
-import { setVolunteersNeeded } from '../../../state/filtersSlice';
+import { addVolunteersNeeded, removeVolunteersNeeded } from '../../../state/filtersSlice';
 import { HelperRequirementsType } from '../../../state/types';
 
 type HelperType = HelperRequirementsType['helperType'];
@@ -28,9 +28,9 @@ export const VolunteersNeeded = () => {
     const { name, checked } = e.target;
 
     if (checked) {
-      dispatch(setVolunteersNeeded(name as HelperType));
+      dispatch(addVolunteersNeeded(name as HelperType));
     } else {
-      dispatch(setVolunteersNeeded(null));
+      dispatch(removeVolunteersNeeded(name as HelperType));
     }
   };
   return (
@@ -40,7 +40,7 @@ export const VolunteersNeeded = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={helperType === helperTypeValues.group}
+              checked={helperType.includes(helperTypeValues.group)}
               onChange={handleHelperTypeChange}
               name={helperTypeValues.group}
             />
@@ -50,7 +50,7 @@ export const VolunteersNeeded = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={helperType === helperTypeValues.single}
+              checked={helperType.includes(helperTypeValues.single)}
               onChange={handleHelperTypeChange}
               name={helperTypeValues.single}
             />

@@ -1,8 +1,8 @@
 import { Stack, Typography } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 type LocationInfoProps = {
-  location: HelpRequestData['location'];
+  location: HelpRequest['location'];
   isOnline: boolean;
 };
 export const LocationInfo = (props: LocationInfoProps) => {

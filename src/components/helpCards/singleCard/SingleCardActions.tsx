@@ -44,16 +44,16 @@ export const SingleCardActions = (props: SingleCardActionsProps) => {
           sx={{ borderRadius: 1 }}
         />
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+          <Typography variant="body2" color="text.secondary">
             {requestGoalCurrentValue} руб
           </Typography>
-          <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+          <Typography variant="body2" color="text.secondary">
             {requestGoal} руб
           </Typography>
         </Box>
       </Stack>
       <Stack gap="4px">
-        <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+        <Typography variant="body2" color="text.secondary">
           {contributorsCount === 0 ? 'Вы будете первым' : `Нас уже: ${contributorsCount}`}
         </Typography>
         <LoadingButton

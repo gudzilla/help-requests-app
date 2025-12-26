@@ -2,10 +2,6 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { notification } from '@/lib/notifications';
 import { logOutFx } from '@/store/authenticationReducer';
 
-type ServerError = {
-  status: number;
-  data: { message: string };
-};
 
 type ErrorHandlerArgs = {
   err: unknown;
@@ -22,7 +18,7 @@ export function isErrorWithMessage(error: unknown): error is { message: string }
     typeof error === 'object' &&
     error != null &&
     'message' in error &&
-    typeof (error as any).message === 'string'
+    typeof (error as { message: unknown }).message === 'string'
   );
 }
 
@@ -40,14 +36,16 @@ export const errorHandler = ({ err, dispatch, toastOn500 = false }: ErrorHandler
         notification('Токен истек. Перезайдите в ваш профиль.', 'error');
         dispatch(logOutFx());
       } else if (err.status === 500) {
-        toastOn500 && notification('Ошибка сервера. Попробуйте снова', 'error');
+        if (toastOn500) {
+          notification('Ошибка сервера. Попробуйте снова', 'error');
+        }
       } else {
         // todo: errors для других ошибок сервера нужны
         // конкретные ответы в зависимости от эндпойнта
-        notification(
-          `Ошибка Cервера ${err.status}: ${(err as ServerError).data.message || err.data}`,
-          'error'
-        );
+        const message = isErrorWithMessage(err.data)
+          ? err.data.message
+          : 'Произошла ошибка';
+        notification(`Ошибка Cервера ${err.status}: ${message}`, 'error');
       }
     } else {
       switch (err.status) {

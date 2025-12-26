@@ -5,10 +5,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { useFiltersStateSelector } from '../../state/selectors';
-import { setHelpType } from '../../state/filtersSlice';
-import { HelpRequestData } from '../../../../lib/api/types';
+import { addHelpType, removeHelpType } from '../../state/filtersSlice';
+import { HelpRequest } from '@/lib/api/types';
 
-type HelpType = HelpRequestData['helpType'];
+type HelpType = HelpRequest['helpType'];
 type StrictHelpTypeMap = { [K in HelpType]: K };
 
 const helpTypeValues: StrictHelpTypeMap = {
@@ -23,19 +23,23 @@ export function FilterHowWeHelp() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     if (checked) {
-      dispatch(setHelpType(name as HelpType));
+      dispatch(addHelpType(name as HelpType));
     } else {
-      dispatch(setHelpType(null));
+      dispatch(removeHelpType(name as HelpType));
     }
   };
   return (
-    <FormControl component="fieldset" variant="standard">
+    <FormControl
+      component="fieldset"
+      variant="standard"
+      sx={{ flex: { xs: 1, md: 'unset' } }}
+    >
       <FormLabel component="legend">Чем мы помогаем</FormLabel>
       <FormGroup>
         <FormControlLabel
           control={
             <Checkbox
-              checked={helpType === helpTypeValues.material}
+              checked={helpType.includes(helpTypeValues.material)}
               onChange={handleChange}
               name={helpTypeValues.material}
             />
@@ -45,7 +49,7 @@ export function FilterHowWeHelp() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={helpType === helpTypeValues.finance}
+              checked={helpType.includes(helpTypeValues.finance)}
               onChange={handleChange}
               name={helpTypeValues.finance}
             />

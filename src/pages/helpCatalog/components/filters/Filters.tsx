@@ -1,4 +1,13 @@
-import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Divider,
+  Paper,
+  Stack,
+  SxProps,
+  Theme,
+  Typography,
+} from '@mui/material';
 import { FilterWhomWeHelp } from './FilterWhomWeHelp';
 import { FilterHowWeHelp } from './FilterHowWeHelp';
 import { FiltersVolunteer } from './filtersVolunteer/FiltersVolunteer';
@@ -6,14 +15,20 @@ import { FilterDate } from './FilterDate';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { initialFiltersState, removeAllFilters } from '../../state/filtersSlice';
 import { useFiltersStateSelector } from '../../state/selectors';
-import { areObjectsDeepEqual } from '../../../../lib/areObjectsDeepEqual';
+import { areObjectsDeepEqual } from '@/lib/areObjectsDeepEqual';
 
-const filtersSectionStyle = {
-  width: '320px',
-  padding: '20px',
+const styles = {
+  paper: {
+    alignSelf: { lg: 'flex-start' },
+  },
+  stack: {
+    padding: { xs: '20px 16px', md: '20px' },
+  },
 };
 
-export const Filters = () => {
+type FiltersProps = { sx?: SxProps<Theme> };
+
+export const Filters = ({ sx }: FiltersProps) => {
   const dispatch = useAppDispatch();
   const filtersState = useFiltersStateSelector();
   const hasNoFilters = areObjectsDeepEqual(filtersState, initialFiltersState);
@@ -22,14 +37,16 @@ export const Filters = () => {
     dispatch(removeAllFilters());
   };
   return (
-    <Paper sx={{ alignSelf: 'flex-start' }}>
-      <Stack spacing={'20px'} sx={filtersSectionStyle}>
+    <Paper sx={{ ...styles.paper, ...sx }}>
+      <Stack spacing={'20px'} sx={styles.stack}>
         <Box>
           <Typography variant="h6">Фильтрация</Typography>
           <Divider />
         </Box>
-        <FilterWhomWeHelp />
-        <FilterHowWeHelp />
+        <Stack>
+          <FilterWhomWeHelp />
+          <FilterHowWeHelp />
+        </Stack>
         <FiltersVolunteer />
         <FilterDate />
         <Button

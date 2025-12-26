@@ -2,7 +2,9 @@ export const styles = {
   card: {
     display: 'flex',
     flexDirection: 'column',
-    width: 320,
+    // minHeight: { sm: '818px' },
+    height: '100%',
+    cursor: 'pointer',
   },
   cardBody: {
     padding: '10px 16px 20px 16px',
@@ -18,10 +20,9 @@ export const styles = {
     marginBottom: '20px',
   },
   favoriteButton: {
-    minWidth: '32px',
-    height: '32px',
-    width: '32px',
-    p: 0,
+    minWidth: '36px',
+    height: '36px',
+    padding: 0,
     border: 1,
     borderColor: 'divider',
     marginLeft: 'auto',
@@ -30,6 +31,7 @@ export const styles = {
     color: 'action.active',
   },
   title: {
+    'fontSize': '1.5rem',
     'p': 0,
     'display': '-webkit-box',
     'overflow': 'hidden',
@@ -39,9 +41,7 @@ export const styles = {
     '& .MuiCardHeader-title': {
       lineHeight: 1.3,
     },
-    // Ignore нужен чтобы height НЕ менялся в 'height' (со скорбками)
-    // prettier-ignore
-    height: '5.85rem',
+    'height': `calc(1.3em * 3)`,
   },
   oneLineText: {
     overflow: 'hidden',

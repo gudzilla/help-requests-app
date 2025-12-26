@@ -1,21 +1,20 @@
 import { Box, Stack, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { theme } from '@/styles/theme';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 import { TextInfoHeader } from '@/components';
 
 const style = {
   icon: {
     inProgress: {
-      color: theme.palette.action.disabled,
+      color: 'action.disabled',
       marginRight: '4px',
     },
-    completed: { color: theme.palette.success.light, marginRight: '4px' },
+    completed: { color: 'success.light', marginRight: '4px' },
   },
 };
 
 type ActionsScheduleProps = {
-  actions: HelpRequestData['actionsSchedule'];
+  actions: HelpRequest['actionsSchedule'];
 };
 
 export const ActionsSchedule = (props: ActionsScheduleProps) => {

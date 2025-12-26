@@ -1,11 +1,11 @@
 import { CardContent, Box, Typography, Stack, LinearProgress } from '@mui/material';
-import { HelpRequestData } from '@/lib/api/types';
+import { HelpRequest } from '@/lib/api/types';
 
 type SmallCardContentProps = {
-  goalDescription: HelpRequestData['goalDescription'];
-  endingDate: HelpRequestData['endingDate'];
-  requestGoalCurrentValue: HelpRequestData['requestGoalCurrentValue'];
-  requestGoal: HelpRequestData['requestGoal'];
+  goalDescription: HelpRequest['goalDescription'];
+  endingDate: HelpRequest['endingDate'];
+  requestGoalCurrentValue: HelpRequest['requestGoalCurrentValue'];
+  requestGoal: HelpRequest['requestGoal'];
 };
 
 const styleCardContent = {
@@ -39,10 +39,10 @@ export const SmallCardContent = (props: SmallCardContentProps) => {
           sx={{ borderRadius: 1 }}
         />
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+          <Typography variant="body2" color="text.secondary">
             {requestGoalCurrentValue} руб
           </Typography>
-          <Typography variant="body2" sx={{ lineHeight: 1.5, opacity: 0.6 }}>
+          <Typography variant="body2" color="text.secondary">
             {requestGoal} руб
           </Typography>
         </Box>
