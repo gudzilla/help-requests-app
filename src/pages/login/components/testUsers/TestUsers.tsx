@@ -13,7 +13,7 @@ const sectionStyle = {
   display: 'grid',
   gap: { xs: '30px', md: '90px' },
   width: '100%',
-  maxWidth: { xs: '485px', md: '320px' },
+  maxWidth: '485px',
 };
 
 const testUsersBoxStyle = {

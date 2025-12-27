@@ -1,4 +1,4 @@
-import { Button, Tooltip, Typography, useMediaQuery } from '@mui/material';
+import { Button, Tooltip, Typography } from '@mui/material';
 import { useFavouritesSelector } from '@/store/selectors';
 import {
   useAddToFavouritesMutation,
@@ -6,7 +6,6 @@ import {
 } from '@/lib/api/api';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { theme } from '../../../../styles/theme';
 
 type FavouriteButtonProps = {
   id: string;
@@ -38,7 +37,6 @@ export const FavouriteButton = ({ id }: FavouriteButtonProps) => {
   const isFavourite = favouritesList.includes(id);
   const [addToFavourite] = useAddToFavouritesMutation();
   const [deleteFromFavourites] = useDeleteFromFavouritesMutation();
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const handleAddToFav = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -57,20 +55,22 @@ export const FavouriteButton = ({ id }: FavouriteButtonProps) => {
         {isFavourite ? (
           <>
             <StarIcon sx={style.icon} />
-            {isMdUp && (
-              <Typography variant="body1" sx={textStyle}>
-                Из избранного
-              </Typography>
-            )}
+            <Typography
+              variant="body1"
+              sx={{ ...textStyle, display: { xs: 'none', md: 'block' } }}
+            >
+              Из избранного
+            </Typography>
           </>
         ) : (
           <>
             <StarBorderIcon sx={style.icon} />
-            {isMdUp && (
-              <Typography variant="body1" sx={textStyle}>
-                В избранное
-              </Typography>
-            )}
+            <Typography
+              variant="body1"
+              sx={{ ...textStyle, display: { xs: 'none', md: 'block' } }}
+            >
+              Из избранного
+            </Typography>
           </>
         )}
       </Button>

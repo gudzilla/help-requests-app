@@ -10,7 +10,7 @@ const mainLayout = {
   backgroundColor: '#fff',
 };
 
-const sectionStyles = () => ({
+const sectionStyles = {
   'padding': { xs: '32px 16px', md: '64px 40px' },
   'alignItems': 'start',
   'display': 'flex',
@@ -19,7 +19,7 @@ const sectionStyles = () => ({
     borderRight: 1,
     borderColor: 'divider',
   },
-});
+};
 
 export const LoginPage = () => {
   return (
