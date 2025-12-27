@@ -14,7 +14,11 @@ export const ContactsInfo = ({ contacts }: ContactsInfoProps) => {
   return (
     <Box>
       <TextInfoHeader text="Контакты" />
-      <Stack direction="row" justifyContent="space-between">
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        justifyContent="space-between"
+        gap={{ xs: '20px', sm: 0 }}
+      >
         <Box>
           <Typography fontWeight="bold" marginBottom={'4px'}>
             Телефон

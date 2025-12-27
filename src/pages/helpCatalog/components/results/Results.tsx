@@ -65,7 +65,6 @@ export const Results = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [filters]);
-
   return (
     <Paper>
       <Box>

@@ -11,15 +11,17 @@ const lineStyle = {
 
 const sectionStyle = {
   display: 'grid',
-  gap: '90px',
+  gap: { xs: '30px', md: '90px' },
+  width: '100%',
+  maxWidth: '485px',
 };
 
 const testUsersBoxStyle = {
   display: 'grid',
   gap: '30px',
-  maxWidth: '320px',
   maxHeight: '400px',
   overflowY: 'auto',
+  width: '100%',
 };
 
 export const TestUsers = () => {

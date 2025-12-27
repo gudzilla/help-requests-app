@@ -3,7 +3,7 @@ import { Request } from './Request';
 
 export const HelpRequestPage = () => {
   return (
-    <Stack padding="30px 40px" spacing={2}>
+    <Stack padding={{ xs: '20px 16px', md: '30px 40px' }} spacing={2}>
       <Typography component="h1" variant="h4">
         Запрос о помощи
       </Typography>

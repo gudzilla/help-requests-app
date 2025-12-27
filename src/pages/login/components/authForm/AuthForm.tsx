@@ -11,6 +11,7 @@ import { FormInputs, FormInputsSchema } from './types';
 import { debounce } from 'lodash';
 
 const formStyles = {
+  'width': '100%',
   'maxWidth': '485px',
   '& > :not(:last-child)': {
     marginBottom: '14px',
@@ -45,12 +46,20 @@ export const AuthForm = () => {
   );
 
   return (
-    <Box component="section">
-      <Typography variant="h4" component="h1" marginBottom={'90px'}>
+    <Box component="section" width="100%" maxWidth="485px">
+      <Typography
+        variant="h4"
+        component="h1"
+        marginBottom={{ xs: '30px', md: '90px' }}
+      >
         Авторизация
       </Typography>
-      <Box>
-        <Typography component="h3" variant="h5" marginBottom={'30px'}>
+      <Box width="100%">
+        <Typography
+          component="h3"
+          variant="h5"
+          marginBottom={{ xs: '20px', md: '30px' }}
+        >
           Вход
         </Typography>
         <Box

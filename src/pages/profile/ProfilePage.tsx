@@ -3,7 +3,7 @@ import { ProfilePageContent } from './ProfilePageContent';
 
 export const ProfilePage = () => {
   return (
-    <Stack padding="30px 40px" spacing={2}>
+    <Stack padding={{ xs: '20px 16px', md: '30px 40px' }} spacing={2}>
       <Typography component="h1" variant="h4">
         Мой Профиль
       </Typography>

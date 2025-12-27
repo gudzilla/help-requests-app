@@ -7,10 +7,10 @@ import { SmallCardActions } from './SmallCardActions';
 
 const styles = {
   card: {
-    alignSelf: 'flex-start',
+    alignSelf: { xs: 'stretch', lg: 'flex-start' },
     display: 'flex',
     flexDirection: 'column',
-    width: '320px',
+    width: { xs: '100%', lg: '320px' },
     padding: '20px',
     paddingBottom: '30px',
   },

@@ -13,17 +13,18 @@ type FavouriteButtonProps = {
 
 const style = {
   button: {
+    flexShrink: 0,
     alignSelf: 'flex-start',
     border: 1,
     borderColor: 'divider',
     padding: '4px 10px',
     display: 'flex',
     alignItems: 'center',
+    gap: '8px',
     textTransform: 'none',
   },
   icon: {
     color: 'action.active',
-    marginRight: '8px',
   },
 };
 
@@ -54,15 +55,21 @@ export const FavouriteButton = ({ id }: FavouriteButtonProps) => {
         {isFavourite ? (
           <>
             <StarIcon sx={style.icon} />
-            <Typography variant="body1" sx={textStyle}>
+            <Typography
+              variant="body1"
+              sx={{ ...textStyle, display: { xs: 'none', md: 'block' } }}
+            >
               Из избранного
             </Typography>
           </>
         ) : (
           <>
             <StarBorderIcon sx={style.icon} />
-            <Typography variant="body1" sx={textStyle}>
-              В избранное
+            <Typography
+              variant="body1"
+              sx={{ ...textStyle, display: { xs: 'none', md: 'block' } }}
+            >
+              Из избранного
             </Typography>
           </>
         )}

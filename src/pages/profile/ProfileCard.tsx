@@ -11,7 +11,7 @@ import { logOutFx } from '@/store/authenticationReducer';
 const style = {
   card: {
     alignSelf: 'flex-start',
-    width: '320px',
+    width: { xs: '100%', lg: '320px' },
   },
 };
 
