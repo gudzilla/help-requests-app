@@ -46,7 +46,7 @@ export const ProfilePageContent = () => {
     );
   }
 
-  if (isSuccess) {
+  if (isSuccess && data) {
     const { name, lastName, status } = data;
     return (
       <Stack direction={{ xs: 'column', lg: 'row' }} spacing={'20px'}>
@@ -56,5 +56,9 @@ export const ProfilePageContent = () => {
     );
   }
 
-  return <h2>Что-то пошло не так</h2>;
+  return (
+    <StatusPaper>
+      <Typography variant="h5">Что-то пошло не так</Typography>
+    </StatusPaper>
+  );
 };
