@@ -6,7 +6,7 @@ import { ProfileInfo } from './profileInfo/ProfileInfo';
 import { StatusPaper } from '@/components/StatusPaper';
 
 export const ProfilePageContent = () => {
-  const { data, error, isLoading, isFetching, refetch } = useGetUserQuery();
+  const { data, error, isLoading, isFetching, isSuccess, refetch } = useGetUserQuery();
 
   const handleRefetchUser = () => {
     refetch();
@@ -46,7 +46,7 @@ export const ProfilePageContent = () => {
     );
   }
 
-  if (data) {
+  if (isSuccess) {
     const { name, lastName, status } = data;
     return (
       <Stack direction={{ xs: 'column', lg: 'row' }} spacing={'20px'}>
@@ -55,4 +55,6 @@ export const ProfilePageContent = () => {
       </Stack>
     );
   }
+
+  return <h2>Что-то пошло не так</h2>;
 };

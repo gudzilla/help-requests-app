@@ -15,7 +15,22 @@ export const Footer = () => {
   return (
     <Box component="footer" sx={styles.footer}>
       <Container maxWidth="xl">
-        <Stack gap={'12px'} alignItems={'center'}>
+        <Stack
+          gap={'12px'}
+          alignItems={'center'}
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+        >
+          <Link
+            underline="hover"
+            color="text.primary"
+            href={
+              'https://github.com/nat-davydova/charity_event_back_oct2024?tab=readme-ov-file'
+            }
+            target="_blank"
+          >
+            <Typography>Об ивенте</Typography>
+          </Link>
           <Link
             underline="hover"
             color="text.primary"
@@ -25,7 +40,7 @@ export const Footer = () => {
             <Typography>Github проекта</Typography>
           </Link>
           <Typography>
-            Created by{' '}
+            Made by{' '}
             <Link color="success" target="_blank" href="https://github.com/gudzilla/">
               Khasan
             </Link>
