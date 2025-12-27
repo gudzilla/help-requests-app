@@ -1,4 +1,4 @@
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Button, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { useFavouritesSelector } from '@/store/selectors';
 import {
   useAddToFavouritesMutation,
@@ -6,6 +6,7 @@ import {
 } from '@/lib/api/api';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+import { theme } from '../../../../styles/theme';
 
 type FavouriteButtonProps = {
   id: string;
@@ -13,17 +14,18 @@ type FavouriteButtonProps = {
 
 const style = {
   button: {
+    flexShrink: 0,
     alignSelf: 'flex-start',
     border: 1,
     borderColor: 'divider',
     padding: '4px 10px',
     display: 'flex',
     alignItems: 'center',
+    gap: '8px',
     textTransform: 'none',
   },
   icon: {
     color: 'action.active',
-    marginRight: '8px',
   },
 };
 
@@ -36,6 +38,7 @@ export const FavouriteButton = ({ id }: FavouriteButtonProps) => {
   const isFavourite = favouritesList.includes(id);
   const [addToFavourite] = useAddToFavouritesMutation();
   const [deleteFromFavourites] = useDeleteFromFavouritesMutation();
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const handleAddToFav = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -54,16 +57,20 @@ export const FavouriteButton = ({ id }: FavouriteButtonProps) => {
         {isFavourite ? (
           <>
             <StarIcon sx={style.icon} />
-            <Typography variant="body1" sx={textStyle}>
-              Из избранного
-            </Typography>
+            {isMdUp && (
+              <Typography variant="body1" sx={textStyle}>
+                Из избранного
+              </Typography>
+            )}
           </>
         ) : (
           <>
             <StarBorderIcon sx={style.icon} />
-            <Typography variant="body1" sx={textStyle}>
-              В избранное
-            </Typography>
+            {isMdUp && (
+              <Typography variant="body1" sx={textStyle}>
+                В избранное
+              </Typography>
+            )}
           </>
         )}
       </Button>

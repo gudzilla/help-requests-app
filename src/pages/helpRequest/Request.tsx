@@ -56,7 +56,7 @@ export const Request = () => {
 
   if (data) {
     return (
-      <Stack direction="row" spacing={'20px'}>
+      <Stack direction={{ xs: 'column-reverse', lg: 'row' }} spacing={'20px'}>
         <RequestInfo request={data} />
         <SmallCard data={data} />
       </Stack>

@@ -8,7 +8,7 @@ import { ContactsInfo } from './ui/ContactsInfo';
 import { OrganizationInfo } from './ui/OrganizationInfo';
 
 const stylePaper = {
-  padding: '40px 36px 64px 36px',
+  padding: { xs: '20px 16px', md: '40px 36px' },
   flex: 1,
 };
 
