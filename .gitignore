@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 .env
+
+# my files
+# devlog.md
+# agents.md
