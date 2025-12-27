@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { PARSING_ERROR, ServerError, useGetRequestByIdQuery } from '@/lib/api/api';
 import { Button, CircularProgress, Stack, Typography } from '@mui/material';
-import ErrorIcon from '@/assets/load-error.svg?react';
 import { RequestInfo } from './requestInfo/RequestInfo';
 import { SmallCard } from './smallCard/SmallCard';
 import { StatusPaper } from '@/components/StatusPaper';
+import { ResponsiveErrorIcon } from '@/components/ResponsiveErrorIcon';
 
 export const Request = () => {
   const { requestId } = useParams();
@@ -37,9 +37,17 @@ export const Request = () => {
     const error404 = errorCode === 404;
     return (
       <StatusPaper>
-        <Stack gap={'24px'}>
-          <ErrorIcon style={{ alignSelf: 'center' }} />
-          <Typography color="error" variant="h5" sx={{ whiteSpace: 'pre-line' }}>
+        <Stack gap={{ xs: '16px', md: '24px' }} alignItems="center">
+          <ResponsiveErrorIcon />
+          <Typography
+            color="error"
+            variant="h5"
+            textAlign="center"
+            sx={{
+              whiteSpace: 'pre-line',
+              fontSize: { xs: '1.2rem', md: '1.5rem' },
+            }}
+          >
             {error404
               ? `Ошибка 404. \n Запроса по этому адресу не существует`
               : 'Ошибка! Не удалось загрузить информацию о запросе'}
