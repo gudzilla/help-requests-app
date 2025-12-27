@@ -49,7 +49,7 @@ export const ProfilePageContent = () => {
   if (data) {
     const { name, lastName, status } = data;
     return (
-      <Stack direction="row" spacing={'20px'}>
+      <Stack direction={{ xs: 'column', lg: 'row' }} spacing={'20px'}>
         <ProfileCard name={name} lastName={lastName} status={status} />
         <ProfileInfo data={data} />
       </Stack>

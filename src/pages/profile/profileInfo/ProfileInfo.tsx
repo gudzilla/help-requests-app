@@ -8,7 +8,7 @@ import { FavouritesTab } from './tabs/FavouritesTab';
 
 const styles = {
   info: {
-    padding: '10px 36px 40px 36px',
+    padding: { xs: '20px 16px', md: '10px 36px 40px 36px' },
     flex: 1,
   },
 };
@@ -39,7 +39,15 @@ export const ProfileInfo = ({ data }: ProfileInfoProps) => {
             <TabList
               onChange={handleChange}
               aria-label="profile info tabs"
-              sx={{ borderBottom: 1, borderColor: 'divider', alignSelf: 'flex-start' }}
+              variant="scrollable"
+              scrollButtons="auto"
+              allowScrollButtonsMobile
+              sx={{
+                borderBottom: 1,
+                borderColor: 'divider',
+                alignSelf: 'flex-start',
+                width: '100%',
+              }}
             >
               <Tab label="ЛИЧНЫЕ ДАННЫЕ" value="about-user" />
               <Tab label="КОНТАКТЫ" value="user-contacts" />
