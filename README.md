@@ -4,7 +4,7 @@
 
 > UI is in russian
 
-Users can access a catalog of help requests with search and filter options. They can contribute by clicking the "Contribute" button on a request card. Additionally, users can add requests to their favorites. The project includes login functionality via test profiles.
+SPA for monitoring and processing requests with functionality for filtering, searching, and transaction simulation.
 
 ### Updates
 
